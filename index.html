@@ -3115,17 +3115,25 @@ let metroBpm_ = 80, metroRunning = false, metroInterval = null, metroCtx = null;
 function metroClick() {
   // Web Audio API click — beat sound
   if (!metroCtx) metroCtx = new (window.AudioContext || window.webkitAudioContext)();
-  const now = metroCtx.currentTime;
-  const osc = metroCtx.createOscillator();
-  const gain = metroCtx.createGain();
-  osc.connect(gain);
-  gain.connect(metroCtx.destination);
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(1000, now);
-  gain.gain.setValueAtTime(0.5, now);
-  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
-  osc.start(now);
-  osc.stop(now + 0.06);
+  // Mobile browsers suspend AudioContext until a user gesture — resume it
+  const play = () => {
+    const now = metroCtx.currentTime;
+    const osc = metroCtx.createOscillator();
+    const gain = metroCtx.createGain();
+    osc.connect(gain);
+    gain.connect(metroCtx.destination);
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(1000, now);
+    gain.gain.setValueAtTime(0.5, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+    osc.start(now);
+    osc.stop(now + 0.06);
+  };
+  if (metroCtx.state === 'suspended') {
+    metroCtx.resume().then(play);
+  } else {
+    play();
+  }
   // Visual beat flash
   const dot = document.getElementById('metro-beat');
   if (dot) { dot.classList.add('on'); setTimeout(() => dot.classList.remove('on'), 80); }
