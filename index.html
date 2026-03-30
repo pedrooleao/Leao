@@ -5,3 +5,3069 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🎸 Curso de Baixo — Do Básico ao Profissional</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080810;
+  --surface: #0f0f1a;
+  --card: #141422;
+  --card2: #1a1a2e;
+  --border: #252540;
+  --border2: #2e2e50;
+  --accent: #ff4d1c;
+  --accent2: #f5a623;
+  --accent3: #3d9bff;
+  --green: #22c975;
+  --purple: #a855f7;
+  --text: #eeedf8;
+  --muted: #7070a0;
+  --muted2: #9090b8;
+  --sidebar-w: 300px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  font-size:15px;
+  line-height:1.6;
+  display:flex;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ─── SIDEBAR ─── */
+#sidebar{
+  width:var(--sidebar-w);
+  min-width:var(--sidebar-w);
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  height:100vh;
+  position:fixed;
+  top:0; left:0;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  z-index:50;
+  transition:transform 0.3s ease;
+}
+#sidebar-logo{
+  padding:20px 20px 16px;
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+#sidebar-logo .logo-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px;
+  letter-spacing:1px;
+  color:var(--text);
+  line-height:1;
+}
+#sidebar-logo .logo-sub{
+  font-family:'Space Mono',monospace;
+  font-size:9px;
+  color:var(--muted);
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-top:3px;
+}
+
+/* overall progress bar */
+#overall-progress{
+  padding:14px 20px;
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.op-label{
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  color:var(--muted);
+  font-family:'Space Mono',monospace;
+  margin-bottom:6px;
+}
+.op-bar{
+  height:4px;
+  background:var(--border);
+  border-radius:4px;
+  overflow:hidden;
+}
+.op-fill{
+  height:100%;
+  background:linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius:4px;
+  transition:width 0.5s ease;
+}
+
+/* nav tree */
+#sidebar-nav{
+  flex:1;
+  overflow-y:auto;
+  padding:8px 0 16px;
+  scrollbar-width:thin;
+  scrollbar-color:var(--border) transparent;
+}
+#sidebar-nav::-webkit-scrollbar{width:4px;}
+#sidebar-nav::-webkit-scrollbar-track{background:transparent;}
+#sidebar-nav::-webkit-scrollbar-thumb{background:var(--border);}
+
+.phase-group{}
+.phase-group-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 20px 6px;
+  cursor:pointer;
+  user-select:none;
+}
+.phase-group-header:hover .pgh-label{color:var(--text);}
+.pgh-dot{
+  width:8px;height:8px;
+  border-radius:50%;
+  flex-shrink:0;
+}
+.pgh-label{
+  font-family:'Space Mono',monospace;
+  font-size:9px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--muted);
+  flex:1;
+  transition:color 0.2s;
+}
+.pgh-count{
+  font-family:'Space Mono',monospace;
+  font-size:9px;
+  color:var(--muted);
+}
+.pgh-arrow{
+  font-size:10px;
+  color:var(--muted);
+  transition:transform 0.2s;
+}
+.phase-group.collapsed .pgh-arrow{transform:rotate(-90deg);}
+.phase-group.collapsed .phase-lessons{display:none;}
+
+.phase-lessons{}
+.lesson-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:7px 20px 7px 22px;
+  cursor:pointer;
+  transition:background 0.15s;
+  border-left:2px solid transparent;
+}
+.lesson-item:hover{background:rgba(255,255,255,0.03);}
+.lesson-item.active{
+  background:rgba(255,255,255,0.05);
+}
+.lesson-item.done .li-title{color:var(--muted);}
+.li-check{
+  width:16px; height:16px;
+  border-radius:50%;
+  border:1.5px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  font-size:9px;
+  transition:all 0.2s;
+}
+.lesson-item.done .li-check{
+  background:var(--green);
+  border-color:var(--green);
+  color:#000;
+}
+.li-title{
+  font-size:12px;
+  color:var(--muted2);
+  flex:1;
+  line-height:1.3;
+  transition:color 0.2s;
+}
+.lesson-item.active .li-title{color:var(--text); font-weight:600;}
+.li-num{
+  font-family:'Space Mono',monospace;
+  font-size:9px;
+  color:var(--muted);
+  flex-shrink:0;
+}
+
+/* ─── MAIN ─── */
+#main{
+  margin-left:var(--sidebar-w);
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+
+/* topbar */
+#topbar{
+  position:sticky;
+  top:0;
+  z-index:40;
+  background:rgba(8,8,16,0.9);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  padding:0 32px;
+  height:56px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+#menu-btn{
+  display:none;
+  background:none;border:none;color:var(--text);
+  font-size:20px;cursor:pointer;padding:4px;
+}
+#breadcrumb{
+  flex:1;
+  font-size:12px;
+  color:var(--muted);
+  font-family:'Space Mono',monospace;
+}
+#breadcrumb span{color:var(--text);}
+
+/* timer */
+#timer-widget{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:6px 12px;
+}
+#timer-display{
+  font-family:'Space Mono',monospace;
+  font-size:14px;
+  color:var(--accent2);
+  min-width:50px;
+  text-align:center;
+}
+.timer-btn{
+  background:none;border:none;cursor:pointer;
+  font-size:14px;padding:2px 4px;
+  border-radius:3px;
+  transition:background 0.15s;
+}
+.timer-btn:hover{background:rgba(255,255,255,0.08);}
+
+/* content area */
+#content{
+  flex:1;
+  padding:40px 48px 80px;
+  max-width:900px;
+}
+
+/* lesson header */
+.lesson-header{
+  margin-bottom:36px;
+}
+.lh-phase{
+  font-family:'Space Mono',monospace;
+  font-size:10px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.lh-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:13px;
+  letter-spacing:2px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+.lh-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(36px,5vw,58px);
+  line-height:0.95;
+  margin-bottom:16px;
+}
+.lh-desc{
+  font-size:16px;
+  color:var(--muted2);
+  max-width:620px;
+  line-height:1.7;
+  font-weight:300;
+}
+.lh-meta{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:16px;
+}
+.lh-tag{
+  font-family:'Space Mono',monospace;
+  font-size:10px;
+  letter-spacing:1px;
+  padding:4px 12px;
+  border-radius:2px;
+  text-transform:uppercase;
+}
+
+/* divider */
+.content-divider{
+  height:1px;
+  background:var(--border);
+  margin:32px 0;
+}
+
+/* section title */
+.section-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px;
+  letter-spacing:1px;
+  margin-bottom:16px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.section-title::after{
+  content:'';
+  flex:1;
+  height:1px;
+  background:var(--border);
+}
+
+/* topics grid */
+.topics-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:10px;
+  margin-bottom:28px;
+}
+.topic-card{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  padding:14px 16px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:6px;
+  font-size:13px;
+  line-height:1.5;
+  transition:border-color 0.2s, transform 0.15s;
+}
+.topic-card:hover{
+  border-color:var(--border2);
+  transform:translateY(-1px);
+}
+.topic-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+
+/* practice box */
+.practice-box{
+  padding:20px 22px;
+  border-left:3px solid var(--accent);
+  background:rgba(255,77,28,0.06);
+  border-radius:0 6px 6px 0;
+  margin:24px 0;
+}
+.practice-box.green{border-color:var(--green);background:rgba(34,201,117,0.06);}
+.practice-box.blue{border-color:var(--accent3);background:rgba(61,155,255,0.06);}
+.practice-box.orange{border-color:var(--accent2);background:rgba(245,166,35,0.06);}
+.practice-box.purple{border-color:var(--purple);background:rgba(168,85,247,0.06);}
+.pb-label{
+  font-family:'Space Mono',monospace;
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.practice-box.green .pb-label{color:var(--green);}
+.practice-box.blue .pb-label{color:var(--accent3);}
+.practice-box.orange .pb-label{color:var(--accent2);}
+.practice-box.purple .pb-label{color:var(--purple);}
+.practice-box:not([class*='green']):not([class*='blue']):not([class*='orange']):not([class*='purple']) .pb-label{color:var(--accent);}
+.pb-text{font-size:14px;color:var(--muted2);line-height:1.75;}
+
+/* refs */
+.refs-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:10px;
+}
+.ref-card{
+  padding:14px 16px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:6px;
+}
+.ref-name{font-size:13px;font-weight:600;margin-bottom:4px;}
+.ref-desc{font-size:12px;color:var(--muted);line-height:1.4;}
+
+/* checklist */
+.checklist{display:flex;flex-direction:column;gap:8px;}
+.check-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 16px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:6px;
+  cursor:pointer;
+  transition:all 0.2s;
+  user-select:none;
+}
+.check-item:hover{border-color:var(--border2);}
+.check-item.checked{
+  background:rgba(34,201,117,0.06);
+  border-color:rgba(34,201,117,0.3);
+}
+.check-box{
+  width:18px;height:18px;
+  border-radius:4px;
+  border:1.5px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  font-size:11px;
+  transition:all 0.2s;
+}
+.check-item.checked .check-box{
+  background:var(--green);
+  border-color:var(--green);
+  color:#000;
+}
+.check-text{font-size:13px;line-height:1.4;}
+.check-item.checked .check-text{color:var(--muted);text-decoration:line-through;}
+
+/* scale diagram */
+.scale-diagram{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:20px;
+  font-family:'Space Mono',monospace;
+  font-size:13px;
+  overflow-x:auto;
+  margin:16px 0;
+}
+.scale-row{
+  display:flex;
+  align-items:center;
+  gap:0;
+  margin:4px 0;
+}
+.string-label{
+  width:32px;
+  color:var(--muted);
+  font-size:11px;
+  flex-shrink:0;
+}
+.fret{
+  width:36px;
+  height:28px;
+  border-right:1px solid var(--border2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  color:var(--muted);
+  flex-shrink:0;
+}
+.fret.root{
+  background:var(--accent);
+  color:#fff;
+  border-radius:3px;
+  font-weight:700;
+  font-size:10px;
+}
+.fret.note{
+  background:rgba(255,255,255,0.08);
+  color:var(--text);
+  border-radius:3px;
+}
+.fret-nums{
+  display:flex;
+  margin:0 0 8px 32px;
+}
+.fret-num{
+  width:36px;
+  text-align:center;
+  font-size:10px;
+  color:var(--muted);
+  flex-shrink:0;
+}
+
+/* rhythm boxes */
+.rhythm-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin:16px 0;
+}
+.beat-box{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:14px 10px;
+  text-align:center;
+}
+.beat-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:28px;
+  color:var(--accent2);
+  line-height:1;
+}
+.beat-label{font-size:11px;color:var(--muted);margin-top:4px;}
+
+/* nav buttons */
+.lesson-nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:48px;
+  padding-top:32px;
+  border-top:1px solid var(--border);
+  gap:16px;
+  flex-wrap:wrap;
+}
+.nav-btn{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:12px 20px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:6px;
+  color:var(--text);
+  cursor:pointer;
+  font-size:13px;
+  font-family:'DM Sans',sans-serif;
+  transition:all 0.2s;
+  text-decoration:none;
+}
+.nav-btn:hover{border-color:var(--border2);background:var(--card2);}
+.nav-btn:disabled{opacity:0.3;cursor:not-allowed;}
+.nav-btn.primary{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#fff;
+  font-weight:600;
+}
+.nav-btn.primary:hover{background:#e03d10;}
+.nav-btn.done-btn{
+  background:rgba(34,201,117,0.12);
+  border-color:rgba(34,201,117,0.4);
+  color:var(--green);
+}
+.nav-btn.done-btn.marked{
+  background:var(--green);
+  border-color:var(--green);
+  color:#000;
+  font-weight:700;
+}
+
+/* welcome screen */
+#welcome-screen{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:70vh;
+  text-align:center;
+  padding:40px;
+}
+.ws-icon{font-size:72px;margin-bottom:24px;}
+.ws-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(40px,6vw,72px);
+  line-height:0.9;
+  margin-bottom:16px;
+}
+.ws-title span{color:var(--accent);}
+.ws-sub{
+  font-size:16px;
+  color:var(--muted2);
+  max-width:500px;
+  line-height:1.7;
+  margin-bottom:32px;
+  font-weight:300;
+}
+.ws-stats{
+  display:flex;
+  gap:32px;
+  margin-bottom:40px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.ws-stat{text-align:center;}
+.ws-stat-n{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:36px;
+  color:var(--accent);
+  line-height:1;
+}
+.ws-stat-l{
+  font-family:'Space Mono',monospace;
+  font-size:9px;
+  letter-spacing:2px;
+  color:var(--muted);
+  text-transform:uppercase;
+  margin-top:2px;
+}
+.start-btn{
+  padding:16px 40px;
+  background:var(--accent);
+  border:none;
+  border-radius:6px;
+  color:#fff;
+  font-size:16px;
+  font-weight:700;
+  font-family:'DM Sans',sans-serif;
+  cursor:pointer;
+  transition:all 0.2s;
+  letter-spacing:0.5px;
+}
+.start-btn:hover{background:#e03d10;transform:translateY(-1px);}
+
+/* phase badge colors */
+.fase1{color:var(--green);}
+.fase2{color:var(--accent2);}
+.fase3{color:var(--accent);}
+.fase4{color:var(--accent3);}
+.fase1-bg{background:rgba(34,201,117,0.12);color:var(--green);}
+.fase2-bg{background:rgba(245,166,35,0.12);color:var(--accent2);}
+.fase3-bg{background:rgba(255,77,28,0.12);color:var(--accent);}
+.fase4-bg{background:rgba(61,155,255,0.12);color:var(--accent3);}
+
+/* info box */
+.info-box{
+  background:var(--card2);
+  border:1px solid var(--border2);
+  border-radius:8px;
+  padding:20px 22px;
+  margin:20px 0;
+  font-size:14px;
+  color:var(--muted2);
+  line-height:1.75;
+}
+.info-box strong{color:var(--text);}
+
+/* tip */
+.tip{
+  display:flex;
+  gap:14px;
+  padding:16px 18px;
+  background:rgba(168,85,247,0.07);
+  border:1px solid rgba(168,85,247,0.2);
+  border-radius:6px;
+  margin:16px 0;
+  font-size:13px;
+  color:var(--muted2);
+  line-height:1.6;
+}
+.tip-icon{font-size:18px;flex-shrink:0;}
+
+/* progress lesson bar */
+.lesson-progress{
+  margin-bottom:32px;
+  padding:16px 20px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+.lp-text{font-size:12px;color:var(--muted);font-family:'Space Mono',monospace;white-space:nowrap;}
+.lp-bar{flex:1;height:4px;background:var(--border);border-radius:4px;overflow:hidden;}
+.lp-fill{height:100%;border-radius:4px;transition:width 0.5s ease;}
+
+/* mobile */
+@media(max-width:768px){
+  #sidebar{transform:translateX(-100%);}
+  #sidebar.open{transform:translateX(0);}
+  #main{margin-left:0;}
+  #menu-btn{display:block;}
+  #content{padding:24px 20px 60px;}
+  .topics-grid{grid-template-columns:1fr;}
+  .rhythm-grid{grid-template-columns:repeat(2,1fr);}
+  #sidebar-overlay{display:block;}
+}
+#sidebar-overlay{
+  display:none;
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.6);
+  z-index:49;
+}
+
+/* scrollbar */
+body::-webkit-scrollbar{width:6px;}
+body::-webkit-scrollbar-track{background:var(--bg);}
+body::-webkit-scrollbar-thumb{background:var(--border);}
+
+/* ══ EXERCISE ENGINE ══ */
+.exercise-block{background:var(--surface);border:1px solid var(--border2);border-radius:10px;overflow:hidden;margin:28px 0;}
+.ex-header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--card);border-bottom:1px solid var(--border);}
+.ex-badge{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;padding:4px 10px;border-radius:3px;text-transform:uppercase;flex-shrink:0;}
+.ex-badge.quiz{background:rgba(168,85,247,.15);color:var(--purple);}
+.ex-badge.fretboard{background:rgba(61,155,255,.15);color:var(--accent3);}
+.ex-badge.rhythm{background:rgba(245,166,35,.15);color:var(--accent2);}
+.ex-badge.flashcard{background:rgba(34,201,117,.15);color:var(--green);}
+.ex-title{font-size:15px;font-weight:600;flex:1;}
+.ex-body{padding:22px 20px;}
+.ex-question{font-size:15px;font-weight:600;margin-bottom:16px;line-height:1.5;}
+.ex-subtitle{font-size:13px;color:var(--muted2);margin-bottom:14px;}
+.ex-progress-bar{height:3px;background:var(--border);border-radius:3px;margin-bottom:14px;overflow:hidden;}
+.ex-progress-fill{height:100%;background:var(--purple);border-radius:3px;transition:width .4s ease;}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px;}
+.quiz-opt{padding:12px 16px;background:var(--card2);border:1.5px solid var(--border);border-radius:7px;cursor:pointer;font-size:14px;transition:all .2s;text-align:left;font-family:'DM Sans',sans-serif;color:var(--text);}
+.quiz-opt:hover:not(:disabled){border-color:var(--border2);background:rgba(255,255,255,.06);}
+.quiz-opt.correct{background:rgba(34,201,117,.14);border-color:var(--green);color:var(--green);}
+.quiz-opt.wrong{background:rgba(255,77,77,.12);border-color:#ff4d4d;color:#ff4d4d;}
+.quiz-opt:disabled{cursor:default;}
+.quiz-feedback{padding:12px 16px;border-radius:7px;font-size:13px;line-height:1.6;margin-bottom:12px;display:none;}
+.quiz-feedback.show{display:block;}
+.quiz-feedback.ok{background:rgba(34,201,117,.1);border:1px solid rgba(34,201,117,.3);color:var(--green);}
+.quiz-feedback.fail{background:rgba(255,77,77,.1);border:1px solid rgba(255,77,77,.3);color:#ff8888;}
+.ex-btn{padding:10px 22px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.ex-btn.next-q{background:var(--accent);color:#fff;}
+.ex-btn.next-q:hover{background:#e03d10;}
+.ex-btn.restart-q{background:var(--card2);color:var(--muted2);border:1px solid var(--border);}
+.ex-result{text-align:center;padding:8px 0;}
+.ex-result-num{font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:1;}
+.ex-result-label{font-size:13px;color:var(--muted2);margin-bottom:12px;}
+.ex-result-msg{font-size:14px;margin-bottom:18px;}
+.fretboard-wrap{overflow-x:auto;margin-bottom:16px;}
+.fretboard-ex{display:inline-flex;flex-direction:column;gap:2px;padding:14px;background:var(--card2);border-radius:8px;min-width:500px;}
+.fb-row-ex{display:flex;align-items:center;}
+.fb-sl{width:28px;font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);text-align:right;padding-right:6px;flex-shrink:0;}
+.fb-fr{width:38px;height:34px;border-right:2px solid #3a3a5a;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.fb-fr.nut{border-left:5px solid #aaa;}
+.fb-fn-row{display:flex;margin-left:28px;}
+.fb-fn{width:38px;text-align:center;font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);flex-shrink:0;}
+.fb-dot-ex{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.07);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:'Space Mono',monospace;transition:all .2s;cursor:pointer;}
+.fb-dot-ex:hover{background:rgba(255,255,255,.15);}
+.fb-dot-ex.cdot{background:var(--green);border-color:var(--green);color:#fff;animation:fpop .3s ease;}
+.fb-dot-ex.wdot{background:#ff4d4d;border-color:#ff4d4d;color:#fff;}
+.fb-dot-ex.rdot{background:rgba(34,201,117,.3);border-color:var(--green);color:var(--green);}
+@keyframes fpop{0%{transform:scale(.8)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.flashcard-wrap{perspective:1000px;margin-bottom:16px;}
+.flashcard-ex{width:100%;height:160px;position:relative;transform-style:preserve-3d;transition:transform .5s ease;cursor:pointer;}
+.flashcard-ex.flipped{transform:rotateY(180deg);}
+.fc-face-ex{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px;border-radius:10px;backface-visibility:hidden;border:1px solid var(--border2);text-align:center;}
+.fc-front-ex{background:var(--card2);}
+.fc-back-ex{background:var(--card);transform:rotateY(180deg);}
+.fc-lbl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;}
+.fc-cnt{font-size:clamp(15px,2.5vw,21px);font-weight:700;line-height:1.3;}
+.fc-hint{font-size:11px;color:var(--muted);margin-top:8px;}
+.fc-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.fc-ctr{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);}
+.fc-rating{display:flex;gap:8px;margin-top:12px;justify-content:center;flex-wrap:wrap;}
+.fc-rbtn{padding:8px 14px;border:1px solid var(--border);border-radius:5px;background:var(--card2);color:var(--muted2);cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.fc-rbtn:hover{border-color:var(--border2);color:var(--text);}
+.rhythm-staff-ex{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:18px;margin-bottom:14px;}
+.beat-track-ex{display:flex;gap:6px;align-items:center;margin-bottom:12px;flex-wrap:wrap;}
+.beat-cell-ex{width:42px;height:42px;border-radius:6px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);cursor:pointer;transition:all .15s;user-select:none;background:var(--card);font-weight:700;}
+.beat-cell-ex.note-beat{background:rgba(61,155,255,.15);border-color:var(--accent3);color:var(--accent3);}
+.beat-cell-ex.ghost-beat{background:rgba(255,255,255,.03);border-color:var(--border2);color:var(--muted);}
+.beat-cell-ex.playing-beat{background:var(--accent2)!important;border-color:var(--accent2)!important;color:#000!important;transform:scale(1.12);}
+.play-btn-ex{display:flex;align-items:center;justify-content:center;gap:8px;padding:11px 20px;background:rgba(61,155,255,.12);border:1.5px solid rgba(61,155,255,.3);border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;color:var(--accent3);transition:all .2s;margin-bottom:12px;width:fit-content;}
+.play-btn-ex:hover{background:rgba(61,155,255,.2);}
+.tap-btn-ex{padding:16px 24px;background:rgba(245,166,35,.15);border:2px solid var(--accent2);border-radius:8px;color:var(--accent2);font-size:16px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:none;margin-left:12px;}
+@media(max-width:600px){.quiz-options{grid-template-columns:1fr;}}
+
+</style>
+</head>
+<body>
+
+<div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<!-- ─── SIDEBAR ─── -->
+<div id="sidebar">
+  <div id="sidebar-logo">
+    <div class="logo-title">🎸 CURSO DE BAIXO</div>
+    <div class="logo-sub">Do Básico ao Profissional</div>
+  </div>
+  <div id="overall-progress">
+    <div class="op-label">
+      <span>PROGRESSO GERAL</span>
+      <span id="progress-pct">0%</span>
+    </div>
+    <div class="op-bar"><div class="op-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+  <nav id="sidebar-nav"></nav>
+</div>
+
+<!-- ─── MAIN ─── -->
+<div id="main">
+  <div id="topbar">
+    <button id="menu-btn" onclick="toggleSidebar()">☰</button>
+    <div id="breadcrumb">Selecione uma lição</div>
+    <div id="timer-widget">
+      <span>⏱</span>
+      <span id="timer-display">00:00</span>
+      <button class="timer-btn" id="timer-start-btn" onclick="timerToggle()" title="Iniciar/Pausar">▶</button>
+      <button class="timer-btn" onclick="timerReset()" title="Resetar">↺</button>
+    </div>
+  </div>
+
+  <div id="content">
+    <!-- welcome or lesson rendered here -->
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// EXERCISE ENGINE
+// ══════════════════════════════════════════
+const EX={
+  _qS:{},_qD:{},
+  quiz(id,qs){
+    const e='EQ'+id;
+    this._qS[e]={i:0,sc:0,ans:false,done:false};
+    this._qD[e]=qs;
+    setTimeout(()=>this._qR(e),30);
+    return`<div class="ex-body" id="${e}"><p style="color:var(--muted);font-size:13px">Carregando...</p></div>`;
+  },
+  _qR(e){
+    const el=document.getElementById(e);if(!el)return;
+    const s=this._qS[e],qs=this._qD[e];
+    if(s.done){
+      const p=Math.round(s.sc/qs.length*100);
+      const m=p===100?'🏆 Perfeito!':p>=70?'✅ Muito bem! Continue praticando.':p>=40?'📚 Revise o conteúdo e tente novamente.':'💪 Releia a lição com atenção e tente de novo.';
+      el.innerHTML=`<div class="ex-result"><div class="ex-result-num" style="color:${p>=70?'var(--green)':'var(--accent)'}">${s.sc}/${qs.length}</div><div class="ex-result-label">acertos — ${p}%</div><div class="ex-result-msg">${m}</div><button class="ex-btn restart-q" onclick="EX._qRst('${e}')">↺ Tentar novamente</button></div>`;
+      try{localStorage.setItem('exs_'+e,s.sc+'/'+qs.length);}catch(x){}
+      updateProgress();return;
+    }
+    const q=qs[s.i],pr=Math.round(s.i/qs.length*100);
+    el.innerHTML=`<div class="ex-progress-bar"><div class="ex-progress-fill" style="width:${pr}%"></div></div>
+      <p style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:10px">PERGUNTA ${s.i+1} DE ${qs.length}</p>
+      <div class="ex-question">${q.q}</div>${q.sub?`<div class="ex-subtitle">${q.sub}</div>`:''}
+      <div class="quiz-options">${q.o.map((x,i)=>`<button class="quiz-opt" onclick="EX._qA('${e}',${i})" id="${e}o${i}">${x}</button>`).join('')}</div>
+      <div class="quiz-feedback" id="${e}fb"></div>
+      <div style="text-align:right;margin-top:6px"><button class="ex-btn next-q" id="${e}nx" onclick="EX._qN('${e}')" style="display:none">${s.i<qs.length-1?'Próxima →':'Ver resultado'}</button></div>`;
+  },
+  _qA(e,ch){
+    const s=this._qS[e];if(s.ans)return;s.ans=true;
+    const q=this._qD[e][s.i],ok=ch===q.c;if(ok)s.sc++;
+    for(let i=0;i<q.o.length;i++){const b=document.getElementById(e+'o'+i);if(b){b.disabled=true;if(i===q.c)b.classList.add('correct');else if(i===ch&&!ok)b.classList.add('wrong');}}
+    const fb=document.getElementById(e+'fb');
+    if(fb){fb.textContent=(ok?'✓ '+(q.ok||'Correto!'):'✗ '+(q.fail||'Resposta correta: '+q.o[q.c]));fb.className='quiz-feedback show '+(ok?'ok':'fail');}
+    const nx=document.getElementById(e+'nx');if(nx)nx.style.display='inline-block';
+  },
+  _qN(e){const s=this._qS[e],qs=this._qD[e];s.i++;s.ans=false;if(s.i>=qs.length)s.done=true;this._qR(e);},
+  _qRst(e){this._qS[e]={i:0,sc:0,ans:false,done:false};this._qR(e);},
+
+  _fS:{},_fD:{},
+  fretboard(id,chs){
+    const e='EF'+id;
+    this._fS[e]={i:0,sc:0,done:false,sel:false};
+    this._fD[e]=chs;
+    setTimeout(()=>this._fR(e),30);
+    return`<div class="ex-body" id="${e}"><p style="color:var(--muted);font-size:13px">Carregando...</p></div>`;
+  },
+  _fR(e){
+    const el=document.getElementById(e);if(!el)return;
+    const s=this._fS[e],chs=this._fD[e];
+    if(s.done){
+      const p=Math.round(s.sc/chs.length*100);
+      el.innerHTML=`<div class="ex-result"><div class="ex-result-num" style="color:${p>=70?'var(--green)':'var(--accent)'}">${s.sc}/${chs.length}</div><div class="ex-result-label">notas corretas no braço</div><div class="ex-result-msg">${p>=70?'🎸 Excelente leitura do braço!':'📍 Continue memorizando as posições das notas.'}</div><button class="ex-btn restart-q" onclick="EX._fRst('${e}')">↺ Tentar novamente</button></div>`;return;
+    }
+    const ch=chs[s.i];
+    const strs=['Sol','Ré','Lá','Mi'],ops=['G','D','A','E'];
+    const AN=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+    const nAt=(o,f)=>AN[(AN.indexOf(o)+f)%12];
+    const pr=Math.round(s.i/chs.length*100);
+    let fb=`<div class="fretboard-ex"><div class="fb-fn-row"><div style="width:28px"></div>${Array.from({length:13},(_,i)=>`<div class="fb-fn">${i}</div>`).join('')}</div>`;
+    strs.forEach((str,si)=>{
+      fb+=`<div class="fb-row-ex"><div class="fb-sl">${str}</div>`;
+      for(let f=0;f<=12;f++){const note=nAt(ops[si],f);fb+=`<div class="fb-fr${f===0?' nut':''}"><div class="fb-dot-ex" id="${e}s${si}f${f}" onclick="EX._fC('${e}',${si},${f},'${note}')"></div></div>`;}
+      fb+=`</div>`;
+    });
+    fb+=`</div>`;
+    el.innerHTML=`<div class="ex-progress-bar"><div class="ex-progress-fill" style="width:${pr}%"></div></div>
+      <p style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:10px">DESAFIO ${s.i+1} DE ${chs.length}</p>
+      <div class="ex-question">Encontre a nota <strong style="color:var(--accent3);font-size:20px">${ch.n}</strong> na corda <strong>${strs[ch.s]}</strong></div>
+      <div class="ex-subtitle">Clique no ponto correto do braço 👇</div>
+      <div class="fretboard-wrap">${fb}</div>
+      <div class="quiz-feedback" id="${e}fb"></div>
+      <button class="ex-btn next-q" id="${e}nx" onclick="EX._fN('${e}')" style="display:none;margin-top:10px">${s.i<chs.length-1?'Próximo →':'Ver resultado'}</button>`;
+  },
+  _fC(e,si,fi,note){
+    const s=this._fS[e];if(s.sel)return;s.sel=true;
+    const ch=this._fD[e][s.i],ok=ch.s===si&&ch.f===fi;if(ok)s.sc++;
+    const d=document.getElementById(e+'s'+si+'f'+fi);if(d){d.classList.add(ok?'cdot':'wdot');d.textContent=note;}
+    if(!ok){const cd=document.getElementById(e+'s'+ch.s+'f'+ch.f);if(cd){cd.classList.add('rdot');cd.textContent=ch.n;}}
+    const fb=document.getElementById(e+'fb');
+    if(fb){fb.textContent=ok?`✓ Correto! ${note} — corda ${['Sol','Ré','Lá','Mi'][si]}, casa ${fi}.`:`✗ Era casa ${ch.f} da corda ${['Sol','Ré','Lá','Mi'][ch.s]}.`;fb.className='quiz-feedback show '+(ok?'ok':'fail');}
+    const nx=document.getElementById(e+'nx');if(nx)nx.style.display='inline-block';
+  },
+  _fN(e){const s=this._fS[e],d=this._fD[e];s.i++;s.sel=false;if(s.i>=d.length)s.done=true;this._fR(e);},
+  _fRst(e){this._fS[e]={i:0,sc:0,done:false,sel:false};this._fR(e);},
+
+  _cS:{},_cD:{},
+  flashcard(id,cards){
+    const e='EC'+id;
+    this._cS[e]={i:0,flip:false,known:[],unk:[]};
+    this._cD[e]=[...cards];
+    setTimeout(()=>this._cR(e),30);
+    return`<div class="ex-body" id="${e}"><p style="color:var(--muted);font-size:13px">Carregando...</p></div>`;
+  },
+  _cR(e){
+    const el=document.getElementById(e);if(!el)return;
+    const s=this._cS[e],cs=this._cD[e];
+    if(s.i>=cs.length){
+      const k=s.known.length,u=s.unk.length;
+      el.innerHTML=`<div class="ex-result"><div class="ex-result-num" style="color:var(--green)">${k}</div><div class="ex-result-label">de ${cs.length} conceitos dominados</div><div class="ex-result-msg">${u>0?`📚 Estude mais os ${u} que não soube.`:'🏆 Você domina todos os conceitos!'}</div><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="ex-btn restart-q" onclick="EX._cRst('${e}')">↺ Revisar tudo</button>${u>0?`<button class="ex-btn next-q" onclick="EX._cWrong('${e}')">Revisar erros (${u})</button>`:''}</div></div>`;return;
+    }
+    const c=cs[s.i];
+    el.innerHTML=`<div class="fc-nav"><span class="fc-ctr">${s.i+1}/${cs.length}</span><span style="font-size:11px;color:var(--muted)">Clique para revelar</span></div>
+      <div class="flashcard-wrap"><div class="flashcard-ex${s.flip?' flipped':''}" onclick="EX._cFlip('${e}')">
+        <div class="fc-face-ex fc-front-ex"><div class="fc-lbl">Conceito</div><div class="fc-cnt">${c.f}</div><div class="fc-hint">Toque para revelar</div></div>
+        <div class="fc-face-ex fc-back-ex"><div class="fc-lbl">Resposta</div><div class="fc-cnt" style="font-size:clamp(12px,2vw,15px);font-weight:400">${c.b}</div></div>
+      </div></div>
+      ${s.flip?`<div class="fc-rating">
+        <button class="fc-rbtn" style="border-color:rgba(255,77,77,.4);color:#ff4d4d" onclick="EX._cRate('${e}',false)">😕 Não sei</button>
+        <button class="fc-rbtn" style="border-color:rgba(245,166,35,.4);color:var(--accent2)" onclick="EX._cRate('${e}',true)">🤔 Mais ou menos</button>
+        <button class="fc-rbtn" style="border-color:rgba(34,201,117,.4);color:var(--green)" onclick="EX._cRate('${e}',true)">✓ Sei bem!</button>
+      </div>`:'<div style="height:44px"></div>'}`;
+  },
+  _cFlip(e){this._cS[e].flip=!this._cS[e].flip;this._cR(e);},
+  _cRate(e,k){const s=this._cS[e],cs=this._cD[e];if(k)s.known.push(cs[s.i]);else s.unk.push(cs[s.i]);s.i++;s.flip=false;this._cR(e);},
+  _cRst(e){const cs=[...this._cD[e]];this._cS[e]={i:0,flip:false,known:[],unk:[]};this._cR(e);},
+  _cWrong(e){const u=[...this._cS[e].unk];this._cD[e]=u;this._cS[e]={i:0,flip:false,known:[],unk:[]};this._cR(e);},
+
+  _rS:{},_rP:{},
+  rhythm(id,pat,bpm){
+    const e='ER'+id;
+    this._rS[e]={on:false,int:null,beat:-1,bpm:bpm||80,hits:[]};
+    this._rP[e]=pat;
+    setTimeout(()=>this._rRen(e,pat,bpm||80),30);
+    return`<div class="ex-body" id="${e}"></div>`;
+  },
+  _rRen(e,pat,bpm){
+    const el=document.getElementById(e);if(!el)return;
+    el.innerHTML=`<div class="ex-question">Exercício Rítmico — acompanhe o padrão</div>
+      <div class="ex-subtitle">Pressione <strong>🥁 TAP</strong> nas células azuis. As cinzas são ghost notes.</div>
+      <div class="rhythm-staff-ex">
+        <div class="beat-track-ex" id="${e}tr">${pat.map((b,i)=>`<div class="beat-cell-ex ${b.t==='note'?'note-beat':b.t==='ghost'?'ghost-beat':''}" id="${e}b${i}">${b.l}</div>`).join('')}</div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <span style="font-family:'Space Mono',monospace;font-size:12px;color:var(--muted2)">BPM: <strong id="${e}bl">${bpm}</strong></span>
+          <input type="range" min="40" max="160" value="${bpm}" oninput="EX._rBpm('${e}',+this.value)" style="accent-color:var(--accent2);cursor:pointer">
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <button class="play-btn-ex" id="${e}pb" onclick="EX._rTog('${e}')">▶ Iniciar metrônomo</button>
+        <button class="tap-btn-ex" id="${e}tb" onclick="EX._rTap('${e}')">🥁 TAP</button>
+      </div>
+      <div id="${e}res" style="font-size:13px;color:var(--muted2);min-height:20px;margin-top:8px"></div>`;
+  },
+  _rBpm(e,v){const s=this._rS[e];s.bpm=v;const l=document.getElementById(e+'bl');if(l)l.textContent=v;if(s.on){this._rStop(e);this._rStart(e);}},
+  _rTog(e){const s=this._rS[e];if(s.on)this._rStop(e);else this._rStart(e);},
+  _rStart(e){
+    const s=this._rS[e],pat=this._rP[e];
+    s.on=true;s.beat=-1;s.hits=[];
+    const pb=document.getElementById(e+'pb'),tb=document.getElementById(e+'tb');
+    if(pb)pb.textContent='⏹ Parar';if(tb)tb.style.display='inline-block';
+    const ms=Math.round(60000/s.bpm);
+    s.int=setInterval(()=>{s.beat=(s.beat+1)%pat.length;pat.forEach((_,i)=>{const c=document.getElementById(e+'b'+i);if(c)c.classList.toggle('playing-beat',i===s.beat);});},ms);
+  },
+  _rStop(e){
+    const s=this._rS[e],pat=this._rP[e];
+    clearInterval(s.int);s.on=false;s.beat=-1;
+    const pb=document.getElementById(e+'pb'),tb=document.getElementById(e+'tb');
+    if(pb)pb.textContent='▶ Iniciar metrônomo';if(tb)tb.style.display='none';
+    pat.forEach((_,i)=>{const c=document.getElementById(e+'b'+i);if(c)c.classList.remove('playing-beat');});
+    const res=document.getElementById(e+'res');
+    if(res&&s.hits.length>0){const ok=s.hits.filter(h=>h).length,p=Math.round(ok/s.hits.length*100);res.innerHTML=`<span style="color:${p>=70?'var(--green)':'var(--accent2)'}">Precisão: ${p}% (${ok}/${s.hits.length} batidas no tempo certo)</span>`;}
+  },
+  _rTap(e){
+    const s=this._rS[e],pat=this._rP[e];if(!s.on)return;
+    const ok=pat[s.beat]&&pat[s.beat].t==='note';s.hits.push(ok);
+    const tb=document.getElementById(e+'tb');
+    if(tb){tb.style.background=ok?'rgba(34,201,117,.3)':'rgba(255,77,77,.3)';setTimeout(()=>{if(tb)tb.style.background='rgba(245,166,35,.15)';},150);}
+  },
+
+  build(type,id,title,data,bpm){
+    const lbl={quiz:'Quiz',fretboard:'Braço do Baixo',flashcard:'Flashcards',rhythm:'Exercício Rítmico'};
+    let body='';
+    if(type==='quiz')body=this.quiz(id,data);
+    else if(type==='fretboard')body=this.fretboard(id,data);
+    else if(type==='flashcard')body=this.flashcard(id,data);
+    else if(type==='rhythm')body=this.rhythm(id,data,bpm);
+    return`<div class="exercise-block"><div class="ex-header"><span class="ex-badge ${type}">${lbl[type]||type}</span><span class="ex-title">${title}</span></div>${body}</div>`;
+  }
+};
+
+// ════════════════════════════════════════════════
+//  DATA — COURSE STRUCTURE
+// ════════════════════════════════════════════════
+const COURSE = [
+  {
+    id: 'fase1',
+    label: 'FASE 1 · INICIANTE',
+    color: 'var(--green)',
+    dot: '#22c975',
+    badgeClass: 'fase1-bg',
+    textClass: 'fase1',
+    duration: '3–6 meses · 1h/dia',
+    lessons: [
+      {
+        id: 'f1m1', num: 'M01',
+        title: 'Conhecendo o Instrumento',
+        desc: 'Antes de tocar, você precisa entender completamente o seu instrumento. Anatomia, regulagem, cuidado e como o som é produzido.',
+        content: () => `
+          <div class="section-title">📋 Conteúdo da Aula</div>
+          <div class="topics-grid">
+            ${topics([
+              ['🔩','Anatomia completa: corpo, braço, cavalete, captadores, tarraxas, bottons e porca de tensão'],
+              ['🎸','Tipos de baixo: Precision Bass, Jazz Bass, ativo vs passivo — diferenças de som e toque'],
+              ['🔌','Equipamento essencial: amplificador (combo vs cabeçote), cabo P10, afinador, correia'],
+              ['🔧','Regulagem básica: ação das cordas (distância ao braço), truss rod, intonação do cavalete'],
+              ['🧹','Manutenção: limpeza do braço, corpo e cordas; quando trocar as cordas'],
+              ['🎵','Afinação: uso do afinador cromático clip-on e método de ouvido pela 5ª corda'],
+              ['🪑','Postura sentado: baixo no joelho esquerdo ou cruzado, braço a 45°'],
+              ['🧍','Postura em pé: correia no comprimento certo, peso distribuído uniformemente'],
+              ['✋','Posição da mão direita: ancoragem no polegar, ângulo dos dedos sobre as cordas'],
+              ['🖐️','Posição da mão esquerda: polegar atrás do braço, dedos curvados, ponta dos dedos'],
+            ])}
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🎼 As 4 Cordas do Baixo</div>
+          <div class="info-box">
+            O baixo padrão tem <strong>4 cordas</strong>, afinadas da mais grossa para a mais fina:<br><br>
+            <strong>Mi (E)</strong> — corda mais grossa, som mais grave, 1ª corda de cima<br>
+            <strong>Lá (A)</strong> — segunda corda<br>
+            <strong>Ré (D)</strong> — terceira corda<br>
+            <strong>Sol (G)</strong> — corda mais fina, som mais agudo, 1ª corda de baixo<br><br>
+            Memorize: <em>Mi-Lá-Ré-Sol</em> ou em inglês <em>E-A-D-G</em>. Use esta frase para lembrar: <strong>"Estudar Até Dominar o Groove"</strong>.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🔢 As Casas do Braço</div>
+          <div class="info-box">
+            Cada <strong>casa (fret)</strong> representa um semitom. O braço tem geralmente <strong>20 a 24 casas</strong>.<br><br>
+            • Casa 0 = corda solta (sem apertar nada)<br>
+            • Casa 1 = dedo 1 logo após a pestana (mais próximo da cabeça)<br>
+            • Casa 12 = uma oitava acima da corda solta — as notas se repetem a partir daqui<br><br>
+            <strong>Regra de ouro:</strong> o dedo deve estar o mais próximo possível da corda de metal (pestana/fret) para a nota soar limpa, sem zumbido.
+          </div>
+          <div class="content-divider"></div>
+          <div class="practice-box green">
+            <div class="pb-label">🎯 Prática da Semana 1–2</div>
+            <div class="pb-text">
+              <strong>Exercício 1 (10 min):</strong> Com o baixo no colo ou na correia, toque cada corda solta alternando os dedos indicador e médio da mão direita. Ouça cada nota. Ela deve soar limpa, sustentada e sem ruídos.<br><br>
+              <strong>Exercício 2 (10 min):</strong> Pressione a 1ª casa da corda Mi com o dedo 1 (indicador). Toque. Depois 2ª casa com dedo 2 (médio), 3ª com dedo 3 (anelar), 4ª com dedo 4 (mínimo). Desça de volta: 4-3-2-1. Faça nas 4 cordas.<br><br>
+              <strong>Meta:</strong> Cada nota deve soar sem zumbido. Se houver zumbido, ajuste o posicionamento do dedo (mais perto da pestana).
+            </div>
+          </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f1m1q','Quiz: Anatomia do Baixo',[
+            {q:'Como se chama a barra interna que controla a curvatura do braço?',o:['Truss Rod','Nut','Bridge','Saddle'],c:0,ok:'Correto! O truss rod ajusta a curvatura com uma chave allen.',fail:'É o Truss Rod — dentro do braço, ajustado com chave allen.'},
+            {q:'As 4 cordas do baixo, da mais grossa para a mais fina, são:',o:['Mi-Lá-Ré-Sol','Sol-Ré-Lá-Mi','Lá-Mi-Ré-Sol','Mi-Sol-Lá-Ré'],c:0,ok:'Perfeito! Mi(E)-Lá(A)-Ré(D)-Sol(G).',fail:'A ordem é Mi-Lá-Ré-Sol (E-A-D-G), da mais grave para a mais aguda.'},
+            {q:'O que diferencia um baixo ativo de um passivo?',o:['Número de cordas','Material do corpo','Pré-amplificador interno com bateria 9V','Tipo de cavalete'],c:2,ok:'Exato! O ativo tem pré-amp com bateria — mais controle de EQ.',fail:'Ativo = pré-amplificador interno (bateria 9V). Passivo = circuito simples, sem bateria.'},
+            {q:'Onde o polegar da mão direita deve ficar ao tocar fingerstyle?',o:['Na corda Sol','Sobre o captador (âncora)','Livre no ar','Sobre a porca de tensão'],c:1,ok:'Correto! Polegar ancorado no captador dá referência e estabilidade.',fail:'O polegar ancora no captador ou na corda Mi, servindo de ponto fixo para a mão.'},
+            {q:'Intonação é o ajuste que garante que:',o:['O volume seja constante','A 12ª casa afine exatamente 1 oitava acima da corda solta','A ação das cordas seja baixa','O truss rod esteja reto'],c:1,ok:'Perfeito! Intonação = cavalete ajustado para oitava exata na 12ª casa.',fail:'Intonação: ajuste do cavalete para a 12ª casa soar exatamente 1 oitava acima da corda solta.'},
+          ])}
+          ${EX.build('flashcard','f1m1fc','Flashcards: Partes do Instrumento',[
+            {f:'Truss Rod',b:'Barra interna no braço. Controla a curvatura (relief). Ajustada com chave allen. Cuidado: mexer errado quebra o braço!'},
+            {f:'Ação das Cordas',b:'Distância das cordas ao braço. Alta = volume maior, menos zumbido. Baixa = toque mais fácil, pode zunir.'},
+            {f:'Intonação',b:'Ajuste do cavalete. Garante que a 12ª casa afine exatamente 1 oitava acima da corda solta. Verifique com afinador.'},
+            {f:'Captador Precision (P-Bass)',b:'Single coil em forma de P. Som gordo, mid-heavy, definido. Clássico do Fender Precision Bass.'},
+            {f:'Captador Jazz Bass (J-Bass)',b:'Dois singles coil paralelos. Som brilhante, articulado. Fender Jazz Bass. Muito usado no jazz e funk.'},
+            {f:'Baixo Ativo vs Passivo',b:'Ativo: pré-amp interno (bateria 9V), boost de EQ possível. Passivo: circuito simples, som mais orgânico.'},
+            {f:'Nut (Porca de Tensão)',b:'Peça no início do braço que guia as cordas. Altura errada = desafinação nas primeiras casas.'},
+          ])}
+          <div class="checklist" id="cl_f1m1">
+            ${checks('f1m1',[
+              'Consigo nomear todas as partes do baixo',
+              'Sei afinar o baixo com afinador e de ouvido',
+              'Minha postura sentado está correta e confortável',
+              'Consigo tocar as 4 cordas soltas com notas limpas',
+              'Fiz o exercício 1-2-3-4 em todas as cordas',
+            ])}
+          </div>
+        `
+      },
+      {
+        id: 'f1m2', num: 'M02',
+        title: 'Teoria Musical Essencial',
+        desc: 'Teoria não é opcional para quem quer ser profissional. Aprenda o suficiente para entender o que está tocando e se comunicar com outros músicos.',
+        content: () => `
+          <div class="section-title">🎼 As 12 Notas Musicais</div>
+          <div class="info-box">
+            A música ocidental usa <strong>12 notas</strong> que se repetem em ciclo:<br><br>
+            <strong>Dó — Dó# — Ré — Ré# — Mi — Fá — Fá# — Sol — Sol# — Lá — Lá# — Si — (Dó...)</strong><br><br>
+            Em inglês (muito usado em cifras e TABs):<br>
+            <strong>C — C# — D — D# — E — F — F# — G — G# — A — A# — B</strong><br><br>
+            • A distância de uma nota para a próxima = <strong>1 semitom</strong> (1 casa no braço)<br>
+            • A distância de 2 semitons = <strong>1 tom</strong> (2 casas no braço)
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">📏 O Braço do Baixo — Notas na Corda Mi (E)</div>
+          <div class="scale-diagram">
+            <div class="fret-nums">${fretNums(12)}</div>
+            <div class="scale-row">
+              <div class="string-label">Mi</div>
+              ${fretRow(['E','F','F#','G','G#','A','A#','B','C','C#','D','D#','E'])}
+            </div>
+            <div class="scale-row">
+              <div class="string-label">Lá</div>
+              ${fretRow(['A','A#','B','C','C#','D','D#','E','F','F#','G','G#','A'])}
+            </div>
+            <div class="scale-row">
+              <div class="string-label">Ré</div>
+              ${fretRow(['D','D#','E','F','F#','G','G#','A','A#','B','C','C#','D'])}
+            </div>
+            <div class="scale-row">
+              <div class="string-label">Sol</div>
+              ${fretRow(['G','G#','A','A#','B','C','C#','D','D#','E','F','F#','G'])}
+            </div>
+          </div>
+          <div class="tip"><span class="tip-icon">💡</span>Note que a nota na 12ª casa é a mesma da corda solta, porém uma oitava acima. O braço "reinicia" a partir da casa 12.</div>
+          <div class="content-divider"></div>
+          <div class="section-title">🔢 Compassos e Ritmo</div>
+          <div class="info-box">
+            <strong>Compasso 4/4</strong> (mais comum): 4 tempos por compasso. A maioria do rock, pop, funk e blues.<br>
+            <strong>Compasso 3/4</strong>: 3 tempos (valsa, algumas baladas).<br>
+            <strong>Compasso 6/8</strong>: 6 colcheias por compasso (feel de 2 grupos de 3).<br><br>
+            <strong>Figuras rítmicas em 4/4:</strong><br>
+            • Semibreve (1 por compasso) = 4 tempos<br>
+            • Mínima (2 por compasso) = 2 tempos<br>
+            • Semínima (4 por compasso) = 1 tempo — o "pulso" do compasso<br>
+            • Colcheia (8 por compasso) = meio tempo — base do groove<br>
+            • Semicolcheia (16 por compasso) = 1/4 de tempo — funk!
+          </div>
+          <div class="rhythm-grid">
+            <div class="beat-box"><div class="beat-num">1</div><div class="beat-label">Semibreve<br>4 tempos</div></div>
+            <div class="beat-box"><div class="beat-num">2</div><div class="beat-label">Mínima<br>2 tempos</div></div>
+            <div class="beat-box"><div class="beat-num">4</div><div class="beat-label">Semínima<br>1 tempo</div></div>
+            <div class="beat-box"><div class="beat-num">8</div><div class="beat-label">Colcheia<br>½ tempo</div></div>
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">📖 Lendo Tablatura (TAB)</div>
+          <div class="info-box">
+            TAB é a forma mais rápida de aprender músicas sem saber ler partitura.<br><br>
+            <strong>As 4 linhas representam as 4 cordas</strong> (de baixo para cima: Mi, Lá, Ré, Sol).<br>
+            <strong>O número</strong> indica a casa que você deve pressionar. <strong>0</strong> = corda solta.<br><br>
+            Exemplo de TAB do riff de "Come Together" (Beatles):<br>
+            <pre style="margin-top:10px;font-size:12px;color:var(--muted2)">
+G |---0---0-0-0-0---|
+D |---0---0-0-0-0---|
+A |---0---0-0-0-0---|
+E |---0-2-0-0-3-0---|</pre>
+          </div>
+          <div class="practice-box green">
+            <div class="pb-label">🎯 Exercício de Memorização</div>
+            <div class="pb-text">
+              <strong>Semana 1:</strong> Memorize todas as notas da corda Mi (E) até a 12ª casa em voz alta enquanto toca.<br><br>
+              <strong>Semana 2:</strong> Memorize a corda Lá (A).<br><br>
+              <strong>Semana 3–4:</strong> Corde Ré e Sol.<br><br>
+              Dica: use o metrônomo em 60 BPM. Toque uma nota por pulso e diga o nome dela em voz alta. Isso ativa memória muscular + auditiva + verbal ao mesmo tempo.
+            </div>
+          </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('fretboard','f1m2fb','Identifique a Nota no Braço',[
+            {n:'E',s:3,f:0},{n:'A',s:2,f:0},{n:'D',s:1,f:0},{n:'G',s:0,f:0},
+            {n:'F',s:3,f:1},{n:'B',s:3,f:7},{n:'C',s:2,f:3},{n:'G',s:2,f:10},
+            {n:'A',s:3,f:5},{n:'D',s:3,f:10},{n:'E',s:2,f:7},{n:'F#',s:3,f:2},
+          ])}
+          ${EX.build('quiz','f1m2q','Quiz: Teoria Básica',[
+            {q:'Qual nota está na 2ª casa da corda Mi (E)?',o:['F','F#','G','G#'],c:1,ok:'Correto! E(0)→F(1)→F#(2).',fail:'E aberta=0, F=casa 1, F#=casa 2.'},
+            {q:'1 tom equivale a quantas casas no braço do baixo?',o:['1','2','3','4'],c:1,ok:'Correto! 1 tom = 2 semitons = 2 casas.',fail:'1 tom = 2 semitons = 2 casas no braço.'},
+            {q:'O que acontece na 12ª casa de qualquer corda?',o:['Uma nota nova','A mesma nota da corda solta, 1 oitava acima','Fim do braço','Nota mais grave'],c:1,ok:'Perfeito! A 12ª casa = oitava da corda solta.',fail:'A 12ª casa repete a nota da corda solta, 1 oitava acima. As notas se repetem a partir daí.'},
+            {q:'Qual nota está na 3ª casa da corda Lá (A)?',o:['B','C','C#','D'],c:1,ok:'Correto! A(0)→A#(1)→B(2)→C(3).',fail:'Lá aberta + 3 casas: A→A#→B→C. Resposta: C (Dó).'},
+            {q:'TAB (tablatura) usa 4 linhas que representam:',o:['4 tempos do compasso','As 4 cordas do baixo','4 dedos da mão','4 posições'],c:1,ok:'Exato! Cada linha = 1 corda; números = casas.',fail:'TAB: 4 linhas = 4 cordas. Número na linha = casa a pressionar. 0 = corda solta.'},
+          ])}
+          <div class="checklist" id="cl_f1m2">
+            ${checks('f1m2',[
+              'Sei nomear as 12 notas musicais em ordem',
+              'Consigo dizer o nome de qualquer nota na corda Mi até a 12ª casa',
+              'Entendo o que são tons e semitons',
+              'Sei o que é compasso 4/4 e consigo contar 1-2-3-4',
+              'Consigo ler uma TAB simples e reproduzir no baixo',
+            ])}
+          </div>
+        `
+      },
+      {
+        id: 'f1m3', num: 'M03',
+        title: 'Técnica da Mão Direita',
+        desc: 'A mão direita define seu som, groove e dinâmica. É onde nasce a música. Invista aqui mais do que em qualquer outro lugar no início.',
+        content: () => `
+          <div class="section-title">👆 Fingerstyle — A Técnica Fundamental</div>
+          <div class="info-box">
+            O <strong>fingerstyle</strong> (dedilhado com os dedos) é a técnica padrão do baixo. Você vai usar os dedos <strong>indicador (i)</strong> e <strong>médio (m)</strong> alternados para tocar cada nota.<br><br>
+            <strong>Posicionamento correto:</strong><br>
+            • O <strong>polegar</strong> descansa sobre o captador ou sobre a corda Mi quando tocar cordas mais finas<br>
+            • Os dedos <strong>atacam a corda de cima para baixo</strong>, "entrando" na próxima corda (rest stroke)<br>
+            • O movimento vem do <strong>primeiro nó dos dedos</strong>, não da ponta<br>
+            • Mantenha os dedos curvados em arco, não retos
+          </div>
+          <div class="tip"><span class="tip-icon">💡</span>O maior erro dos iniciantes é tocar sempre com o mesmo dedo. A alternância i-m deve se tornar tão automática quanto respirar. Pratique conscientemente até ser inconsciente.</div>
+          <div class="content-divider"></div>
+          <div class="section-title">🎸 Técnica com Palheta</div>
+          <div class="info-box">
+            A <strong>palheta (plectrum)</strong> dá um ataque mais percussivo e definido, muito usado no rock e metal.<br><br>
+            • Segure entre o polegar e o indicador, com cerca de <strong>1cm exposto</strong><br>
+            • Movimento de pulso (não do braço inteiro): <strong>down-up alternado</strong><br>
+            • Para linhas rápidas: <strong>alternate picking</strong> (baixo-cima-baixo-cima...)<br>
+            • Para notas graves longas: <strong>downstroke</strong> (só para baixo) soa mais pesado<br><br>
+            Use palheta média ou pesada para baixo (0.73mm–1.0mm). Palhetas finas demais são para guitarra.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🔇 Palm Mute e Ghost Notes</div>
+          <div class="info-box">
+            <strong>Palm Mute:</strong> Encoste a lateral da palma da mão direita nas cordas, próximo ao cavalete. Toque normalmente. O resultado é um som abafado e percussivo. Muito usado no rock e country.<br><br>
+            <strong>Ghost Notes:</strong> Abafe as cordas com os dedos da <strong>mão esquerda</strong> (sem pressionar até o braço) e toque com a mão direita. O resultado é uma nota "fantasma" — você ouve o ataque mas não a nota. São o tempero secreto do funk e do groove.
+          </div>
+          <div class="practice-box green">
+            <div class="pb-label">🎯 Rotina Diária de Mão Direita — 20 minutos</div>
+            <div class="pb-text">
+              <strong>Bloco 1 — 5 min:</strong> Metrônomo em 60 BPM. Corda Mi, colcheias alternadas i-m-i-m. Foque em volume e timbre iguais em ambos os dedos. Não olhe — sinta.<br><br>
+              <strong>Bloco 2 — 5 min:</strong> Mesmo exercício, mas viajando pelas 4 cordas: 8 notas em Mi, 8 em Lá, 8 em Ré, 8 em Sol. Mantenha a alternância.<br><br>
+              <strong>Bloco 3 — 5 min:</strong> Palm mute na corda Mi, 60 BPM. Depois sem palm mute. Ouça a diferença de dinâmica.<br><br>
+              <strong>Bloco 4 — 5 min:</strong> Ghost notes: abafe as cordas com a mão esquerda e toque padrões rítmicos. Crie um groove percussivo.<br><br>
+              <strong>Aumento de velocidade:</strong> Só aumente o BPM quando conseguir fazer o exercício sem erros por 3 dias seguidos.
+            </div>
+          </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('rhythm','f1m3rh','Ritmo: Colcheias com Alternância i-m',[
+            {t:'note',l:'i'},{t:'note',l:'m'},{t:'note',l:'i'},{t:'note',l:'m'},
+            {t:'note',l:'i'},{t:'note',l:'m'},{t:'note',l:'i'},{t:'note',l:'m'},
+          ],80)}
+          ${EX.build('quiz','f1m3q','Quiz: Técnica da Mão Direita',[
+            {q:'O "rest stroke" (toque de repouso) significa:',o:['Parar para descansar','O dedo ataca e pousa na corda seguinte','Tocar com a palma','Polegar descansa na corda'],c:1,ok:'Exato! Rest stroke = mais volume e consistência.',fail:'Rest stroke: o dedo ataca a corda e pousa na próxima, gerando mais pressão e projeção.'},
+            {q:'Qual é o erro mais comum na mão direita de iniciantes?',o:['Tocar muito forte','Usar sempre o mesmo dedo sem alternar','Usar palheta','Tocar rápido demais'],c:1,ok:'Correto! A alternância i-m deve virar reflexo automático.',fail:'Tocar sempre com o mesmo dedo gera desigualdade de som e limita drasticamente a velocidade.'},
+            {q:'Palm mute é realizado com:',o:['Polegar esquerdo','Lateral da palma direita apoiada no cavalete','Dedo mínimo','Toda a palma da mão'],c:1,ok:'Correto! Lateral da palma no cavalete = som abafado.',fail:'Palm mute: lateral da palma da mão direita toca as cordas próximo ao cavalete.'},
+            {q:'Ghost note é tecnicamente:',o:['Nota muito aguda','Nota abafada pela mão esquerda — percussiva, sem pitch definido','Harmônico natural','Nota na 12ª casa'],c:1,ok:'Perfeito! Ghost note = ataque percussivo sem altura definida.',fail:'Ghost note: mão esq. afrouxa as cordas; mão dir. ataca. Resultado: som percussivo sem pitch.'},
+          ])}
+          <div class="checklist" id="cl_f1m3">
+            ${checks('f1m3',[
+              'Alterno i-m automaticamente sem pensar',
+              'Meu polegar está ancorado corretamente',
+              'Cada dedo produz o mesmo volume ao tocar',
+              'Consigo fazer palm mute com som definido',
+              'Consigo produzir ghost notes (notas abafadas) rítmicas',
+              'Cheguei a 80 BPM em colcheias com alternância',
+            ])}
+          </div>
+        `
+      },
+      {
+        id: 'f1m4', num: 'M04',
+        title: 'Técnica da Mão Esquerda',
+        desc: 'Clareza, velocidade e independência dos dedos da mão esquerda são construídas aqui. Paciência e consistência são a chave.',
+        content: () => `
+          <div class="section-title">🖐️ Posicionamento Correto</div>
+          <div class="info-box">
+            <strong>O polegar:</strong> Fica atrás do braço, <strong>oposto ao dedo médio</strong>. Não enrole o polegar por cima do braço. Isso limita o alcance e cansa a mão.<br><br>
+            <strong>Um dedo por casa:</strong> Em qualquer posição do braço, cada dedo é responsável por uma casa:<br>
+            • Dedo 1 (indicador) = casa mais baixa da posição<br>
+            • Dedo 2 (médio) = próxima casa<br>
+            • Dedo 3 (anelar) = próxima<br>
+            • Dedo 4 (mínimo) = casa mais alta<br><br>
+            <strong>Ponta dos dedos:</strong> A nota deve ser pressionada pela <strong>ponta do dedo</strong> (polpa), o mais próximo da pestana/fret. Isso garante notas limpas sem zumbido.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🎯 O Exercício Cromático Obrigatório</div>
+          <div class="info-box">
+            Este é o exercício mais fundamental do baixo. Faça-o todos os dias durante toda sua carreira.<br><br>
+            <strong>Padrão:</strong> Casas 1-2-3-4 em cada corda, subindo e descendo<br><br>
+            <pre style="font-size:12px;color:var(--muted2)">
+G |--1--2--3--4--|--4--3--2--1--|
+D |--1--2--3--4--|--4--3--2--1--|
+A |--1--2--3--4--|--4--3--2--1--|
+E |--1--2--3--4--|--4--3--2--1--|</pre><br>
+            <strong>Variações:</strong><br>
+            • 1-2-3-4 → 1-2-4-3 → 1-3-2-4 → 1-3-4-2 → 1-4-2-3 → 1-4-3-2<br>
+            • Essas variações treinham a independência dos dedos de forma completa.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🎵 Hammer-On, Pull-Off e Slides</div>
+          <div class="info-box">
+            <strong>Hammer-On ( h ):</strong> Toque uma nota e "bata" o próximo dedo na próxima casa sem tocar com a mão direita. A segunda nota soará da força do "martelo".<br><br>
+            <strong>Pull-Off ( p ):</strong> O inverso: "puxe" o dedo para baixo (como tirar uma palheta de arame) ao levantar, fazendo a nota abaixo soar.<br><br>
+            <strong>Slide ( / ou \\ ):</strong> Pressione uma nota e deslize o dedo até outra casa sem tirar o dedo do braço. Slide subindo (/) ou descendo (\\).<br><br>
+            Estas técnicas permitem <strong>legato</strong> — notas conectadas suavemente, como uma voz cantando.
+          </div>
+          <div class="practice-box green">
+            <div class="pb-label">🎯 Rotina de Mão Esquerda — 20 minutos</div>
+            <div class="pb-text">
+              <strong>5 min:</strong> Exercício cromático 1-2-3-4, metrônomo em 60 BPM, uma nota por pulso. Corde por corde, subindo e descendo.<br><br>
+              <strong>5 min:</strong> Mesma coisa, começando na 5ª casa (onde as notas são mais espaçadas e mais difíceis).<br><br>
+              <strong>5 min:</strong> Variações de padrão: 1-3-2-4, 2-4-1-3. Essas combinações são traiçoeiras — vá devagar.<br><br>
+              <strong>5 min:</strong> Hammer-ons e pull-offs: corda Mi, casa 3 (hammer para 5), depois pull-off de 5 para 3. Repita 8x, depois passe para a corda Lá.<br><br>
+              <em>Aumente 5 BPM por semana quando estiver confortável.</em>
+            </div>
+          </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('rhythm','f1m4rh','Ritmo: Exercício Cromático 1-2-3-4',[
+            {t:'note',l:'1'},{t:'note',l:'2'},{t:'note',l:'3'},{t:'note',l:'4'},
+            {t:'note',l:'4'},{t:'note',l:'3'},{t:'note',l:'2'},{t:'note',l:'1'},
+          ],65)}
+          ${EX.build('quiz','f1m4q','Quiz: Técnica da Mão Esquerda',[
+            {q:'Onde deve estar o polegar da mão esquerda?',o:['Enrolado por cima do braço','Atrás do braço, oposto ao dedo médio','Livre, sem encostar','Na frente do braço'],c:1,ok:'Correto! Polegar atrás = mais força e alcance dos dedos.',fail:'O polegar fica atrás do braço, centralizado. Enrolar por cima limita o alcance e cansa.'},
+            {q:'Por que pressionar a corda próximo à pestana (fret)?',o:['Para mudar o tom','Para a nota soar limpa, com menos esforço e sem zumbido','Para fazer harmônicos','Para tocar mais rápido'],c:1,ok:'Exato! Perto da pestana = nota limpa e eficiente.',fail:'Perto da pestana = menor pressão necessária e zero zumbido. Longe = zumbido ou nota morta.'},
+            {q:'O que é hammer-on?',o:['Golpe do polegar no slap','Bater o dedo na casa para soar a nota sem novo ataque da mão direita','Slide descendente','Técnica de palm mute'],c:1,ok:'Correto! Hammer-on = legato ascendente.',fail:'Hammer-on: o dedo "martela" a casa fazendo a nota soar sem novo toque da mão direita.'},
+            {q:'No exercício cromático 1-2-3-4, cada número representa:',o:['O número da corda','O dedo (1=indicador, 2=médio, 3=anelar, 4=mínimo)','A casa no braço','O tempo do metrônomo'],c:1,ok:'Correto! 1=indicador, 2=médio, 3=anelar, 4=mínimo.',fail:'Os números representam os dedos: 1=indicador, 2=médio, 3=anelar, 4=mínimo (mindinho).'},
+          ])}
+          <div class="checklist" id="cl_f1m4">
+            ${checks('f1m4',[
+              'Meu polegar fica atrás do braço, não por cima',
+              'Uso a ponta dos dedos e não o "barril"',
+              'Faço o cromático 1-2-3-4 em 80 BPM sem erros',
+              'Consigo hammer-on e pull-off com notas audíveis',
+              'Consigo slide suave entre casas',
+              'A variação 1-3-2-4 está fluindo razoavelmente',
+            ])}
+          </div>
+        `
+      },
+      {
+        id: 'f1m5', num: 'M05',
+        title: 'Groove, Ritmo e Metrônomo',
+        desc: 'Um baixista profissional é, antes de tudo, um músico de ritmo. O groove é o que faz as pessoas dançarem. Desenvolva-o desde o início.',
+        content: () => `
+          <div class="section-title">⏱️ Como Usar o Metrônomo Corretamente</div>
+          <div class="info-box">
+            O metrônomo é seu melhor amigo e seu pior inimigo. Use-o <strong>sempre</strong> quando praticar técnica e escalas.<br><br>
+            <strong>Como configurar:</strong><br>
+            • Comece sempre <strong>mais lento do que você acha necessário</strong><br>
+            • A velocidade certa é aquela em que você executa <strong>sem nenhum erro</strong><br>
+            • Só suba o BPM quando estiver 100% confortável por 3 dias<br><br>
+            <strong>Truque avançado:</strong> Configure o metrônomo apenas no 2 e no 4 (tempo fraco). Isso simula o snare da bateria e treina seu sentido de groove real.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🥁 O Baixo e a Bateria</div>
+          <div class="info-box">
+            O baixo e a bateria formam a <strong>seção rítmica</strong> — a fundação de qualquer banda. Entender a bateria é essencial.<br><br>
+            <strong>Kick (bumbo):</strong> O golpe mais grave da bateria, geralmente no tempo 1 e 3. O baixo deve "travar" com o kick.<br>
+            <strong>Snare (caixa):</strong> O estalo nos tempos 2 e 4. Seu ponto de referência para o groove.<br>
+            <strong>Hi-hat:</strong> Subdivide o tempo em colcheias ou semicolcheias — guia sua mão direita.<br><br>
+            Regra de ouro: <strong>"Play in the pocket"</strong> — toque junto com o kick, respire com o snare. O espaço entre as notas é tão importante quanto as notas em si.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">💃 O Que é Groove</div>
+          <div class="info-box">
+            Groove é difícil de definir mas fácil de sentir. É aquela sensação que faz você balançar a cabeça ou mexer o pé sem perceber.<br><br>
+            Tecnicamente, groove vem de:<br>
+            • <strong>Consistência de timing:</strong> cada nota no lugar certo, sempre<br>
+            • <strong>Dinâmica:</strong> algumas notas mais fortes, outras mais suaves<br>
+            • <strong>Articulação:</strong> notas longas e curtas misturadas<br>
+            • <strong>Feel:</strong> tocar levemente antes (ahead) ou depois (behind) do tempo — isso define o groove<br><br>
+            <em>James Brown disse: "The bass is on the one" — o tempo 1 é onde tudo resolve.</em>
+          </div>
+          <div class="practice-box green">
+            <div class="pb-label">🎯 Exercício de Groove — Sua Primeira Linha</div>
+            <div class="pb-text">
+              Toque esta linha em Dó (C), baseada em colcheias, metrônomo em 80 BPM:<br><br>
+              <pre style="font-size:12px;color:var(--muted2);margin:8px 0">
+A |--3-3-3-3-3-3-3-3--|  (nota Dó, 3ª casa da corda Lá)</pre><br>
+              <strong>Passo 1:</strong> Toque 8 colcheias em Dó, alternando i-m. Mantenha absolutamente igual.<br><br>
+              <strong>Passo 2:</strong> Adicione dinâmica: note 1 e 3 mais fortes, 2 e 4 mais suaves.<br><br>
+              <strong>Passo 3:</strong> Na última nota do compasso, abafe (ghost note). Repita.<br><br>
+              <strong>Desafio:</strong> Transcreva a linha de baixo de "Stand By Me" — Ben E. King. É perfeita para iniciantes e tem groove impecável.
+            </div>
+          </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('rhythm','f1m5rh','Groove Básico em 4/4 — Tap no tempo!',[
+            {t:'note',l:'1'},{t:'ghost',l:'e'},{t:'ghost',l:'+'},{t:'ghost',l:'a'},
+            {t:'note',l:'2'},{t:'ghost',l:'e'},{t:'note',l:'+'},{t:'ghost',l:'a'},
+            {t:'note',l:'3'},{t:'ghost',l:'e'},{t:'ghost',l:'+'},{t:'ghost',l:'a'},
+            {t:'note',l:'4'},{t:'ghost',l:'e'},{t:'note',l:'+'},{t:'ghost',l:'a'},
+          ],80)}
+          ${EX.build('quiz','f1m5q','Quiz: Groove e Ritmo',[
+            {q:'O que é "pocket" na linguagem dos músicos?',o:['Espaço no palco','Sincronismo perfeito entre baixo e bateria, criando um groove irresistível','Técnica de slap','Acorde de 5 notas'],c:1,ok:'Correto! Pocket = baixo e bateria travados juntos.',fail:'Pocket: quando baixo e bateria estão tão sincronizados que criam uma "bolsa" rítmica irresistível.'},
+            {q:'Qual instrumento da bateria o baixo deve "travar" prioritariamente?',o:['Chimbal (hi-hat)','Caixa (snare)','Bumbo (kick drum)','Prato (crash)'],c:2,ok:'Exato! Bumbo + baixo = fundação rítmica da banda.',fail:'O bumbo (kick drum) e o baixo formam juntos a fundação rítmica. Eles devem soar como um só.'},
+            {q:'Como contar 16 semicolcheias em 4/4?',o:['1-2-3-4','1-e-2-e','1-e-+-a-2-e-+-a-3-e-+-a-4-e-+-a','1-ah-2-ah-3-ah-4-ah'],c:2,ok:'Correto! 1-e-+-a para cada tempo = 16 subdivisões.',fail:'Semicolcheias: 1-e-+-a por tempo. 4 tempos × 4 subdivisões = 16 por compasso.'},
+            {q:'Por que configurar o metrônomo apenas nos tempos 2 e 4?',o:['Fica mais fácil','Simula o snare da bateria, treinando o groove real','Aumenta a velocidade','É a configuração padrão'],c:1,ok:'Exato! O snare no 2 e 4 é o coração do rock e pop.',fail:'Metrônomo no 2 e 4 simula a caixa da bateria, forçando você a internalizar o groove real.'},
+          ])}
+          ${EX.build('flashcard','f1m5fc','Flashcards: Vocabulário de Groove',[
+            {f:'Pocket',b:'Sincronismo perfeito entre baixo e bateria. O groove "encaixa" e faz as pessoas moverem o corpo involuntariamente.'},
+            {f:'"On the One" — James Brown',b:'O tempo 1 é o ponto de resolução máxima. Toda a banda converge para o "Um". Filosofia do funk americano.'},
+            {f:'Behind the Beat',b:'Tocar levemente depois do tempo. Cria sensação de peso e relaxamento. Comum no reggae, R&B e soul.'},
+            {f:'Ahead of the Beat',b:'Tocar levemente antes do tempo. Cria urgência e tensão. Comum no punk e música acelerada.'},
+            {f:'Subdivisão',b:'Divisão do tempo em partes menores. Colcheias (÷2), semicolcheias (÷4). Define a "grade" rítmica do groove.'},
+            {f:'Síncope',b:'Acentuação no tempo fraco. Motor do samba, funk e jazz. Cria surpresa e movimento rítmico.'},
+          ])}
+          <div class="checklist" id="cl_f1m5">
+            ${checks('f1m5',[
+              'Uso o metrônomo em toda sessão de prática',
+              'Consigo manter 8 colcheias constantes em 90 BPM',
+              'Sei identificar kick e snare numa música',
+              'Aprendi e toquei uma música completa do começo ao fim',
+              'Ouvi e tentei transcrever 1 linha de baixo de ouvido',
+            ])}
+          </div>
+          <div class="practice-box orange">
+            <div class="pb-label">🏁 Marco da Fase 1</div>
+            <div class="pb-text">
+              Você está pronto para a Fase 2 quando conseguir:<br><br>
+              ✅ Tocar uma música completa com metrônomo, notas limpas e postura correta<br>
+              ✅ Fazer o exercício cromático em 80–90 BPM<br>
+              ✅ Identificar as notas em qualquer corda até a 12ª casa<br><br>
+              <strong>Músicas sugeridas para tocar completas:</strong><br>
+              • "Another One Bites the Dust" – Queen (ótima linha de baixo!)<br>
+              • "Come Together" – The Beatles (groove simples mas poderoso)<br>
+              • "Under Pressure" – Queen/Bowie (o clássico dos clássicos)<br>
+              • "Smell Like Teen Spirit" – Nirvana (potência e simplicidade)
+            </div>
+          </div>
+        `
+      },
+    ]
+  },
+  // ══════════════ FASE 2 ══════════════
+  {
+    id: 'fase2',
+    label: 'FASE 2 · INTERMEDIÁRIO',
+    color: 'var(--accent2)',
+    dot: '#f5a623',
+    badgeClass: 'fase2-bg',
+    textClass: 'fase2',
+    duration: '6–12 meses · 1.5h/dia',
+    lessons: [
+      {
+        id: 'f2m6', num: 'M06',
+        title: 'Escalas Fundamentais',
+        desc: 'As escalas são o vocabulário da música. Aprenda-as em todas as posições, em todas as tonalidades.',
+        content: () => `
+          <div class="section-title">🎵 A Escala Maior — A Mãe de Tudo</div>
+          <div class="info-box">
+            A escala maior é a mais importante da música ocidental. Sua fórmula de tons (T) e semitons (st):<br><br>
+            <strong>T – T – st – T – T – T – st</strong><br><br>
+            Em Dó maior: <strong>Dó – Ré – Mi – Fá – Sol – Lá – Si – Dó</strong><br><br>
+            No braço do baixo, começando na 3ª casa da corda Lá (nota Dó):
+          </div>
+          <div class="scale-diagram">
+            <div class="fret-nums">${fretNums(12)}</div>
+            <div class="scale-row">
+              <div class="string-label">Sol</div>
+              ${fretRowH([false,false,false,false,false,'Mi',false,'Fá#','Sol',false,false,false,false],12)}
+            </div>
+            <div class="scale-row">
+              <div class="string-label">Ré</div>
+              ${fretRowH([false,false,false,false,false,'Si','Dó',false,'Ré',false,'Mi',false,false],12)}
+            </div>
+            <div class="scale-row">
+              <div class="string-label">Lá</div>
+              ${fretRowH([false,false,false,'Dó*',false,'Ré',false,'Mi','Fá',false,'Sol',false,'Lá'],12)}
+            </div>
+            <div class="scale-row">
+              <div class="string-label">Mi</div>
+              ${fretRowH([false,false,false,false,false,false,false,false,'Dó',false,'Ré',false,'Mi'],12)}
+            </div>
+          </div>
+          <div class="tip"><span class="tip-icon">💡</span>A posição com Dó* (3ª casa da corda Lá) é a "posição-padrão" dessa escala. Aprenda os <strong>shapes</strong> — os padrões de dedos no braço — e você poderá tocar em qualquer tonalidade simplesmente mudando a posição inicial.</div>
+          <div class="content-divider"></div>
+          <div class="section-title">😢 Escala Menor Natural</div>
+          <div class="info-box">
+            Fórmula: <strong>T – st – T – T – st – T – T</strong><br><br>
+            Lá menor natural: <strong>Lá – Si – Dó – Ré – Mi – Fá – Sol – Lá</strong><br><br>
+            Diferença da maior: o 3º, 6º e 7º graus são abaixados em 1 semitom (b3, b6, b7).<br><br>
+            <strong>Relação relativa:</strong> Dó maior e Lá menor usam as <strong>mesmas notas</strong> — só mudam o ponto de partida. Toda escala maior tem uma menor relativa (6 semitons abaixo).
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🎭 Pentatônica — O Atalho do Groove</div>
+          <div class="info-box">
+            A escala pentatônica é a favorita do rock, blues e funk. Só 5 notas, mas funciona em praticamente qualquer situação.<br><br>
+            <strong>Pentatônica menor:</strong> 1 – b3 – 4 – 5 – b7<br>
+            Em Lá menor: <strong>Lá – Dó – Ré – Mi – Sol</strong><br><br>
+            <strong>Box 1 (posição básica) em Lá menor, iniciando na 5ª casa da corda Mi:</strong><br>
+            <pre style="font-size:12px;color:var(--muted2);margin-top:8px">
+G |--5--8--|
+D |--5--7--|
+A |--5--7--|
+E |--5--8--|</pre>
+            Esta "caixinha" pode ser usada em qualquer tonalidade — só mude a casa inicial!
+          </div>
+          <div class="practice-box orange">
+            <div class="pb-label">🎯 Método das 12 Tonalidades</div>
+            <div class="pb-text">
+              Aprenda a escala pentatônica menor no Box 1.<br><br>
+              <strong>Semana 1:</strong> Lá menor (5ª casa da corda Mi), 60 BPM, subindo e descendo<br>
+              <strong>Semana 2:</strong> Ré menor (10ª casa da corda Mi ou 5ª casa da Lá)<br>
+              <strong>Semanas seguintes:</strong> Suba 1 semitom a cada semana até completar as 12 tonalidades<br><br>
+              Em 3 meses você vai conhecer a pentatônica em toda parte do braço.
+            </div>
+          </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('fretboard','f2m6fb','Identifique Notas em Posição de Escala',[
+            {n:'C',s:2,f:3},{n:'E',s:3,f:12},{n:'G',s:3,f:3},
+            {n:'A',s:2,f:12},{n:'D',s:2,f:5},{n:'F',s:3,f:8},
+            {n:'B',s:2,f:9},{n:'G',s:0,f:0},{n:'C',s:0,f:5},
+          ])}
+          ${EX.build('quiz','f2m6q','Quiz: Escalas',[
+            {q:'Qual é a fórmula de tons (T) e semitons (st) da escala maior?',o:['T-T-T-st-T-T-st','T-T-st-T-T-T-st','st-T-T-st-T-T-T','T-st-T-T-st-T-T'],c:1,ok:'Perfeito! Tom-Tom-semitom-Tom-Tom-Tom-semitom.',fail:'Escala maior: T-T-st-T-T-T-st. Memorize: 2 tons, semitom, 3 tons, semitom.'},
+            {q:'A pentatônica menor tem quantas notas?',o:['7','5','6','8'],c:1,ok:'Correto! Penta = 5. Pentatônica menor: 1-b3-4-5-b7.',fail:'Pentatônica = 5 notas. Menor: raiz, terça menor, quarta, quinta, sétima menor.'},
+            {q:'O que é o "Box 1" da pentatônica?',o:['A primeira música aprendida','Um shape de dedos no braço que pode ser movido para qualquer tonalidade','Técnica de slap','Acorde de 5 notas'],c:1,ok:'Exato! Mova o box para qualquer casa e você está em outra tonalidade.',fail:'Box 1 é um padrão visual/motor de dedos. Mova para qualquer casa inicial e você muda de tonalidade.'},
+            {q:'A escala menor natural difere da maior por quais graus?',o:['1º e 5º','3º, 6º e 7º abaixados (b3, b6, b7)','2º e 4º','Apenas o 7º'],c:1,ok:'Correto! b3, b6 e b7 são as notas características da menor natural.',fail:'Menor natural = maior com 3º, 6º e 7º graus abaixados 1 semitom (b3, b6, b7).'},
+            {q:'Se a pentatônica menor de Lá (A) começa na 5ª casa da corda Mi, onde começa a de Ré (D)?',o:['3ª casa','7ª casa','10ª casa','12ª casa'],c:2,ok:'Correto! Ré é 5 semitons acima de Lá → 5ª+5 = 10ª casa.',fail:'Lá = 5ª casa. Ré está 5 semitons acima → 10ª casa. O shape é idêntico!'},
+          ])}
+          <div class="checklist" id="cl_f2m6">
+            ${checks('f2m6',[
+              'Sei a fórmula da escala maior de cabeça',
+              'Consigo tocar C maior no braço sem olhar para o diagrama',
+              'Sei a diferença entre maior e menor natural',
+              'Toco a pentatônica menor em 3 tonalidades diferentes',
+              'Estou praticando as 12 tonalidades progressivamente',
+            ])}
+          </div>
+        `
+      },
+      {
+        id: 'f2m7', num: 'M07',
+        title: 'Acordes e Arpejos para Baixo',
+        desc: 'O baixista não toca acordes como o violão, mas entender a harmonia de um acorde é essencial para criar linhas que se encaixem perfeitamente.',
+        content: () => `
+          <div class="section-title">🔺 O Que é um Acorde?</div>
+          <div class="info-box">
+            Um acorde é a sobreposição de 3 ou mais notas. No baixo, você raramente toca todas ao mesmo tempo, mas <strong>escolhe quais notas do acorde tocar</strong> para construir sua linha.<br><br>
+            <strong>Tríades básicas (3 notas):</strong><br>
+            • <strong>Maior (M):</strong> 1 – 3 – 5 (ex: Dó-Mi-Sol)<br>
+            • <strong>Menor (m):</strong> 1 – b3 – 5 (ex: Dó-Mib-Sol)<br>
+            • <strong>Aumentado (+):</strong> 1 – 3 – #5<br>
+            • <strong>Diminuto (°):</strong> 1 – b3 – b5
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🎵 Acordes com Sétima</div>
+          <div class="info-box">
+            Adicionar a 7ª nota dá mais cor ao acorde:<br><br>
+            • <strong>Maj7:</strong> 1-3-5-7 (suave, jazz, bossa nova)<br>
+            • <strong>m7:</strong> 1-b3-5-b7 (suave, soul, funk)<br>
+            • <strong>Dom7 (apenas 7):</strong> 1-3-5-b7 (tensão, blues, funk, dominant chord)<br>
+            • <strong>m7b5 (meio-diminuto):</strong> 1-b3-b5-b7 (jazz, progressões menores)<br><br>
+            <strong>Exemplo prático:</strong> Na progressão Am7 – Dm7 – G7 – Cmaj7, o baixista toca:<br>
+            • Lá + notas do Lá m7 → Ré + notas do Ré m7 → Sol + notas de G7 → Dó + notas de Cmaj7
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🌊 Arpejos — O Vocabulário do Baixo</div>
+          <div class="info-box">
+            Arpejo = tocar as notas de um acorde uma de cada vez. É a base da maioria das linhas de baixo profissionais.<br><br>
+            <strong>Arpejo de Dó maior (C):</strong> Dó – Mi – Sol<br>
+            No braço: 3ª casa Lá (Dó) → 2ª casa Ré (Mi) → 5ª casa Ré (Sol)<br><br>
+            <strong>Por que usar arpejos?</strong> Porque cada nota pertence ao acorde que está tocando — você nunca vai "errar" tonalmente. É a base do walking bass e das linhas de soul/R&B.
+          </div>
+          <div class="practice-box orange">
+            <div class="pb-label">🎯 Exercício de Arpejo em Progressão</div>
+            <div class="pb-text">
+              Progressão I-IV-V em Dó maior: <strong>C – F – G – C</strong><br><br>
+              <strong>Passo 1:</strong> Toque apenas a raiz de cada acorde (Dó-Fá-Sol-Dó), 1 nota por compasso, metrônomo 70 BPM.<br><br>
+              <strong>Passo 2:</strong> Adicione a 5ª: Dó+Sol / Fá+Dó / Sol+Ré / Dó+Sol<br><br>
+              <strong>Passo 3:</strong> Toque a tríade completa em arpejos: 1-3-5-3 em semínimas<br><br>
+              <strong>Passo 4:</strong> Adicione notas de passagem cromáticas entre os acordes. Esse é o embrião do walking bass!
+            </div>
+          </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f2m7q','Quiz: Acordes e Arpejos',[
+            {q:'Quais notas formam a tríade de Dó maior (C)?',o:['C-D-E','C-E-G','C-E-F','C-F-G'],c:1,ok:'Correto! C-E-G = raiz(1), terça maior(3), quinta justa(5).',fail:'Tríade maior = 1-3-5. Em Dó: C(1) + E(3) + G(5).'},
+            {q:'O que diferencia m7 de Maj7?',o:['Número de notas','m7 tem b3 e b7; Maj7 tem 3 e 7 naturais','O ritmo','Nada'],c:1,ok:'Correto! m7 = menor; Maj7 = maior. A 3ª e a 7ª definem tudo.',fail:'m7: 1-b3-5-b7. Maj7: 1-3-5-7. A 3ª (maior/menor) e a 7ª (maior/menor) definem o caráter.'},
+            {q:'O que é arpejo no contexto do baixo?',o:['Técnica de slap','Tocar as notas de um acorde uma de cada vez','Acorde com todas as notas simultâneas','Nome de uma escala'],c:1,ok:'Exato! Arpejo = notas do acorde em sequência.',fail:'Arpejo: notas de um acorde tocadas sequencialmente. Base do walking bass e linhas de soul.'},
+            {q:'Na progressão I-IV-V em Dó maior, qual é o acorde V?',o:['Fá (F)','Sol (G)','Ré (D)','Lá (A)'],c:1,ok:'Correto! O 5º grau de Dó maior é Sol (G).',fail:'Em Dó maior: I=C, II=D, III=E, IV=F, V=G. O acorde V é Sol (G).'},
+          ])}
+          ${EX.build('flashcard','f2m7fc','Flashcards: Acordes',[
+            {f:'Tríade Maior',b:'1-3-5. Ex: C-E-G. Som brilhante e estável. "Acorde feliz".'},
+            {f:'Tríade Menor',b:'1-b3-5. Ex: C-Eb-G. Som mais escuro e melancólico.'},
+            {f:'Acorde Dom7 (dominante)',b:'1-3-5-b7. Ex: G7=G-B-D-F. Tensão que resolve na tônica. Motor da harmonia.'},
+            {f:'Acorde Maj7',b:'1-3-5-7. Ex: Cmaj7=C-E-G-B. Suave, jazzístico, bossa nova.'},
+            {f:'Acorde m7',b:'1-b3-5-b7. Ex: Am7=A-C-E-G. Funk, jazz, neo soul.'},
+            {f:'Progressão II-V-I',b:'A mais importante do jazz. Em Dó: Dm7-G7-Cmaj7. Tensão (V) → Resolução (I).'},
+            {f:'Nota de Passagem',b:'Nota cromática que conecta dois acordes. Cria o "caminhar" do walking bass.'},
+          ])}
+          <div class="checklist" id="cl_f2m7">
+            ${checks('f2m7',[
+              'Sei a diferença entre acorde maior e menor',
+              'Consigo tocar a tríade de qualquer acorde no braço',
+              'Sei o que é um acorde de sétima dominante',
+              'Consigo criar uma linha de baixo simples sobre uma progressão I-IV-V',
+              'Entendo o conceito de arpejo e o uso no baixo',
+            ])}
+          </div>
+        `
+      },
+      {
+        id: 'f2m8', num: 'M08',
+        title: 'Os 7 Modos da Escala Maior',
+        desc: 'Os modos gregos são a expansão do seu vocabulário harmônico. Essencial para jazz, fusion e música contemporânea.',
+        content: () => `
+          <div class="section-title">🎭 O Que são Modos?</div>
+          <div class="info-box">
+            Os modos são 7 escalas derivadas da escala maior, cada uma começando em um grau diferente. Todas usam as <strong>mesmas notas</strong> mas com <strong>centros diferentes</strong>, o que cria cores e atmosferas distintas.<br><br>
+            Pense assim: pegue as 7 notas de Dó maior (C-D-E-F-G-A-B) e comece em cada uma delas:<br><br>
+            1. Começar no Dó → <strong>Jônico</strong> (a escala maior que você já conhece)<br>
+            2. Começar no Ré → <strong>Dórico</strong><br>
+            3. Começar no Mi → <strong>Frígio</strong><br>
+            4. Começar no Fá → <strong>Lídio</strong><br>
+            5. Começar no Sol → <strong>Mixolídio</strong><br>
+            6. Começar no Lá → <strong>Eólio</strong> (a escala menor natural)<br>
+            7. Começar no Si → <strong>Lócrio</strong>
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🎨 A "Cor" de Cada Modo</div>
+          <div class="topics-grid">
+            ${topics([
+              ['1️⃣','Jônico — Brilhante, feliz, pop, clássico. A escala maior. C-D-E-F-G-A-B'],
+              ['2️⃣','Dórico — Menor mas com 6ª maior. Cheiro de funk e jazz menor. A-B-C-D-E-F#-G (Lá dórico)'],
+              ['3️⃣','Frígio — Muito escuro, exótico, flamenco e metal. E-F-G-A-B-C-D'],
+              ['4️⃣','Lídio — Maior com #4. Etéreo, dreamy, John Williams, fantasy. F-G-A-B-C-D-E'],
+              ['5️⃣','Mixolídio — Maior com b7. Blues, rock, dominant chord. G-A-B-C-D-E-F'],
+              ['6️⃣','Eólio — Menor natural. Triste, melancólico, pop/rock menor. A-B-C-D-E-F-G'],
+              ['7️⃣','Lócrio — O mais sombrio. Diminuto, instável. B-C-D-E-F-G-A'],
+            ])}
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🔥 Modos Mais Usados no Baixo</div>
+          <div class="info-box">
+            <strong>Dórico</strong> → Funk, jazz menor, soul. "So What" (Miles Davis) é inteiramente em Ré Dórico.<br><br>
+            <strong>Mixolídio</strong> → Rock, blues. O riff de "Sweet Home Chicago" e praticamente todo blues usa mixolídio.<br><br>
+            <strong>Frígio</strong> → Metal (Metallica, Sepultura), flamenco, música latina pesada.<br><br>
+            <strong>Jônico</strong> → Pop, samba, MPB alegre.<br><br>
+            <strong>Eólio</strong> → Rock, pop melancólico, a maior parte do rock alternativo.
+          </div>
+          <div class="practice-box orange">
+            <div class="pb-label">🎯 Como Praticar os Modos</div>
+            <div class="pb-text">
+              <strong>Método do Drone:</strong> Configure um pedal de nota (drone) ou use um aplicativo. Toque o modo sobre esse drone e <strong>ouça a cor</strong> de cada intervalo.<br><br>
+              <strong>Semana 1:</strong> Dórico em Lá. Drone em Lá. Suba e desça a escala. Improvise sobre o drone.<br>
+              <strong>Semana 2:</strong> Mixolídio em Sol. Drone em Sol. Perceba o feeling mais "blues".<br>
+              <strong>Semana 3:</strong> Frígio em Mi. Sinta o drama do b2.<br><br>
+              Não tente aprender tudo de uma vez. Um modo por semana, totalmente absorvido.
+            </div>
+          </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f2m8q','Quiz: Os 7 Modos',[
+            {q:'O Dórico difere do Eólio (menor natural) por qual nota?',o:['b2 (segunda menor)','#4 (quarta aumentada)','6ª maior (natural, não abaixada)','b7 (sétima menor)'],c:2,ok:'Correto! Dórico tem 6ª maior; Eólio tem 6ª menor. Essa nota muda tudo.',fail:'Dórico = menor com 6ª maior. Eólio = menor com 6ª menor. É a única diferença entre os dois.'},
+            {q:'"So What" de Miles Davis é inteiramente em qual modo?',o:['Mixolídio','Lócrio','Dórico','Lídio'],c:2,ok:'Correto! So What está em Ré Dórico — o cânone do jazz modal.',fail:'"So What" está em Ré Dórico. É a obra-prima do jazz modal. Ouça com atenção ao baixo de Paul Chambers.'},
+            {q:'Qual modo é chamado de "escala do blues-rock" por ter b7?',o:['Jônico','Frígio','Lídio','Mixolídio'],c:3,ok:'Exato! Mixolídio = maior com b7. O sabor do blues e do rock clássico.',fail:'Mixolídio = escala maior com sétima abaixada (b7). Dá o "sabor" do blues e do rock.'},
+            {q:'O Frígio tem caráter sombrio e exótico por causa de qual intervalo característico?',o:['#4','b3','b2 (segunda menor)','b6'],c:2,ok:'Correto! O b2 cria o intervalo de semitom logo no início — som dramático e exótico.',fail:'Frígio: b2 (segunda menor). Esse semitom inicial cria o caráter dramático, usado no flamenco e metal.'},
+            {q:'Qual modo tem o #4 (quarta aumentada) como nota característica?',o:['Jônico','Dórico','Lídio','Eólio'],c:2,ok:'Correto! Lídio = maior com #4. Som etéreo e "flutuante".',fail:'Lídio tem #4 (trítono acima da raiz). Cria som etéreo, dreamy. Usado por John Williams e muitos composers.'},
+          ])}
+          ${EX.build('flashcard','f2m8fc','Flashcards: Os 7 Modos',[
+            {f:'Jônico (I)',b:'A escala maior. T-T-st-T-T-T-st. Brilhante e estável. C-D-E-F-G-A-B.'},
+            {f:'Dórico (II)',b:'Menor com 6ª maior. Funk e jazz menor. Lá Dórico: A-B-C-D-E-F#-G.'},
+            {f:'Frígio (III)',b:'Menor com b2. Som exótico e sombrio. Flamenco, metal. E-F-G-A-B-C-D.'},
+            {f:'Lídio (IV)',b:'Maior com #4. Etéreo, dreamy. F-G-A-B-C-D-E.'},
+            {f:'Mixolídio (V)',b:'Maior com b7. Blues, rock, dominant. G-A-B-C-D-E-F.'},
+            {f:'Eólio (VI)',b:'Menor natural. Melancólico. Rock alternativo, pop menor. A-B-C-D-E-F-G.'},
+            {f:'Lócrio (VII)',b:'Diminuto, instável. Raro mas importante no jazz. B-C-D-E-F-G-A.'},
+          ])}
+          <div class="checklist" id="cl_f2m8">
+            ${checks('f2m8',[
+              'Sei nomear os 7 modos em ordem',
+              'Entendo a fórmula do Dórico e o que o diferencia do menor natural',
+              'Toquei Dórico sobre um drone e senti a diferença',
+              'Sei que o Mixolídio é a escala do "blues rock"',
+              'Comecei a usar modos na minha improvisação',
+            ])}
+          </div>
+        `
+      },
+      {
+        id: 'f2m9', num: 'M09',
+        title: 'Estilos Musicais — Parte 1',
+        desc: 'Cada estilo musical tem suas regras, vocabulário e grandes referências. Mergulhe fundo em cada um antes de seguir para o próximo.',
+        content: () => `
+          <div class="section-title">🤘 Rock Bass</div>
+          <div class="info-box">
+            O rock valoriza <strong>poder, simplicidade e groove</strong>. A linha de baixo deve "ancorar" a guitarra e criar a sensação de movimento harmônico.<br><br>
+            <strong>Características:</strong><br>
+            • Nota raiz no tempo forte, 5ª no tempo fraco<br>
+            • Oitavas (root-octave) criam energia<br>
+            • Palm mute para peso<br>
+            • Palheta é muito usada no rock<br><br>
+            <strong>Referências obrigatórias:</strong> John Paul Jones (Led Zeppelin), Geddy Lee (Rush), John Entwistle (The Who), Flea (RHCP)
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">💙 Blues Bass</div>
+          <div class="info-box">
+            O blues é a raiz de tudo. A progressão de 12 compassos é o ABC do músico.<br><br>
+            <strong>Progressão de blues em Lá (A):</strong><br>
+            <pre style="font-size:12px;color:var(--muted2)">
+A7 | A7 | A7 | A7
+D7 | D7 | A7 | A7
+E7 | D7 | A7 | E7</pre><br>
+            <strong>Linha de blues clássica (A):</strong> Toque raiz + 5ª + 6ª + b7 em colcheias. Esse padrão <strong>funciona em qualquer acorde de blues</strong>!
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🌴 Reggae Bass</div>
+          <div class="info-box">
+            O reggae tem o groove mais único da música popular. O baixo é protagonista e o ritmo é invertido.<br><br>
+            <strong>Características:</strong><br>
+            • Feel "behind the beat" — levemente atrás do tempo<br>
+            • Notas longas, sustentadas<br>
+            • O "One Drop": o bumbo não toca no tempo 1!<br>
+            • O baixo geralmente toca no tempo 3 ou nos contratempos<br><br>
+            <strong>Referências:</strong> Robbie Shakespeare (Sly & Robbie), Aston "Family Man" Barrett (Bob Marley)
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🇧🇷 Samba e Bossa Nova</div>
+          <div class="info-box">
+            <strong>Samba:</strong> O baixo no samba segue a levada da percussão. A síncope é fundamental.<br>
+            Levada básica: notas nos contratempos, antecipando os acordes. Raiz no tempo 1, notas de passagem nos outros tempos.<br><br>
+            <strong>Bossa Nova:</strong> Harmonia riquíssima (9ª, 11ª, 13ª), linhas de baixo que cantam a melodia. Tom Jobim é a referência máxima. Ouça "Garota de Ipanema" e preste atenção no baixo.
+          </div>
+          <div class="practice-box orange">
+            <div class="pb-label">🎯 Imersão por Estilo</div>
+            <div class="pb-text">
+              <strong>Mês 1 — Rock:</strong> Aprenda "Whole Lotta Love" (Led Zeppelin), "Under the Bridge" (RHCP) e "Schism" (Tool)<br><br>
+              <strong>Mês 2 — Blues:</strong> Toque sobre backing tracks de blues em Lá. 100 horas de blues vai mudar seu feeling para sempre.<br><br>
+              <strong>Mês 3 — Reggae:</strong> "No Woman No Cry" e "Is This Love" (Bob Marley). Sinta o espaço.<br><br>
+              <strong>Mês 4 — Samba/Bossa:</strong> "Garota de Ipanema" (Jobim) e "Mas que Nada" (Jorge Ben). Fundamental para o músico brasileiro.
+            </div>
+          </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('rhythm','f2m9rh','Groove de Blues — Feel em Shuffle',[
+            {t:'note',l:'1'},{t:'ghost',l:'+'},{t:'note',l:'2'},{t:'ghost',l:'+'},
+            {t:'note',l:'3'},{t:'ghost',l:'+'},{t:'note',l:'4'},{t:'ghost',l:'+'},
+          ],75)}
+          ${EX.build('quiz','f2m9q','Quiz: Estilos Musicais',[
+            {q:'O "one drop" é característica rítmica de qual estilo?',o:['Funk','Rock','Reggae','Jazz'],c:2,ok:'Correto! No reggae, o bumbo não toca no tempo 1.',fail:'One drop: característico do reggae. O bumbo "pula" o tempo 1, criando o groove único do estilo.'},
+            {q:'Em uma progressão de blues em Lá (12 compassos), qual é o IV grau?',o:['E7','B7','D7','G7'],c:2,ok:'Correto! O IV grau de Lá maior é Ré (D).',fail:'Em Lá maior: I=A, II=B, III=C#, IV=D, V=E. O IV é D7.'},
+            {q:'O feel do reggae é descrito como:',o:['Ahead of the beat (na frente)','Behind the beat (atrás), pesado e relaxado','Exatamente no tempo','Muito rápido e urgente'],c:1,ok:'Exato! Reggae: behind the beat. Cria sensação de peso e relaxamento.',fail:'Reggae: "behind the beat" — levemente depois do tempo. Cria peso e o feeling relaxado característico.'},
+            {q:'No samba brasileiro, a síncope significa:',o:['Tocar só nas batidas fortes','Acentuar o tempo fraco, criando o movimento característico','Técnica de slap','Tipo de acorde'],c:1,ok:'Correto! A síncope é o motor do samba.',fail:'Síncope = acentuação no tempo fraco. É o que dá ao samba sua energia e movimento característicos.'},
+          ])}
+          <div class="checklist" id="cl_f2m9">
+            ${checks('f2m9',[
+              'Conheço a progressão de 12 compassos do blues',
+              'Toquei um riff de rock com palheta e palm mute',
+              'Entendo o feel "behind the beat" do reggae',
+              'Tentei tocar uma levada de samba ou bossa nova',
+              'Aprendi pelo menos 1 música completa em cada estilo',
+            ])}
+          </div>
+        `
+      },
+      {
+        id: 'f2m10', num: 'M10',
+        title: 'Slap Bass — Técnica Completa',
+        desc: 'O slap é uma das técnicas mais percussivas e expressivas do baixo. Exige coordenação, groove e timing preciso.',
+        content: () => `
+          <div class="section-title">👍 O Golpe do Polegar (Thumb / T)</div>
+          <div class="info-box">
+            O <strong>thumb down</strong> é a base do slap. O polegar "bate" na corda como um martelo e ricocheia imediatamente.<br><br>
+            <strong>Técnica correta:</strong><br>
+            • O polegar bate na corda Mi (ou Lá) na <strong>junção com o captador</strong><br>
+            • O movimento vem do <strong>pulso</strong>, como girar uma chave<br>
+            • O polegar deve <strong>ricochetear imediatamente</strong> após o golpe (não fique pressionando)<br>
+            • O resultado deve ser um som percussivo, definido e com sustain<br><br>
+            <strong>Erro mais comum:</strong> Usar o braço em vez do pulso. O braço deve ficar quase estático — é tudo no pulso!
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">☝️ O Pop do Indicador (P)</div>
+          <div class="info-box">
+            O <strong>pop</strong> é puxar a corda Sol (ou Ré) para cima com o indicador e soltá-la de volta, criando um estalo.<br><br>
+            <strong>Técnica:</strong><br>
+            • Encaixe a ponta do indicador sob a corda<br>
+            • Puxe para cima (perpendicular ao braço) e solte rapidamente<br>
+            • A corda deve bater contra as pestanas, criando o estalo característico<br>
+            • Mão relaxada — tensão é inimiga do slap
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🔥 Construindo o Groove de Slap</div>
+          <div class="info-box">
+            <strong>Padrão básico (8 colcheias em 4/4):</strong><br>
+            T = Thumb (Mi), G = Ghost note, P = Pop (Sol)<br><br>
+            <pre style="font-size:13px;color:var(--muted2);margin:8px 0">
+Tempo: 1   e   2   e   3   e   4   e
+        T   G   P   G   T   G   P   G</pre><br>
+            Comece devagar (60 BPM). A ghost note (G) é a nota abafada — fundamental para o groove. Sem ela, o slap fica vazio e mecânico.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">👤 Referências Obrigatórias de Slap</div>
+          <div class="refs-grid">
+            <div class="ref-card"><div class="ref-name">Larry Graham</div><div class="ref-desc">O inventor do slap. "Hair" com Sly & the Family Stone. Toque groovado e percussivo.</div></div>
+            <div class="ref-card"><div class="ref-name">Bootsy Collins</div><div class="ref-desc">Funk puro. "Give It Up or Turnit a Loose" com James Brown. O pocket perfeito.</div></div>
+            <div class="ref-card"><div class="ref-name">Flea (RHCP)</div><div class="ref-desc">"Give It Away" e "Around the World". Slap com energia punk e melodia de jazz.</div></div>
+            <div class="ref-card"><div class="ref-name">Victor Wooten</div><div class="ref-desc">"Amazing Grace" — o slap levado a um nível transcendente. Double thumb mestre.</div></div>
+            <div class="ref-card"><div class="ref-name">Marcus Miller</div><div class="ref-desc">Slap refinado. "Tutu" (Miles Davis). Groove + musicality em equilíbrio perfeito.</div></div>
+            <div class="ref-card"><div class="ref-name">Les Claypool</div><div class="ref-desc">Primus. Slap bizarro, original, percussivo. "Jerry Was A Race Car Driver".</div></div>
+          </div>
+          <div class="practice-box orange">
+            <div class="pb-label">🎯 Progressão de 60 dias</div>
+            <div class="pb-text">
+              <strong>Dias 1–15:</strong> Só thumb. Corda Mi, 60 BPM em semínimas. Foco em ricochetear e no som.<br><br>
+              <strong>Dias 16–30:</strong> T alternado com Ghost: T-G-T-G. 60 BPM em colcheias.<br><br>
+              <strong>Dias 31–45:</strong> Adicione o Pop: T-G-P-G. O padrão completo.<br><br>
+              <strong>Dias 46–60:</strong> Suba BPM gradualmente. Experimente com notas: T na 3ª casa (Dó) + G + P na corda Sol.<br><br>
+              Grave-se! O slap parece ótimo na sua cabeça mas pode estar fora do tempo. O vídeo não mente.
+            </div>
+          </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('rhythm','f2m10rh','Padrão de Slap: T-G-P-G',[
+            {t:'note',l:'T'},{t:'ghost',l:'G'},{t:'note',l:'P'},{t:'ghost',l:'G'},
+            {t:'note',l:'T'},{t:'ghost',l:'G'},{t:'note',l:'P'},{t:'ghost',l:'G'},
+          ],65)}
+          ${EX.build('quiz','f2m10q','Quiz: Slap Bass',[
+            {q:'O movimento do polegar no thumb deve vir de:',o:['Todo o braço','Apenas o pulso (rotação de torneira)','Do cotovelo','Do ombro'],c:1,ok:'Correto! Pulso = eficiência e controle. Braço = cansaço e imprecisão.',fail:'O thumb é uma rotação do pulso, como virar uma chave. O braço permanece quase estático.'},
+            {q:'Por que o polegar deve ricochetear imediatamente após o golpe?',o:['Para não machucar a corda','Para não abafar a nota e permitir o sustain','Para economizar energia','Sem motivo técnico'],c:1,ok:'Exato! Ficar na corda abafa o sustain da nota.',fail:'Se o polegar ficar pressionado, abafa a corda. O ricochete libera a vibração e o sustain.'},
+            {q:'Quem é considerado o inventor do slap bass?',o:['Flea','Victor Wooten','Larry Graham','Marcus Miller'],c:2,ok:'Correto! Larry Graham desenvolveu o slap com Sly & the Family Stone nos anos 60.',fail:'Larry Graham inventou o slap originalmente como substituto da bateria nos shows de família.'},
+            {q:'O "double thumb" consiste em:',o:['Usar dois polegares','Alternância down-up com o mesmo polegar, como palheta','Slap com os dois dedos médios','Técnica de tapping'],c:1,ok:'Correto! Down + up com o polegar = dobro de velocidade no slap.',fail:'Double thumb: o polegar faz down stroke E up stroke (como palheta alternate). 2× mais velocidade.'},
+          ])}
+          ${EX.build('flashcard','f2m10fc','Flashcards: Slap Bass',[
+            {f:'Thumb Down',b:'Golpe do polegar para baixo na corda Mi/Lá. Movimento do pulso. Ricochete imediato. Som percussivo e sustentado.'},
+            {f:'Pop',b:'Indicador puxa a corda Sol/Ré para cima e solta. A corda bate nas pestanas = estalo característico do slap.'},
+            {f:'Ghost Note no Slap',b:'Thumb ou pop com cordas abafadas. Só percussão, sem pitch. É o esqueleto do groove. Sem elas, o slap fica vazio.'},
+            {f:'Double Thumb',b:'Down E up com o polegar (como alternate picking). Dobra a velocidade. Referência: Victor Wooten.'},
+            {f:'Larry Graham',b:'Inventor do slap. "Thank You" com Sly & the Family Stone (1969). O primeiro a usar o thumb no baixo.'},
+            {f:'Marcus Miller',b:'Slap refinado e musical. "Tutu" (Miles Davis). Equilibra groove, melodia e técnica impecável.'},
+          ])}
+          <div class="checklist" id="cl_f2m10">
+            ${checks('f2m10',[
+              'Faço o thumb com o pulso (não com o braço)',
+              'O polegar ricocheia imediatamente após o golpe',
+              'Consigo fazer pop com som definido e estalo',
+              'Toco o padrão T-G-P-G em 70 BPM limpo',
+              'Ouvi e estudei pelo menos 2 dos baixistas da lista acima',
+            ])}
+          </div>
+        `
+      },
+      {
+        id: 'f2m11', num: 'M11',
+        title: 'Leitura de Partitura',
+        desc: 'Ler partitura é o que separa músicos amadores de profissionais. Clave de fá, claves de dó e notação rítmica são suas ferramentas.',
+        content: () => `
+          <div class="section-title">🎼 A Clave de Fá — A Clave do Baixo</div>
+          <div class="info-box">
+            O baixo lê em <strong>Clave de Fá</strong> (Bass Clef). O símbolo parece dois pontos ao lado de uma vírgula.<br><br>
+            As notas nas linhas do pentagrama em clave de fá (de baixo para cima):<br>
+            <strong>Sol – Si – Ré – Fá – Lá</strong><br>
+            Memorize: <em>"Seu Boi Ré Famoso em Leilão"</em><br><br>
+            As notas nos espaços (de baixo para cima):<br>
+            <strong>Lá – Dó – Mi – Sol</strong><br>
+            Memorize: <em>"Laranja Com Mel Gostoso"</em><br><br>
+            A nota mais comum para começar: o Lá abaixo do pentagrama (a nota mais grave) = corda Lá solta.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">📖 Figuras e Pausas</div>
+          <div class="info-box">
+            Cada figura diz <strong>quanto tempo durar</strong>; cada pausa diz <strong>quanto tempo silenciar</strong>.<br><br>
+            <strong>Semibreve (♩ 4 tempos):</strong> Oval aberta sem haste<br>
+            <strong>Mínima (♩ 2 tempos):</strong> Oval aberta com haste<br>
+            <strong>Semínima (♩ 1 tempo):</strong> Oval fechada com haste<br>
+            <strong>Colcheia (♩ ½ tempo):</strong> Oval fechada com haste e bandeira<br>
+            <strong>Semicolcheia (♩ ¼ tempo):</strong> Oval fechada com haste e 2 bandeiras<br><br>
+            <strong>Ponto de aumento:</strong> Um ponto após a figura aumenta seu valor em metade.<br>
+            Mínima com ponto = 2 + 1 = 3 tempos.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🎯 Como Desenvolver a Leitura</div>
+          <div class="info-box">
+            <strong>Método dos 3 passos:</strong><br><br>
+            1. <strong>Ritmo primeiro:</strong> Bata palmas ou use percussão para executar o ritmo antes de tocar qualquer nota<br>
+            2. <strong>Notas depois:</strong> Identifique as notas sem se preocupar com o tempo ainda<br>
+            3. <strong>Junte tudo:</strong> Execute com metrônomo em velocidade lenta<br><br>
+            <strong>Materiais recomendados:</strong><br>
+            • "Berklee Bass Lines" (Hal Leonard)<br>
+            • "Reading Contemporary Electric Bass" (Rich Appleman)<br>
+            • Partituras de músicas que você já conhece (mais fácil de se orientar)
+          </div>
+          <div class="practice-box orange">
+            <div class="pb-label">🎯 Rotina de Leitura</div>
+            <div class="pb-text">
+              <strong>10 minutos por dia</strong> de leitura à primeira vista — sem parar para corrigir.<br><br>
+              Pense nisto como fisioterapia: você não vai ver resultado imediato, mas em 6 meses vai olhar para trás e perceber que mudou completamente.<br><br>
+              <strong>Dica:</strong> Escolha músicas abaixo do seu nível técnico. A leitura deve ser o desafio, não as notas.
+            </div>
+          </div>
+          <div class="checklist" id="cl_f2m11">
+            ${checks('f2m11',[
+              'Sei as notas nas linhas do pentagrama em clave de fá',
+              'Sei as notas nos espaços do pentagrama',
+              'Consigo ler ritmos simples em 4/4',
+              'Sei o que é ponto de aumento e tercina',
+              'Tenho prática diária de 10 min de leitura',
+            ])}
+          </div>
+        `
+      },
+      {
+        id: 'f2m12', num: 'M12',
+        title: 'Improvisação e Criatividade',
+        desc: 'Improvisar é conversar musicalmente. Aprenda a criar solos e fraseados que fazem sentido dentro de uma harmonia.',
+        content: () => `
+          <div class="section-title">🗣️ A Linguagem da Improvisação</div>
+          <div class="info-box">
+            Improvisar não é tocar notas aleatórias. É <strong>contar uma história</strong> com o seu instrumento.<br><br>
+            <strong>Os pilares da improvisação:</strong><br><br>
+            • <strong>Pergunta e Resposta:</strong> Toque uma frase de 2 compassos, pause, responda com outra frase de 2 compassos<br>
+            • <strong>Notas Alvo:</strong> A nota que você quer chegar. Geralmente a raiz, 3ª ou 7ª do acorde no tempo forte<br>
+            • <strong>Tensão e Resolução:</strong> Crie expectativa com dissonância, resolva com consonância<br>
+            • <strong>Espaço:</strong> O silêncio é uma nota. Miles Davis disse: "Don't play what's there. Play what's not there."
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🧠 Desenvolvendo Vocabulário</div>
+          <div class="info-box">
+            <strong>Método Lick-a-Day:</strong><br><br>
+            Aprenda 1 "lick" (frase musical) por dia. Um lick pode ter apenas 4–8 notas. Aprenda em uma tonalidade e depois transpose para outras.<br><br>
+            <strong>Fontes de vocabulário:</strong><br>
+            • Transcreva frases de seus baixistas favoritos<br>
+            • Escute músicas e cante as linhas antes de tocar<br>
+            • Improvise sobre backing tracks todo dia<br>
+            • Grave suas improvisações e ouça criticamente
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🌀 Como Improvisar sobre uma Progressão</div>
+          <div class="info-box">
+            <strong>Progressão Am7 – Dm7 – G7 – Cmaj7 (II-V-I em menor)</strong><br><br>
+            <strong>Nível 1:</strong> Toque só a raiz de cada acorde<br>
+            <strong>Nível 2:</strong> Adicione a 5ª<br>
+            <strong>Nível 3:</strong> Toque a tríade (1-3-5) em arpejos<br>
+            <strong>Nível 4:</strong> Adicione a 7ª e notas de passagem<br>
+            <strong>Nível 5:</strong> Use escalas e modos sobre cada acorde<br><br>
+            <em>Comece pelo Nível 1. Muitos músicos experientes tocam predominantemente no Nível 1–2. Simples funciona.</em>
+          </div>
+          <div class="practice-box orange">
+            <div class="pb-label">🎯 Sessão de Criação Semanal</div>
+            <div class="pb-text">
+              <strong>2x por semana, 15 minutos:</strong><br><br>
+              1. Ligue o gravador (celular está ótimo)<br>
+              2. Configure um drone ou loop de bateria simples<br>
+              3. Improvise sem parar por 10 minutos<br>
+              4. Ouça depois e identifique <strong>1 frase que gostou</strong><br>
+              5. Pegue essa frase e desenvolva-a na próxima sessão<br><br>
+              Não julgue enquanto toca. Julgue só na escuta. Esta disciplina vai multiplicar sua criatividade em meses.
+            </div>
+          </div>
+          <div class="checklist" id="cl_f2m12">
+            ${checks('f2m12',[
+              'Improviso sobre uma progressão simples sem parar',
+              'Consigo criar frases de pergunta e resposta',
+              'Sei o que são notas alvo e as uso na improvisação',
+              'Gravo minhas improvisações regularmente',
+              'Transcrevei pelo menos 1 frase de um baixista que admiro',
+            ])}
+          </div>
+        `
+      },
+    ]
+  },
+  // ══════════════ FASE 3 ══════════════
+  {
+    id: 'fase3',
+    label: 'FASE 3 · AVANÇADO',
+    color: 'var(--accent)',
+    dot: '#ff4d1c',
+    badgeClass: 'fase3-bg',
+    textClass: 'fase3',
+    duration: '6–12 meses · 2h/dia',
+    lessons: [
+      {
+        id: 'f3m13', num: 'M13',
+        title: 'Funk Bass — O Groove Definitivo',
+        desc: 'O funk é a escola definitiva do groove. Semicolcheias, ghostnotes, pocket e interação com a bateria são levados ao extremo.',
+        content: () => `
+          <div class="section-title">🔥 O Ritmo do Funk — Semicolcheias</div>
+          <div class="info-box">
+            No funk, a subdivisão é em <strong>semicolcheias</strong> — 16 notas por compasso. Cada tempo tem 4 subdivisões:<br><br>
+            <pre style="font-size:13px;color:var(--muted2)">
+1  e  +  a  2  e  +  a  3  e  +  a  4  e  +  a</pre><br>
+            Contar em voz alta: "<em>Um-e-e-a, Dois-e-e-a, Três-e-e-a, Quatro-e-e-a</em>"<br><br>
+            A magia do funk está em <strong>onde você NÃO toca</strong> — as ghost notes preenchem os espaços entre as notas reais, criando uma textura percussiva única.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">👻 Ghost Notes — A Alma do Funk</div>
+          <div class="info-box">
+            Ghost notes são o que diferencia um baixista mediano de um baixista de funk de verdade.<br><br>
+            <strong>Técnica:</strong> Abafe as cordas com a mão esquerda (sem pressionar até o braço) e ataque com a mão direita. O resultado é um "tschk" — percussivo, sem pitch definido.<br><br>
+            <strong>No slap:</strong> Thumb com abafamento completo<br>
+            <strong>No fingerstyle:</strong> Ataque leve com as cordas frouxas<br><br>
+            <em>Se você tirar todas as ghost notes de uma linha de funk, o groove colapsa. Elas são o esqueleto.</em>
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🎭 James Brown — "On The One"</div>
+          <div class="info-box">
+            James Brown revolucionou a música com uma ideia simples: <strong>o tempo 1 é sagrado</strong>.<br><br>
+            Enquanto o jazz resolvia na última nota (cadência), o funk de JB resolve <strong>no downbeat do tempo 1</strong>. Tudo converge para o "Um".<br><br>
+            Isso criou um tipo de groove antecipativo e satisfatório que moveu milhões de pessoas a dançar. O baixo de James Jamerson e Bootsy Collins é a aula definitiva.
+          </div>
+          <div class="practice-box">
+            <div class="pb-label">🎯 Linha Clássica de Funk para Praticar</div>
+            <div class="pb-text">
+              <strong>"Superstition" – Stevie Wonder:</strong> Toque apenas as notas principais (Mib) com variação rítmica. A linha é quase inteiramente na nota pedal com variações rítmicas.<br><br>
+              <strong>"Give It Away" – RHCP:</strong> Mi e Lá alternados com ghost notes. Prática perfeita para iniciantes no funk.<br><br>
+              <strong>Exercício de semicolcheias:</strong> 60 BPM, 16 semicolcheias por compasso. Algumas notas reais, outras ghost. Construa o groove progressivamente.<br><br>
+              Grave-se e compare com os originais. Vá ajustando até o groove "travar".
+            </div>
+          </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('rhythm','f3m13rh','Groove de Funk — 16 Semicolcheias',[
+            {t:'note',l:'1'},{t:'ghost',l:'e'},{t:'ghost',l:'+'},{t:'note',l:'a'},
+            {t:'ghost',l:'2'},{t:'note',l:'e'},{t:'ghost',l:'+'},{t:'ghost',l:'a'},
+            {t:'note',l:'3'},{t:'ghost',l:'e'},{t:'ghost',l:'+'},{t:'note',l:'a'},
+            {t:'ghost',l:'4'},{t:'note',l:'e'},{t:'ghost',l:'+'},{t:'ghost',l:'a'},
+          ],90)}
+          ${EX.build('quiz','f3m13q','Quiz: Funk Bass',[
+            {q:'Qual subdivisão rítmica é a base do funk?',o:['Colcheias (8)','Semicolcheias (16)','Tercinas','Quiálteras de 5'],c:1,ok:'Correto! 16 semicolcheias por compasso é a grade do funk.',fail:'O funk vive nas semicolcheias — 16 por compasso. Grade: 1-e-+-a × 4.'},
+            {q:'O que acontece se você tirar todas as ghost notes de um groove de funk?',o:['Fica mais limpo','O groove colapsa e perde o feel','Fica mais rápido','Soa igual'],c:1,ok:'Exato! Ghost notes são o esqueleto invisível do groove.',fail:'Ghost notes são a textura do funk. Sem elas o groove fica plano, vazio e sem vida.'},
+            {q:'A filosofia "On the One" de James Brown significa:',o:['Usar apenas 1 dedo','O tempo 1 é o ponto de resolução e energia máxima de tudo','Tocar 1 nota por compasso','1 instrumento de cada vez'],c:1,ok:'Correto! Tudo converge para o Um.',fail:'"On the One": o downbeat do tempo 1 é sagrado. Bumbo, baixo e banda inteira resolvem no 1.'},
+            {q:'Qual linha exemplifica melhor o funk de Stevie Wonder?',o:['"Billie Jean" — Michael Jackson','"Superstition" — Stevie Wonder','"Come Together" — Beatles','"La Grange" — ZZ Top'],c:1,ok:'Correto! Superstition tem uma das linhas mais icônicas do funk.',fail:'"Superstition" (Stevie Wonder) — Nathan Watts no baixo. Masterclass de groove funk.'},
+          ])}
+          <div class="checklist" id="cl_f3m13">
+            ${checks('f3m13',[
+              'Consigo subdividir em semicolcheias vocalmente e instrumentalmente',
+              'Minhas ghost notes soam percussivas e integradas',
+              'Entendo a filosofia "on the one" de James Brown',
+              'Toquei "Give It Away" do início ao fim com groove',
+              'Gravei minha linha de funk e comparei com o original',
+            ])}
+          </div>
+        `
+      },
+      {
+        id: 'f3m14', num: 'M14',
+        title: 'Jazz Bass — Walking Bass',
+        desc: 'O jazz é o doutorado do músico. Harmonia sofisticada, walking bass e improvisação em tempo real são as exigências.',
+        content: () => `
+          <div class="section-title">🚶 O Que é Walking Bass?</div>
+          <div class="info-box">
+            O <strong>walking bass</strong> é a técnica mais característica do jazz. O baixista toca <strong>4 semínimas por compasso</strong> — uma nota por tempo — criando uma linha melódica e harmônica que "caminha" de um acorde para outro.<br><br>
+            <strong>3 tipos de notas usadas:</strong><br>
+            1. <strong>Chord Tones:</strong> 1ª, 3ª, 5ª, 7ª do acorde (prioridade!)<br>
+            2. <strong>Scale Tones:</strong> Notas da escala relacionada ao acorde<br>
+            3. <strong>Chromatic Approach Notes:</strong> Nota 1 semitom acima ou abaixo da nota alvo
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🎯 Guia de Notas — A Regra de Ouro</div>
+          <div class="info-box">
+            A <strong>3ª e a 7ª</strong> de cada acorde são as notas mais informativas harmonicamente. Elas definem se o acorde é maior, menor ou dominante.<br><br>
+            <strong>Em Cmaj7:</strong> Mi (3ª) e Si (7ª) — ambas naturais<br>
+            <strong>Em Cm7:</strong> Mib (b3) e Sib (b7) — ambas abaixadas<br>
+            <strong>Em C7 (dominante):</strong> Mi (3ª natural) e Sib (b7) — combinação de tensão<br><br>
+            Na prática: <em>toque a raiz no tempo 1, escolha chord tones nos tempos 2 e 3, e resolva no tempo 4 com uma nota de aproximação cromática para a raiz do próximo acorde.</em>
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">📖 Progressão II-V-I — A Base do Jazz</div>
+          <div class="info-box">
+            A progressão II-V-I é a mais fundamental do jazz. Em Dó maior:<br><br>
+            <strong>Dm7 – G7 – Cmaj7</strong><br><br>
+            Walking bass básico para esta progressão:<br>
+            <pre style="font-size:12px;color:var(--muted2)">
+Dm7:  D  –  F  –  A  –  C#   (nota Dó# se aproxima do Ré para o próximo acorde)
+G7:   G  –  B  –  D  –  F    (F resolve no acorde Cmaj7)
+Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
+          </div>
+          <div class="practice-box">
+            <div class="pb-label">🎯 Aprenda os Standards</div>
+            <div class="pb-text">
+              Estes são os standards de jazz mais importantes para o walking bass:<br><br>
+              • <strong>"Autumn Leaves":</strong> Progressão II-V-I em menor e maior. Obrigatório.<br>
+              • <strong>"All of Me":</strong> Harmonia simples, ótimo para começar<br>
+              • <strong>"Blue Bossa":</strong> Mistura de menor e dominante, muito musical<br>
+              • <strong>"So What" (Miles Davis):</strong> Inteiramente em modo Dórico — modal jazz<br><br>
+              Baixe os playalong de Jamey Aebersold (series "Play-A-Long") — são o recurso mais usado em escolas de jazz do mundo.
+            </div>
+          </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f3m14q','Quiz: Walking Bass e Jazz',[
+            {q:'As "guide tones" mais importantes de um acorde são:',o:['Raiz e 5ª','3ª e 7ª','2ª e 6ª','4ª e 8ª'],c:1,ok:'Correto! 3ª e 7ª definem se o acorde é maior, menor ou dominante.',fail:'3ª e 7ª são as guide tones. Definem o caráter do acorde. Prioridade no walking bass.'},
+            {q:'Uma "chromatic approach note" é:',o:['Nota muito aguda','Nota 1 semitom antes da nota alvo do próximo acorde','Nota aleatória da escala cromática','Técnica de vibrato'],c:1,ok:'Exato! 1 semitom antes da nota alvo conecta acordes suavemente.',fail:'Chromatic approach: nota 1 semitom acima ou abaixo da nota alvo. Cria movimento suave entre acordes.'},
+            {q:'Walking bass usa quantas semínimas por compasso?',o:['2','4','8','16'],c:1,ok:'Correto! 4 notas por compasso — uma por tempo. É o "caminhar".',fail:'Walking bass = 4 semínimas por compasso. Uma nota em cada tempo do 4/4. Daí o nome "walking".'},
+            {q:'Qual standard de jazz é o mais indicado para aprender walking bass?',o:['Giant Steps','Autumn Leaves','Take Five','Round Midnight'],c:1,ok:'Correto! Autumn Leaves tem progressão clara — ideal para iniciantes no walking.',fail:'"Autumn Leaves" tem progressão II-V-I em maior e menor. Perfeito para treinar walking bass.'},
+          ])}
+          ${EX.build('flashcard','f3m14fc','Flashcards: Jazz e Walking Bass',[
+            {f:'Walking Bass',b:'4 semínimas por compasso. Linha melódica e harmônica que "caminha" de acorde em acorde. Padrão do jazz acústico.'},
+            {f:'Guide Tones (3ª e 7ª)',b:'Notas mais informativas de um acorde. Definem se é maior, menor ou dominante. Prioridade no walking.'},
+            {f:'Chromatic Approach',b:'Nota 1 semitom antes da nota alvo do próximo acorde. Conecta acordes suavemente. Fundamental no walking.'},
+            {f:'Progressão II-V-I',b:'A mais usada no jazz. Em Dó: Dm7-G7-Cmaj7. Subdominante → Dominante → Tônica. Aprenda em todas as 12 tonalidades.'},
+            {f:'Autumn Leaves (Les Feuilles Mortes)',b:'Standard de jazz por Joseph Kosma. Progressão II-V-I em maior e menor. O melhor para aprender walking bass.'},
+            {f:'Ron Carter',b:'Maior walking bassist da história. Quinteto de Miles Davis (1964-68). Definiu o padrão do contrabaixo no jazz moderno.'},
+          ])}
+          <div class="checklist" id="cl_f3m14">
+            ${checks('f3m14',[
+              'Entendo o que é a progressão II-V-I',
+              'Sei o que são "guide tones" (3ª e 7ª)',
+              'Consigo criar um walking bass básico sobre Autumn Leaves',
+              'Toco 4 semínimas por compasso com groove de jazz',
+              'Usei notas cromáticas de aproximação na minha linha',
+            ])}
+          </div>
+        `
+      },
+      {
+        id: 'f3m15', num: 'M15',
+        title: 'Técnicas Avançadas',
+        desc: 'Técnicas que poucos dominam e que fazem a diferença em um nível alto de musicalidade.',
+        content: () => `
+          <div class="section-title">🕊️ Harmônicos Naturais</div>
+          <div class="info-box">
+            Harmônicos naturais são sons <strong>etéreos e campânicos</strong> produzidos ao encostar levemente o dedo sobre certas casas (sem pressionar até o braço).<br><br>
+            <strong>Casas que produzem harmônicos naturais:</strong><br>
+            • Casa 12 → oitava da corda solta<br>
+            • Casa 7 → quinta (ex: Mi corda aberta → Si)<br>
+            • Casa 5 → oitava dupla<br>
+            • Casa 4 → terça maior<br><br>
+            Jaco Pastorius transformou harmônicos naturais em arte. Ouça "Portrait of Tracy" — inteiramente feita de harmônicos.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🎸 Tapping no Baixo</div>
+          <div class="info-box">
+            O tapping usa <strong>ambas as mãos no braço</strong> para produzir notas, similar à guitarra mas com o peso e sustain do baixo.<br><br>
+            <strong>Técnica básica:</strong><br>
+            • A mão direita "bate" nas casas superiores do braço<br>
+            • A mão esquerda mantém as notas inferiores<br>
+            • Resultado: possibilidade de tocar intervalos e arpejos impossíveis de outra forma<br><br>
+            Referências: Stu Hamm, Victor Wooten, Les Claypool, Michael Manring.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">⚡ Double Thumb (Victor Wooten)</div>
+          <div class="info-box">
+            O double thumb é como "alternate picking" com o polegar no slap:<br><br>
+            • <strong>Down stroke:</strong> Polegar bate a corda para baixo (como o thumb normal)<br>
+            • <strong>Up stroke:</strong> Polegar sobe pela corda (como a palheta, mas com o polegar)<br><br>
+            Isso dobra a velocidade potencial do slap. Victor Wooten executa semicolcheias em 200 BPM com double thumb — a fronteira humana do instrumento.
+          </div>
+          <div class="practice-box">
+            <div class="pb-label">🎯 Como Abordar as Técnicas Avançadas</div>
+            <div class="pb-text">
+              Escolha <strong>UMA técnica</strong> e pratique por <strong>30 dias</strong>, 20 min/dia.<br><br>
+              <strong>Ordem sugerida:</strong><br>
+              1. Harmônicos naturais (mais fácil, imediato resultado musical)<br>
+              2. Double thumb (extensão natural do slap que você já sabe)<br>
+              3. Tapping (mais complexo, requer coordenação independente das mãos)<br><br>
+              Profundidade > Largura. Domine uma antes de começar outra. O músico que sabe 10 técnicas medianamente perde para o que domina 3 técnicas completamente.
+            </div>
+          </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f3m15q','Quiz: Técnicas Avançadas',[
+            {q:'Como se produz um harmônico natural?',o:['Pressionando forte na casa','Encostando levemente o dedo sobre a casa, sem pressionar até o braço','Usando palheta muito forte','Pedal de efeito'],c:1,ok:'Correto! Toque leve sobre a casa, sem pressionar. Levante imediatamente.',fail:'Harmônico natural: dedo levemente sobre a casa (sem pressionar). Toque e levante o dedo simultaneamente.'},
+            {q:'A casa 7 de qualquer corda produz qual harmônico natural?',o:['Oitava','Quinta (uma oitava e meia acima)','Oitava dupla (2 oitavas)','Terça maior'],c:1,ok:'Correto! Casa 7 = quinta acima da corda solta.',fail:'Harmonics: casa 12=oitava, casa 7=quinta (1 oitava e meia), casa 5=oitava dupla.'},
+            {q:'O "double thumb" duplica a velocidade do slap ao:',o:['Usar dois polegares','Fazer down stroke E up stroke com o mesmo polegar','Alternar polegar e indicador','Usar ambas as mãos'],c:1,ok:'Correto! Down + up com o polegar = 2× velocidade.',fail:'Double thumb: polegar faz down stroke (normal) + up stroke (ao voltar). Como alternate picking.'},
+            {q:'O tapping no baixo envolve:',o:['Só a mão direita no braço','Ambas as mãos no braço, produzindo notas independentemente','Percussão no corpo do baixo','Só harmônicos'],c:1,ok:'Exato! Ambas as mãos no braço = possibilidade de intervalos impossíveis de outra forma.',fail:'Tapping: mão direita também toca no braço, criando notas independentes da mão esquerda.'},
+          ])}
+          ${EX.build('flashcard','f3m15fc','Flashcards: Técnicas Avançadas',[
+            {f:'Harmônico Natural',b:'Dedo levemente sobre casa 12, 7 ou 5. Som campânico. Casa 12=oitava, 7=quinta, 5=oitava dupla.'},
+            {f:'Harmônico Artificial',b:'Mão esq. pressiona; mão dir. toca levemente 12 casas acima. Produz harmônico em qualquer nota.'},
+            {f:'Double Thumb',b:'Down + up com o polegar. Dobra a velocidade. Victor Wooten é a referência máxima. "Amazing Grace" solo.'},
+            {f:'Tapping',b:'Mão direita também toca no braço. Permite arpejos e saltos de intervalos impossíveis com uma mão só.'},
+            {f:'Portrait of Tracy — Jaco',b:'Solo de baixo fretless de Jaco Pastorius inteiramente em harmônicos. O ponto mais alto da arte do baixo elétrico.'},
+            {f:'Victor Wooten',b:'O maior baixista vivo. Double thumb, tapping, groove insano. "Classical Thump" e "Amazing Grace" são obras-primas.'},
+          ])}
+          <div class="checklist" id="cl_f3m15">
+            ${checks('f3m15',[
+              'Consigo produzir harmônicos naturais nas casas 12, 7 e 5',
+              'Ouvi "Portrait of Tracy" de Jaco Pastorius',
+              'Iniciei o estudo de double thumb',
+              'Consigo fazer upstroke com o polegar de forma controlada',
+              'Tentei tapping e produzi pelo menos notas limpas',
+            ])}
+          </div>
+        `
+      },
+      {
+        id: 'f3m16', num: 'M16',
+        title: 'Estilos Avançados — Parte 2',
+        desc: 'Amplie seu repertório estilístico com gêneros que exigem mais sofisticação técnica e harmônica.',
+        content: () => `
+          <div class="section-title">🧬 Fusion — A Intersecção de Tudo</div>
+          <div class="info-box">
+            Fusion é a fusão de jazz com rock, funk e elementos eletrônicos. Surgiu nos anos 70 com Miles Davis e explodiu com Weather Report, Mahavishnu Orchestra e Return to Forever.<br><br>
+            <strong>Para o baixo:</strong> Slap, fingerstyle e palhetada se misturam. Harmonia modal e progressões jazz. Groove de funk com improviso de jazz.<br><br>
+            <strong>Referências:</strong> Jaco Pastorius (Weather Report), Marcus Miller, Stanley Clarke, Alphonso Johnson.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">💿 Neo Soul e R&B — O Groove do Século XXI</div>
+          <div class="info-box">
+            Neo Soul mistura soul clássico dos anos 60/70 com hip-hop, jazz e R&B contemporâneo. É um dos estilos mais musicais da atualidade.<br><br>
+            <strong>Características do baixo no neo soul:</strong><br>
+            • Linhas melódicas cantáveis<br>
+            • Harmonia rica (9ª, 11ª, 13ª)<br>
+            • Groove behind the beat (como o reggae, mas mais sutil)<br>
+            • Muito espaço — o baixo "respira"<br><br>
+            <strong>Referências:</strong> Pino Palladino (D'Angelo, John Mayer), James Jamerson Jr., Thundercat.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🌍 Afrobeat — Fela Kuti e a Clave Africana</div>
+          <div class="info-box">
+            Afrobeat é a fusão de música africana (yorubá, highlife) com jazz e funk, criada por Fela Kuti nos anos 70.<br><br>
+            <strong>Característica principal:</strong> A clave — um padrão rítmico de 2 compassos que "ancora" toda a banda. O baixo segue a clave.<br><br>
+            O afrobeat tem influenciado artistas como Beyoncé, Burna Boy e toda a cena afrobeats moderna.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🙏 Gospel Bass — Igreja e Virtuosismo</div>
+          <div class="info-box">
+            O gospel americano produziu alguns dos maiores baixistas do mundo. A exigência técnica e emocional é extrema.<br><br>
+            <strong>Características:</strong> Turnarounds rápidos, seguir o cantor/pregador, harmonias expansivas, groove de R&B e funk. O baixista de gospel precisa ler, improvisar e responder — tudo ao mesmo tempo.
+          </div>
+          <div class="practice-box">
+            <div class="pb-label">🎯 Plano de Imersão</div>
+            <div class="pb-text">
+              <strong>2 meses por estilo — total: 8 meses</strong><br><br>
+              Fusion: "Chameleon" (Herbie Hancock), "Teen Town" (Jaco Pastorius)<br>
+              Neo Soul: Qualquer álbum de D'Angelo ("Voodoo" é o melhor)<br>
+              Afrobeat: Fela Kuti "Zombie", "Lady"<br>
+              Gospel: Tye Tribbett, Kirk Franklin — assista vídeos ao vivo<br><br>
+              Para cada estilo: ouça 30h de música, transcreva 2 linhas, toque com gravações originais.
+            </div>
+          </div>
+          <div class="checklist" id="cl_f3m16">
+            ${checks('f3m16',[
+              'Ouvi pelo menos um álbum completo de fusion',
+              'Sei o que é Neo Soul e conheço Pino Palladino',
+              'Entendo o conceito de clave africana no afrobeat',
+              'Assisti uma performance ao vivo de gospel com baixo',
+              'Transcrevei uma linha em pelo menos 2 dos estilos acima',
+            ])}
+          </div>
+        `
+      },
+      {
+        id: 'f3m17', num: 'M17',
+        title: 'Harmonia Funcional Avançada',
+        desc: 'Entenda como a harmonia funciona em profundidade para criar linhas de baixo que são musicalmente inteligentes.',
+        content: () => `
+          <div class="section-title">🏗️ Funções Harmônicas</div>
+          <div class="info-box">
+            Em qualquer tonalidade, os acordes têm <strong>funções</strong> que determinam sua relação com o centro tonal:<br><br>
+            <strong>Tônica (T):</strong> Repouso, estabilidade. Graus I, III, VI.<br>
+            <strong>Subdominante (S):</strong> Movimento, afastamento da tônica. Graus II, IV.<br>
+            <strong>Dominante (D):</strong> Tensão máxima, quer resolver. Grau V (sempre com 7ª).<br><br>
+            O movimento mais forte da harmonia: <strong>Dominante → Tônica</strong> (V7 → I)<br><br>
+            Entender funções permite <strong>criar substituições</strong> e <strong>antecipações harmônicas</strong> — você toca o baixo do próximo acorde antes de todo mundo.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🔄 Empréstimo Modal</div>
+          <div class="info-box">
+            Empréstimo modal é quando você usa um acorde de uma tonalidade paralela. Exemplo em Dó maior: o IV grau menor (Fm) é "emprestado" do Dó menor.<br><br>
+            Isso cria a progressão <strong>I – IV – IVm – I</strong>, muito usada em baladas e MPB. Ouça "Yesterday" dos Beatles — o Fm do verso é um empréstimo modal.<br><br>
+            Como baixista: prepare-se para a nota b3 do acorde menor quando ele aparecer numa progressão maior.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🔢 Modulação — Mudança de Tonalidade</div>
+          <div class="info-box">
+            Modular é mudar o centro tonal. Tipos comuns:<br><br>
+            <strong>Modulação direta:</strong> Simplesmente mudar de tonalidade sem preparação. Ex: refrão 1 semitom acima.<br>
+            <strong>Modulação por acorde pivô:</strong> Um acorde funciona em ambas as tonalidades simultaneamente.<br>
+            <strong>Modulação por V7:</strong> O dominante da nova tonalidade anuncia a chegada.<br><br>
+            Como baixista: perceba quando a tonalidade muda e <strong>ancore a nova tônica</strong> no tempo 1.
+          </div>
+          <div class="practice-box">
+            <div class="pb-label">🎯 Análise Harmônica Semanal</div>
+            <div class="pb-text">
+              <strong>1 música por semana para analisar:</strong><br><br>
+              1. Ouça 3x prestando atenção apenas na harmonia<br>
+              2. Escreva os acordes com cifra<br>
+              3. Identifique a tonalidade e os graus de cada acorde (I, II, V, etc.)<br>
+              4. Encontre empréstimos modais e modulações<br>
+              5. Crie uma linha de baixo usando chord tones e funções harmônicas<br><br>
+              <strong>Músicas sugeridas:</strong> "Girl from Ipanema", "Fly Me to the Moon", "Yesterday", "Ain't No Sunshine"
+            </div>
+          </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f3m17q','Quiz: Harmonia Funcional',[
+            {q:'Qual é a função harmônica do acorde V7 (dominante com sétima)?',o:['Repouso e estabilidade','Tensão máxima que quer resolver no I','Movimento moderado','Finalização'],c:1,ok:'Correto! V7 = máxima tensão. Sempre resolve no I.',fail:'V7 (dominante) é o acorde de maior tensão. "Puxa" para a tônica como gravidade.'},
+            {q:'Em Dó maior, qual é o acorde V7?',o:['Dm7','G7','Fmaj7','Am7'],c:1,ok:'Correto! G7 é o V7 de Dó maior.',fail:'Em Dó maior: I=C, II=D, III=E, IV=F, V=G. O V7 é G7 (Sol dominante sétima).'},
+            {q:'O que é empréstimo modal?',o:['Pegar instrumento emprestado','Usar acorde da tonalidade paralela (maior ↔ menor)','Modulação permanente','Substituição de dominante'],c:1,ok:'Exato! Em "Yesterday", o Fm é emprestado do Fá menor.',fail:'Empréstimo modal: usar acorde da tonalidade paralela. Em Dó maior, usar Cm, Fm ou Ab (do menor).'},
+            {q:'Como baixista, o sinal mais claro de que a música modulou é:',o:['A letra menciona','A tônica muda e os acordes giram em torno de um novo centro tonal','O andamento muda','O cantor sobe de registro'],c:1,ok:'Correto! A nova tônica é o sinal da modulação.',fail:'Modulação: o centro tonal muda. A nova raiz passa a ser o ponto de repouso. Ancore no tempo 1.'},
+          ])}
+          ${EX.build('flashcard','f3m17fc','Flashcards: Harmonia',[
+            {f:'Tônica',b:'Função de repouso. Graus I, III, VI. Onde a música "chega em casa". Estabilidade e conclusão.'},
+            {f:'Dominante',b:'Tensão máxima. Grau V (V7). Sempre quer resolver na tônica. Motor da progressão harmônica.'},
+            {f:'Subdominante',b:'Movimento moderado. Graus II e IV. Afasta da tônica sem tensão extrema.'},
+            {f:'Progressão II-V-I',b:'S→D→T. A mais usada na música. Em jazz: Dm7-G7-Cmaj7. Base de centenas de standards.'},
+            {f:'Empréstimo Modal',b:'Usar acorde da tonalidade paralela. Em Dó maior: Cm, Fm, Abmaj7 são emprestados do menor.'},
+            {f:'Modulação',b:'Mudança de centro tonal. Tipos: direta, por acorde pivô, por dominante secundário.'},
+          ])}
+          <div class="checklist" id="cl_f3m17">
+            ${checks('f3m17',[
+              'Sei identificar as funções T, S, D de um acorde',
+              'Consigo analisar harmonicamente uma música simples',
+              'Entendo o que é empréstimo modal',
+              'Sei identificar quando uma música modula',
+              'Crei uma linha de baixo baseada em análise harmônica',
+            ])}
+          </div>
+        `
+      },
+      {
+        id: 'f3m18', num: 'M18',
+        title: 'Composição e Criação de Linhas',
+        desc: 'Um profissional de verdade sabe criar. Aprenda a compor grooves, intros e linhas que se tornam marcantes.',
+        content: () => `
+          <div class="section-title">✍️ Como Criar um Riff de Baixo Original</div>
+          <div class="info-box">
+            Os melhores riffs de baixo da história têm algo em comum: são <strong>simples, repetíveis e inconfundíveis</strong>.<br><br>
+            <strong>Processo criativo:</strong><br>
+            1. Defina a tonalidade e o estilo<br>
+            2. Escolha um ou dois acordes como base (pedal)<br>
+            3. Crie um motivo rítmico de 2–4 notas<br>
+            4. Repita e varie o motivo<br>
+            5. Adicione ghost notes e articulação<br><br>
+            <em>Exemplo: "Another One Bites the Dust" (Queen) — basicamente uma nota (Mi) com variações rítmicas. A simplicidade criou um dos riffs mais reconhecíveis da história.</em>
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🏗️ Estrutura de uma Música</div>
+          <div class="info-box">
+            Entender estrutura musical permite criar linhas que <strong>servem à música</strong>:<br><br>
+            <strong>Intro:</strong> Estabelece o groove/tonalidade. Pode ser o riff mais marcante.<br>
+            <strong>Verso (A):</strong> Mais reservado, deixa espaço para a voz.<br>
+            <strong>Pré-refrão (B):</strong> Tensão crescente, construção de energia.<br>
+            <strong>Refrão (C):</strong> Pico de energia, linha mais marcante e simples.<br>
+            <strong>Bridge:</strong> Contraste. Harmonia ou groove diferente.<br>
+            <strong>Outro/Coda:</strong> Resolução final.<br><br>
+            A linha de baixo deve <strong>diferenciar cada seção</strong>. Se tudo soar igual, a música não tem dinâmica.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">💻 Noções de Produção e DAW</div>
+          <div class="info-box">
+            Hoje em dia, saber usar uma DAW (Digital Audio Workstation) é quase obrigatório.<br><br>
+            <strong>DAWs recomendadas:</strong><br>
+            • <strong>GarageBand</strong> (Mac/iOS) — gratuita, profissional o suficiente<br>
+            • <strong>Reaper</strong> — pago mas barato, muito poderoso<br>
+            • <strong>Ableton Live</strong> — padrão da indústria, interface de áudio necessária<br><br>
+            <strong>Interface de áudio:</strong> Focusrite Scarlett 2i2 é a mais usada por músicos iniciando em home studio. Conecta o baixo diretamente ao computador com qualidade profissional.
+          </div>
+          <div class="practice-box">
+            <div class="pb-label">🎯 Projeto Final da Fase 3</div>
+            <div class="pb-text">
+              <strong>Componha uma peça instrumental de 2–3 minutos.</strong><br><br>
+              Requisitos:<br>
+              ✅ O baixo é o instrumento principal<br>
+              ✅ Use pelo menos 2 estilos diferentes que aprendeu<br>
+              ✅ Grave usando DAW com bateria virtual<br>
+              ✅ Inclua uma seção de improvisação<br>
+              ✅ Publique online (YouTube, SoundCloud, Instagram)<br><br>
+              Este projeto integra tudo que você aprendeu na Fase 3. É o seu cartão de visitas.
+            </div>
+          </div>
+          <div class="checklist" id="cl_f3m18">
+            ${checks('f3m18',[
+              'Criei um riff de baixo original que gosto',
+              'Sei diferenciar as seções de uma música na minha linha',
+              'Tenho uma DAW instalada e sei gravar o baixo',
+              'Tenho uma interface de áudio ou usei um método alternativo',
+              'Compus e gravei pelo menos uma ideia musical completa',
+            ])}
+          </div>
+        `
+      },
+    ]
+  },
+  // ══════════════ FASE 4 ══════════════
+  {
+    id: 'fase4',
+    label: 'FASE 4 · PROFISSIONAL',
+    color: 'var(--accent3)',
+    dot: '#3d9bff',
+    badgeClass: 'fase4-bg',
+    textClass: 'fase4',
+    duration: 'Contínuo · 2–3h/dia',
+    lessons: [
+      {
+        id: 'f4m19', num: 'M19',
+        title: 'Session Player — Como Funciona',
+        desc: 'Session player é o músico que entra em estúdio, lê o chart, grava e entrega. Confiança, versatilidade e profissionalismo acima de tudo.',
+        content: () => `
+          <div class="section-title">📋 Lendo um Chart de Estúdio</div>
+          <div class="info-box">
+            Um <strong>chart</strong> é a folha de cifras/partitura usada em estúdios. Pode variar de um lead sheet simples a uma partitura completa.<br><br>
+            <strong>O que você vai encontrar:</strong><br>
+            • Cifras com ritmo indicado<br>
+            • Partitura em clave de fá com notas exatas<br>
+            • "Nashville Number System" — sistema numérico usado no country/gospel americano<br>
+            • Indicações como "groove", "straight", "swing", "feel free"<br><br>
+            <strong>Regra de ouro do estúdio:</strong> <em>Sirva a música. Não toque para impressionar o produtor — toque para fazer a música soar melhor.</em>
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">⚡ Aprender Músicas Rapidamente</div>
+          <div class="info-box">
+            Em sessões profissionais, você pode ter <strong>5–10 minutos</strong> para aprender uma música.<br><br>
+            <strong>Método de aprendizado rápido:</strong><br>
+            1. Ouça a música de ponta a ponta (2 min)<br>
+            2. Identifique a tonalidade, tempo e estrutura<br>
+            3. Escreva a sequência de acordes<br>
+            4. Identifique o "feel" — é blues? Funk? Straight rock?<br>
+            5. Toque com a gravação antes de gravar sozinho<br><br>
+            Pratique isso semanalmente. Pegue músicas que não conhece e tente tocar em 10 minutos.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🎙️ Etiqueta de Estúdio</div>
+          <div class="info-box">
+            Ser um ótimo músico não é suficiente — você precisa ser <strong>profissional</strong>:<br><br>
+            • Chegue cedo, nunca no horário marcado<br>
+            • Instrumento afinado e com bateria nova/cordas novas<br>
+            • Ouça o produtor e o artista — eles têm a visão<br>
+            • Não toque enquanto alguém está falando<br>
+            • Não critique outras escolhas musicais<br>
+            • Grave tudo — seus takes podem ser usados mais tarde<br>
+            • Seja a pessoa mais fácil do estúdio para trabalhar<br><br>
+            <em>Músicos são re-contratados por talento, mas também pela personalidade. Seja quem as pessoas querem ter por perto.</em>
+          </div>
+          <div class="practice-box blue">
+            <div class="pb-label">🎯 Simulação de Sessão</div>
+            <div class="pb-text">
+              1x por semana: escolha 3 músicas que você nunca tocou<br><br>
+              Regra: você tem <strong>5 minutos por música</strong> para aprender e gravar.<br><br>
+              Configure o gravador, leia o chart (ou ouça uma vez), e grave sem parar.<br><br>
+              Ouça depois. Avalie: o groove estava certo? As mudanças de acorde foram limpas? A dinâmica serviu a música?<br><br>
+              Esta prática vai desenvolver sua <strong>musicalidade instantânea</strong> — a habilidade mais valorizada em sessões.
+            </div>
+          </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f4m19q','Quiz: Session Player',[
+            {q:'Qual é a postura correta em uma sessão de estúdio?',o:['Tocar o que você acha melhor','Ouvir produtor e artista — eles têm a visão da música','Mostrar todo seu vocabulário','Improvisar sempre'],c:1,ok:'Correto! Em sessão você serve a visão do artista e do produtor.',fail:'Em estúdio: ouça, execute, entregue. Não é hora de mostrar habilidade — é hora de servir a música.'},
+            {q:'O Nashville Number System é:',o:['App de afinação','Sistema numérico de cifras (1-2-3-4-5-6-7) muito usado no country e gospel','Tipo de compasso','Técnica de slap'],c:1,ok:'Correto! NNS usa graus numéricos em vez de letras — permite transposição instantânea.',fail:'NNS: usa números (1,2,3...) em vez de notas. O músico transpõe imediatamente para qualquer tom.'},
+            {q:'Por que chegar cedo a uma sessão de estúdio?',o:['Para cobrar hora extra','Para montar, afinar e estar pronto quando o produtor chegar','Para impressionar a equipe','Sem motivo especial'],c:1,ok:'Exato! Profissional está pronto quando o trabalho começa.',fail:'Chegar cedo = montar, afinar, aquecer. Quando o produtor chega, você já está pronto para gravar.'},
+            {q:'O que é um lead sheet?',o:['Contrato musical','Partitura simplificada com melodia, cifras e letra','Lista de músicas do show','Planilha de pagamento'],c:1,ok:'Correto! Lead sheet: melodia + cifras + letra. Padrão em jazz e sessões.',fail:'Lead sheet: melodia, cifras de acordes e letra. O músico cria o acompanhamento com base nas cifras.'},
+          ])}
+          ${EX.build('flashcard','f4m19fc','Flashcards: Carreira e Estúdio',[
+            {f:'Nashville Number System',b:'Cifra numérica: 1=tônica, 4=subdominante, 5=dominante. Transposição instantânea. Padrão no country e gospel americano.'},
+            {f:'Lead Sheet',b:'Melodia + cifras + letra. Sem arranjo completo. O músico cria o acompanhamento. Padrão em jazz.'},
+            {f:'Etiqueta de Estúdio',b:'Chegue cedo. Instrumento afinado. Ouça. Não critique. Sirva a música. Seja fácil de trabalhar.'},
+            {f:'DI Box',b:'Direct Injection: converte sinal do baixo para XLR balanceado. Padrão em estúdio e ao vivo. Radial J48 = referência.'},
+            {f:'SoundBetter / AirGigs',b:'Plataformas de freelance musical para sessões remotas. Conecta músicos a artistas do mundo todo.'},
+            {f:'Home Studio Básico',b:'Focusrite Scarlett 2i2 + Reaper ou GarageBand + DI Box + fones bons = qualidade profissional em casa.'},
+          ])}
+          <div class="checklist" id="cl_f4m19">
+            ${checks('f4m19',[
+              'Consigo ler um chart básico com cifras e ritmo',
+              'Aprendo músicas novas em menos de 10 minutos',
+              'Sei o que é o Nashville Number System',
+              'Fiz pelo menos uma simulação de sessão de estúdio',
+              'Tenho uma gravação profissional ou semi-profissional do meu baixo',
+            ])}
+          </div>
+        `
+      },
+      {
+        id: 'f4m20', num: 'M20',
+        title: 'Som, Equipamento e Home Studio',
+        desc: 'Um profissional sabe como soar bem em qualquer situação: ao vivo, em estúdio, ou em home studio.',
+        content: () => `
+          <div class="section-title">🔌 DI Box — O Que É e Quando Usar</div>
+          <div class="info-box">
+            DI (Direct Injection) box converte o sinal do baixo para o formato de microfone (XLR balanceado), eliminando ruídos em cabos longos.<br><br>
+            <strong>Quando usar:</strong><br>
+            • Em estúdio: DI é a forma padrão de gravar baixo<br>
+            • Ao vivo: mesa de som usa DI para ter o sinal limpo do baixo<br><br>
+            <strong>DI ativa vs passiva:</strong> Ativa precisa de bateria/phantom power, dá mais controle de EQ. Passiva é mais simples e robusta.<br><br>
+            <strong>Recomendação:</strong> Radial J48 (profissional) ou Behringer DI20 (econômica para iniciantes).
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🎚️ EQ do Baixo — Frequências que Importam</div>
+          <div class="info-box">
+            <strong>Sub-grave (20–80 Hz):</strong> O "feel" físico, sentido no peito. Cuidado com excesso — turva o mix.<br>
+            <strong>Grave (80–250 Hz):</strong> O "corpo" do baixo. A maior parte do tom está aqui.<br>
+            <strong>Médio-baixo (250–500 Hz):</strong> Pode ficar "enlameado" — reduza se houver borrão.<br>
+            <strong>Médio (500 Hz–2 kHz):</strong> O "nariz" do baixo, presença, definição do slap.<br>
+            <strong>Agudo (2–10 kHz):</strong> Clique da palheta, fret noise, articulação.<br><br>
+            <em>Regra prática: menos é mais em EQ. Corte antes de amplificar.</em>
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🔊 Compressor — Seu Melhor Amigo</div>
+          <div class="info-box">
+            O compressor iguala o volume das notas — as mais fortes ficam menos fortes, as suaves ficam mais audíveis.<br><br>
+            <strong>Parâmetros básicos:</strong><br>
+            • <strong>Threshold:</strong> A partir de qual volume o compressor age<br>
+            • <strong>Ratio:</strong> Quanto comprime. 4:1 é natural; 8:1+ é forte.<br>
+            • <strong>Attack:</strong> Quanto tempo leva para agir. Rápido = mais pump; lento = preserva o ataque.<br>
+            • <strong>Release:</strong> Quanto tempo leva para parar de agir<br><br>
+            Para baixo: threshold moderado, ratio 4:1, attack médio. Transparente é o objetivo.
+          </div>
+          <div class="topics-grid">
+            ${topics([
+              ['🎹','Interface de áudio: Focusrite Scarlett 2i2 — padrão de entrada para músicos'],
+              ['💻','DAW: Reaper (pago/barato), GarageBand (Mac, grátis), Logic Pro (Mac)'],
+              ['🥁','Bateria virtual: Superior Drummer, EZDrummer, GarageBand Drummer'],
+              ['🔌','DI Box: Radial J48 (pro), Behringer DI20 (econômica)'],
+              ['🎚️','Compressor pedal: MXR M87, Empress Compressor, Cali76'],
+              ['📱','Afinador: TC Electronic PolyTune (pedal), BOSS TU-3'],
+            ])}
+          </div>
+          <div class="checklist" id="cl_f4m20">
+            ${checks('f4m20',[
+              'Sei o que é DI Box e quando usar',
+              'Entendo as faixas de frequência do EQ do baixo',
+              'Sei como configurar um compressor básico',
+              'Tenho um setup de home studio funcional (mesmo que básico)',
+              'Gravei pelo menos uma música com qualidade de escuta confortável',
+            ])}
+          </div>
+        `
+      },
+      {
+        id: 'f4m21', num: 'M21',
+        title: 'Performance ao Vivo',
+        desc: 'O palco é onde tudo acontece. Preparação, presença cênica e gerenciamento de pressão são habilidades que se desenvolvem só tocando ao vivo.',
+        content: () => `
+          <div class="section-title">🎭 Presença de Palco</div>
+          <div class="info-box">
+            Presença de palco não é sobre ser extrovertido — é sobre <strong>comunicar que você acredita no que está tocando</strong>.<br><br>
+            <strong>Dicas práticas:</strong><br>
+            • Levante os olhos do braço — olhe para a banda e para o público<br>
+            • Mova o corpo com o groove — não fique estático<br>
+            • Interaja com o baterista — ele é seu parceiro mais importante<br>
+            • Sorria quando errar — erros acontecem e o público não sabe (na maioria das vezes)<br>
+            • Conheça o repertório tão bem que você pode tocar no piloto automático e se comunicar
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">👂 Monitoração — O que Você Ouve no Palco</div>
+          <div class="info-box">
+            <strong>Monitor de palco (wedge):</strong> Caixa inclinada na frente de você. Você pede ao operador de som o que quer ouvir mais. Sempre peça: seu baixo + bumbo + voz líder.<br><br>
+            <strong>In-ear monitor (IEM):</strong> Fones intra-auriculares. Isola o som externo, proteção auditiva, mix personalizado. Profissional e crescente adoção.<br><br>
+            <strong>Problema comum:</strong> Não conseguir ouvir o baixo em palco e compensar tocando mais forte no amplificador, criando feedback e briga de volumes. <em>Solução: comunique-se com o operador de som antes de começar.</em>
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">😰 Gerenciando a Ansiedade de Palco</div>
+          <div class="info-box">
+            Ansiedade de palco é normal — até grandes músicos a sentem. O objetivo não é eliminar, mas <strong>canalizar</strong>.<br><br>
+            <strong>Técnicas que funcionam:</strong><br>
+            • Respiração diafragmática antes de entrar no palco (4 seg inspira, 4 segurar, 4 expira)<br>
+            • Ensaios de "simulação" — toque o setlist completo como se fosse show, sem parar<br>
+            • Superexposição — toque ao vivo frequentemente. A ansiedade diminui com experiência<br>
+            • Foco no groove e na banda, não no público — o que você toca, não em como te veem<br><br>
+            <em>A preparação é o melhor ansiolítico. Se você sabe o repertório de trás para frente, a ansiedade tem menos espaço.</em>
+          </div>
+          <div class="practice-box blue">
+            <div class="pb-label">🎯 Meta Mínima de Palco</div>
+            <div class="pb-text">
+              <strong>Toque ao vivo pelo menos 1x por mês.</strong><br><br>
+              Não espere estar "pronto". Não existe pronto para o palco — existe experiência acumulada de palco.<br><br>
+              <strong>Onde começar:</strong><br>
+              • Jam sessions abertas (bares, casas de cultura)<br>
+              • Igrejas (Gospel exige músicos constantemente)<br>
+              • Bandas de escola/faculdade<br>
+              • Eventos de amigos e família<br>
+              • Open mics<br><br>
+              Cada show é uma aula que nenhum professor pode te dar.
+            </div>
+          </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f4m21q','Quiz: Performance e Carreira',[
+            {q:'A melhor forma de superar a ansiedade de palco a longo prazo é:',o:['Evitar tocar ao vivo','Tomar remédios calmantes','Tocar ao vivo com frequência — superexposição gradual','Só tocar em casa'],c:2,ok:'Correto! A ansiedade diminui com experiência acumulada de palco.',fail:'A melhor cura é a exposição repetida. Cada show te prepara para o próximo.'},
+            {q:'Qual mix pedir no monitor de palco?',o:['Máximo de tudo','Seu baixo + bumbo da bateria + voz líder','Só guitarra','Só sua própria voz'],c:1,ok:'Correto! Baixo + bumbo + voz = referência rítmica e harmônica completa.',fail:'No monitor: SEU baixo, o bumbo e a voz líder. Com isso você se orienta perfeitamente no palco.'},
+            {q:'Por que postar vídeos tocando nas redes sociais regularmente?',o:['Para ficar famoso','Para criar presença, portfólio e oportunidades que chegam até você','Para ganhar dinheiro direto','Sem importância'],c:1,ok:'Exato! Consistência online = presença e oportunidades.',fail:'Presença online cria portfólio, atrai oportunidades e mantém você "no radar" da comunidade musical.'},
+            {q:'Qual fonte de renda é geralmente mais estável para um músico?',o:['Royalties de streaming','Shows esporádicos','Aulas de música regulares','Venda de CDs'],c:2,ok:'Correto! Aulas criam renda recorrente e previsível.',fail:'Aulas de música = renda recorrente e estável. Shows são imprevisíveis; aulas garantem consistência financeira.'},
+          ])}
+          ${EX.build('flashcard','f4m21fc','Flashcards: Performance e Carreira',[
+            {f:'Presença de Palco',b:'Comunicar que você acredita no que toca. Olhar para a banda. Mover-se com o groove. Interagir.'},
+            {f:'In-Ear Monitor (IEM)',b:'Fone intra-auricular no palco. Isola ruído externo, protege audição, permite mix personalizado.'},
+            {f:'Setlist de Memória',b:'Conhecer o repertório completamente libera sua atenção para o groove, a banda e o público.'},
+            {f:'Regra do Conteúdo Online',b:'Consistência > Perfeição. 1 vídeo por semana por 1 ano = portfólio que 95% dos músicos não têm.'},
+            {f:'Networking Musical',b:'A maioria dos trabalhos vem de indicação. Seja o músico que todos querem chamar: confiável, positivo, preparado.'},
+            {f:'Fontes de Renda Musical',b:'Shows + Sessões + Aulas + Produção + Conteúdo digital. Diversifique. Não dependa de uma só fonte.'},
+          ])}
+          <div class="checklist" id="cl_f4m21">
+            ${checks('f4m21',[
+              'Toquei ao vivo pelo menos 1 vez',
+              'Sei como pedir o monitor ao operador de som',
+              'Conheço meu setlist de memória (sem precisar olhar)',
+              'Consigo tocar e olhar para a banda ao mesmo tempo',
+              'Já errei ao vivo e continuei tocando sem parar',
+            ])}
+          </div>
+        `
+      },
+      {
+        id: 'f4m22', num: 'M22',
+        title: 'Carreira, Networking e Conteúdo',
+        desc: 'Ser um ótimo músico não é suficiente. Você precisa ser conhecido, confiável e fácil de trabalhar.',
+        content: () => `
+          <div class="section-title">🤝 Construindo Sua Rede de Músicos</div>
+          <div class="info-box">
+            A maioria dos trabalhos musicais vem de <strong>indicações de outros músicos</strong>, não de audições abertas.<br><br>
+            <strong>Como construir rede:</strong><br>
+            • Frequente jam sessions — o objetivo é conhecer pessoas, não impressionar<br>
+            • Seja o músico que todo mundo quer chamar: chegue cedo, aprenda rápido, seja positivo<br>
+            • Colabore em projetos mesmo que não sejam pagos — gravações, covers, projetos de amigos<br>
+            • Frequente shows — não para tocar, mas para conhecer músicos<br>
+            • Mantenha contato com ex-parceiros de banda
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">📱 Presença Online e Conteúdo</div>
+          <div class="info-box">
+            Um músico sem presença online em 2024 é invisível para 90% das oportunidades.<br><br>
+            <strong>Plataformas prioritárias para músicos:</strong><br>
+            • <strong>Instagram/TikTok:</strong> Vídeos curtos de performance (Reels). O algoritmo favorece conteúdo musical autêntico.<br>
+            • <strong>YouTube:</strong> Covers e originais de maior duração, tutoriais, vlogs de processo<br>
+            • <strong>SoundCloud/Spotify:</strong> Suas gravações para pessoas escutarem<br><br>
+            <strong>O que postar:</strong><br>
+            1. Covers de músicas conhecidas (alcance)<br>
+            2. Seu processo de aprendizado (conexão)<br>
+            3. Bastidores de shows e ensaios (autenticidade)<br>
+            4. Originais e composições (diferenciação)
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">💼 Como Cobrar e Trabalhar como Músico</div>
+          <div class="info-box">
+            <strong>Sessões de estúdio:</strong> Valor varia por região, mas pesquise o piso do sindicato de músicos local.<br><br>
+            <strong>Shows ao vivo:</strong> Cache por show. Considere: tempo de ensaio, deslocamento, alimentação, equipamento.<br><br>
+            <strong>Aulas de música:</strong> Uma das fontes de renda mais estáveis para músicos. Calcule por hora-aula com base no seu nível e mercado local.<br><br>
+            <strong>Produção/Arranjo:</strong> Criação de linhas, arranjos e gravações para outros artistas — plataformas como SoundBetter.com.<br><br>
+            <em>Regra: nunca toque de graça para quem pode pagar. Mas toque de graça para quem vai te expor ou aprender com a experiência.</em>
+          </div>
+          <div class="practice-box blue">
+            <div class="pb-label">🎯 Plano de Conteúdo — 90 dias</div>
+            <div class="pb-text">
+              <strong>Semana 1–2:</strong> Configure seu perfil no Instagram com bio clara (baixista, cidade, estilos)<br><br>
+              <strong>Dia 1–30:</strong> 1 vídeo por semana tocando um cover que você domina<br><br>
+              <strong>Dia 31–60:</strong> 2 vídeos por semana — 1 cover + 1 bastidor/processo<br><br>
+              <strong>Dia 61–90:</strong> 3 vídeos por semana — cover + processo + original ou tutorial<br><br>
+              Não busque perfeição. Busque consistência. Em 90 dias você vai ter um portfólio e uma presença que 95% dos músicos não têm.
+            </div>
+          </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f4m22q','Quiz: O Músico Completo',[
+            {q:'Por que estudar piano ajuda um baixista?',o:['Para tocar dois instrumentos','Piano exibe harmonia visualmente — acelera o entendimento de acordes e tonalidades','Para ganhar mais dinheiro','Não ajuda'],c:1,ok:'Correto! No piano você vê fisicamente as notas de cada acorde.',fail:'Piano: você vê as notas de todos os acordes. Clarifica harmonia e acelera seu desenvolvimento no baixo.'},
+            {q:'O que é transcrição musical?',o:['Copiar partitura de outra fonte','Ouvir uma gravação e escrever o que você escuta (notas, ritmo, dinâmica)','Técnica de slap avançada','Traduzir letras de música'],c:1,ok:'Exato! Transcrever é o exercício de ouvido mais poderoso.',fail:'Transcrever: ouvir e escrever. Desenvolve ouvido, vocabulário musical e análise ao mesmo tempo.'},
+            {q:'Como prevenir LER (Lesão por Esforço Repetitivo)?',o:['Tocar o máximo possível','Aquecimento antes de praticar, pausas a cada 45min, parar imediatamente com dor','Usar cordas mais finas','Tocar mais devagar sempre'],c:1,ok:'Correto! Prevenção é a única estratégia eficaz.',fail:'Aquecimento, pausas regulares e respeitar a dor. LER pode encerrar permanentemente uma carreira.'},
+            {q:'Qual é a frequência ideal de transcrição para um músico em desenvolvimento?',o:['1 por ano','1 por semana','1 por dia','Nunca — use TABs prontas'],c:1,ok:'Correto! 1 por semana transforma seu ouvido em meses.',fail:'1 transcrição por semana = 52 linhas de baixo dos melhores músicos do mundo no seu ouvido por ano.'},
+          ])}
+          ${EX.build('flashcard','f4m22fc','Flashcards: Desenvolvimento Contínuo',[
+            {f:'Transcrição',b:'Ouvir e escrever o que você escuta. 1 por semana. Desenvolve ouvido, vocabulário e análise musical.'},
+            {f:'Ouvido Relativo',b:'Identificar intervalos e acordes em relação a uma referência. Treina-se com transcrição e solmização.'},
+            {f:'LER — Prevenção',b:'Aquecimento antes de praticar. Pausa de 10min a cada 45min. Nunca toque com dor. Suas mãos são sua carreira.'},
+            {f:'Prática Deliberada',b:'Focar nos pontos fracos com atenção total, não repetir o que já sabe bem. Mais eficiente que horas automáticas.'},
+            {f:'Berklee Online',b:'Cursos certificados online da maior escola de música do mundo. Recomendado para teoria e prática avançada.'},
+            {f:'O Próximo Passo',b:'Você completou o curso. Agora: toque com pessoas reais, grave tudo, publique, não pare de estudar. Nunca.'},
+          ])}
+          <div class="checklist" id="cl_f4m22">
+            ${checks('f4m22',[
+              'Tenho perfil profissional no Instagram com minha música',
+              'Postei pelo menos 4 vídeos tocando',
+              'Conheço pelo menos 10 músicos ativos na minha cidade',
+              'Calculei meu valor de hora-aula ou cache de show',
+              'Tenho uma gravação de referência para mostrar a potenciais clientes/parceiros',
+            ])}
+          </div>
+        `
+      },
+      {
+        id: 'f4m23', num: 'M23',
+        title: 'O Músico Completo — Estudo Perpétuo',
+        desc: 'Os maiores músicos do mundo nunca param de estudar. Esta é a mentalidade que separa os que chegam dos que ficam.',
+        content: () => `
+          <div class="section-title">🎹 Estudar Piano — Por Que É Essencial</div>
+          <div class="info-box">
+            Todo grande baixista que você admira tem noções sólidas de piano. Não precisa tocar concertos — mas entender o piano transforma sua compreensão de harmonia.<br><br>
+            <strong>Por quê:</strong><br>
+            • O piano exibe a harmonia visualmente — você vê as notas de todos os acordes<br>
+            • Facilita a comunicação com pianistas, guitarristas e arranjadores<br>
+            • Permite compor e arranjar em DAW com facilidade<br><br>
+            <strong>Meta mínima:</strong> Tocar escalas, arpejos e progressões básicas com as duas mãos. Não precisa mais que isso para melhorar seu baixo.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">👂 Transcrição — O Exercício Mais Poderoso</div>
+          <div class="info-box">
+            Transcrever é ouvir uma música e escrever o que você ouviu (em TAB, partitura ou cifra).<br><br>
+            <strong>Por que é transformador:</strong><br>
+            • Desenvolve ouvido absoluto e relativo ao mesmo tempo<br>
+            • Você aprende vocabulário dos maiores músicos do mundo<br>
+            • Força você a escutar de forma ativa e analítica<br><br>
+            <strong>Como transcrever:</strong><br>
+            1. Ouça a frase 10–20x<br>
+            2. Cante ou assovie antes de pegar o instrumento<br>
+            3. Ache a primeira nota no baixo<br>
+            4. Complete a frase nota por nota<br>
+            5. Escreva em TAB e memorize<br><br>
+            <strong>Meta:</strong> 1 transcrição por semana, toda semana, para sempre.
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🧘 Saúde do Músico</div>
+          <div class="info-box">
+            Lesões por esforço repetitivo (LER) são a maior ameaça à carreira de um músico.<br><br>
+            <strong>Prevenção:</strong><br>
+            • Sempre aqueça antes de praticar (5–10 min de movimentos suaves)<br>
+            • Faça pausas a cada 45 minutos de prática<br>
+            • Se sentir dor, pare imediatamente<br>
+            • Pratique técnica de Alexander ou Feldenkrais para postura<br>
+            • Fortaleça os antebraços com exercícios específicos<br>
+            • Use cordas de bitola adequada (não excessivamente pesadas)<br><br>
+            <em>Sua carreira depende das suas mãos. Cuide delas com a mesma seriedade com que cuida do instrumento.</em>
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🌍 Educação Formal</div>
+          <div class="refs-grid">
+            <div class="ref-card"><div class="ref-name">Berklee Online</div><div class="ref-desc">Cursos certificados online. O mais reconhecido internacionalmente.</div></div>
+            <div class="ref-card"><div class="ref-name">Conservatório local</div><div class="ref-desc">Harmonia, contraponto, solfejo. Fundação teórica insubstituível.</div></div>
+            <div class="ref-card"><div class="ref-name">Masterclasses</div><div class="ref-desc">Victor Wooten (Masterclass.com), Marcus Miller. Vale cada centavo.</div></div>
+            <div class="ref-card"><div class="ref-name">Faculdade de Música</div><div class="ref-desc">Para quem quer ensino profundo. UNICAMP, USP, UFMG têm cursos excelentes.</div></div>
+          </div>
+          <div class="practice-box blue">
+            <div class="pb-label">🏆 A Regra Final</div>
+            <div class="pb-text">
+              Todo grande músico que você admira pratica pelo menos <strong>2 horas por dia, todos os dias, há anos</strong>.<br><br>
+              Não existe atalho. Mas existe método — e você agora tem um.<br><br>
+              A diferença entre o músico que você é hoje e o profissional que quer ser é medida em horas de prática deliberada, shows ao vivo, músicas transcritas e colaborações com outros músicos.<br><br>
+              <strong>Comece hoje. Grave-se hoje. Toque com alguém hoje.</strong><br><br>
+              O instrumento está na sua mão. A escolha também. 🎸
+            </div>
+          </div>
+          <div class="checklist" id="cl_f4m23">
+            ${checks('f4m23',[
+              'Tenho noções básicas de piano (escalas e acordes simples)',
+              'Faço pelo menos 1 transcrição por mês',
+              'Tenho uma rotina de aquecimento antes de praticar',
+              'Já tive ou estou tendo algum tipo de educação musical formal',
+              'Meu objetivo de carreira musical está definido e ativo',
+            ])}
+          </div>
+          <div class="practice-box" style="margin-top:24px;background:linear-gradient(135deg,rgba(255,77,28,0.1),rgba(61,155,255,0.08));border-color:rgba(255,77,28,0.4);">
+            <div class="pb-label" style="color:var(--accent2)">🎓 Parabéns — Você Completou o Curso</div>
+            <div class="pb-text">
+              Se você chegou até aqui com dedicação, você não é mais um iniciante. Você tem as ferramentas, o conhecimento e a mentalidade de um profissional.<br><br>
+              O resto é tempo, experiência e amor pelo instrumento.<br><br>
+              <em>Agora vá tocar. Com outros. Para outros. De coração aberto.</em>
+            </div>
+          </div>
+        `
+      },
+    ]
+  },
+];
+
+// ════════════════════════════════════════════════
+//  HELPERS
+// ════════════════════════════════════════════════
+function topics(arr) {
+  return arr.map(([icon, text]) => `
+    <div class="topic-card">
+      <span class="topic-icon">${icon}</span>
+      <span>${text}</span>
+    </div>`).join('');
+}
+
+function fretNums(n) {
+  let h = '';
+  for(let i=0;i<=n;i++) h += `<div class="fret-num">${i}</div>`;
+  return h;
+}
+
+function fretRow(notes) {
+  return notes.map((n,i) => {
+    const cls = i===0 ? 'fret root' : 'fret note';
+    return `<div class="${cls}">${n}</div>`;
+  }).join('');
+}
+
+function fretRowH(notes, total) {
+  let html = '';
+  for(let i=0;i<notes.length;i++){
+    const n = notes[i];
+    if(!n) html += `<div class="fret"></div>`;
+    else if(n.includes('*')) html += `<div class="fret root">${n.replace('*','')}</div>`;
+    else html += `<div class="fret note">${n}</div>`;
+  }
+  return html;
+}
+
+function checks(id, items) {
+  return items.map((text,i) => {
+    const key = `chk_${id}_${i}`;
+    const done = getSaved(key);
+    return `
+      <div class="check-item${done?' checked':''}" onclick="toggleCheck('${key}',this)">
+        <div class="check-box">${done?'✓':''}</div>
+        <div class="check-text">${text}</div>
+      </div>`;
+  }).join('');
+}
+
+// ════════════════════════════════════════════════
+//  STORAGE
+// ════════════════════════════════════════════════
+function getSaved(key) {
+  try { return localStorage.getItem(key) === '1'; } catch(e){ return false; }
+}
+function setSaved(key, val) {
+  try { localStorage.setItem(key, val?'1':'0'); } catch(e){}
+}
+
+function toggleCheck(key, el) {
+  const cur = el.classList.contains('checked');
+  const nv = !cur;
+  setSaved(key, nv);
+  el.classList.toggle('checked', nv);
+  el.querySelector('.check-box').textContent = nv ? '✓' : '';
+  updateProgress();
+}
+
+// ════════════════════════════════════════════════
+//  PROGRESS
+// ════════════════════════════════════════════════
+function countChecks() {
+  let total = 0, done = 0;
+  COURSE.forEach(phase => phase.lessons.forEach(lesson => {
+    const tmpDiv = document.createElement('div');
+    tmpDiv.innerHTML = lesson.content();
+    const cls = tmpDiv.querySelectorAll('.check-item');
+    cls.forEach((_, i) => {
+      total++;
+      if(getSaved(`chk_${lesson.id}_${i}`)) done++;
+    });
+  }));
+  return { total, done };
+}
+
+function countLessonChecks(lesson) {
+  const tmpDiv = document.createElement('div');
+  tmpDiv.innerHTML = lesson.content();
+  const cls = tmpDiv.querySelectorAll('.check-item');
+  let total = cls.length, done = 0;
+  cls.forEach((_, i) => {
+    if(getSaved(`chk_${lesson.id}_${i}`)) done++;
+  });
+  return { total, done };
+}
+
+function isLessonDone(lesson) {
+  const {total, done} = countLessonChecks(lesson);
+  return total > 0 && done === total;
+}
+
+function updateProgress() {
+  const {total, done} = countChecks();
+  const pct = total > 0 ? Math.round(done/total*100) : 0;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent = pct + '%';
+  // update sidebar items
+  COURSE.forEach(phase => phase.lessons.forEach(lesson => {
+    const item = document.querySelector(`.lesson-item[data-id="${lesson.id}"]`);
+    if(item) {
+      const done = isLessonDone(lesson);
+      item.classList.toggle('done', done);
+      item.querySelector('.li-check').textContent = done ? '✓' : '';
+    }
+  }));
+}
+
+// ════════════════════════════════════════════════
+//  BUILD SIDEBAR
+// ════════════════════════════════════════════════
+function buildSidebar() {
+  const nav = document.getElementById('sidebar-nav');
+  nav.innerHTML = '';
+  COURSE.forEach((phase, pi) => {
+    const group = document.createElement('div');
+    group.className = 'phase-group';
+    group.innerHTML = `
+      <div class="phase-group-header" onclick="togglePhaseGroup(this)">
+        <div class="pgh-dot" style="background:${phase.dot}"></div>
+        <div class="pgh-label">${phase.label}</div>
+        <div class="pgh-count">${phase.lessons.length}</div>
+        <div class="pgh-arrow">▾</div>
+      </div>
+      <div class="phase-lessons">
+        ${phase.lessons.map((lesson,li) => `
+          <div class="lesson-item" data-id="${lesson.id}" onclick="loadLesson('${lesson.id}')" style="border-left-color:${phase.dot}">
+            <div class="li-num">${lesson.num}</div>
+            <div class="li-title">${lesson.title}</div>
+            <div class="li-check"></div>
+          </div>`).join('')}
+      </div>`;
+    nav.appendChild(group);
+  });
+}
+
+function togglePhaseGroup(header) {
+  header.closest('.phase-group').classList.toggle('collapsed');
+}
+
+// ════════════════════════════════════════════════
+//  LESSON RENDERING
+// ════════════════════════════════════════════════
+let currentLessonId = null;
+let allLessons = [];
+
+function buildAllLessons() {
+  allLessons = [];
+  COURSE.forEach(phase => phase.lessons.forEach(lesson => {
+    allLessons.push({ ...lesson, phase });
+  }));
+}
+
+function getLessonIndex(id) {
+  return allLessons.findIndex(l => l.id === id);
+}
+
+function loadLesson(id) {
+  const entry = allLessons.find(l => l.id === id);
+  if(!entry) return;
+  currentLessonId = id;
+
+  // active sidebar
+  document.querySelectorAll('.lesson-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.id === id);
+  });
+
+  const phase = entry.phase;
+  const idx = getLessonIndex(id);
+  const prev = idx > 0 ? allLessons[idx-1] : null;
+  const next = idx < allLessons.length-1 ? allLessons[idx+1] : null;
+  const {total, done} = countLessonChecks(entry);
+  const pct = total > 0 ? Math.round(done/total*100) : 0;
+
+  document.getElementById('breadcrumb').innerHTML =
+    `<span class="${phase.textClass}">${phase.label}</span> / ${entry.title}`;
+
+  const content = document.getElementById('content');
+  content.innerHTML = `
+    <div class="lesson-header">
+      <div class="lh-num">${entry.num}</div>
+      <div class="lh-phase ${phase.textClass}">${phase.label}</div>
+      <div class="lh-title">${entry.title}</div>
+      <p class="lh-desc">${entry.desc}</p>
+      <div class="lh-meta">
+        <span class="lh-tag ${phase.badgeClass}">${phase.duration}</span>
+      </div>
+    </div>
+
+    <div class="lesson-progress">
+      <span class="lp-text">PROGRESSO DA LIÇÃO</span>
+      <div class="lp-bar"><div class="lp-fill" id="lp-fill" style="width:${pct}%;background:${phase.color}"></div></div>
+      <span class="lp-text">${done}/${total}</span>
+    </div>
+
+    ${entry.content()}
+
+    <div class="section-title" style="margin-top:36px">✅ Checklist de Conclusão</div>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:16px">Marque cada item quando dominar o conteúdo. Seja honesto consigo mesmo!</p>
+
+    <div class="lesson-nav">
+      ${prev ? `<button class="nav-btn" onclick="loadLesson('${prev.id}')">← ${prev.title}</button>` : '<div></div>'}
+      <button class="nav-btn done-btn ${isLessonDone(entry)?'marked':''}" onclick="markDone('${entry.id}',this)" id="done-btn">
+        ${isLessonDone(entry) ? '✓ Concluída' : 'Marcar como concluída'}
+      </button>
+      ${next ? `<button class="nav-btn primary" onclick="loadLesson('${next.id}')">Próxima: ${next.title} →</button>` : '<button class="nav-btn primary" disabled>Curso Concluído 🎸</button>'}
+    </div>`;
+
+  content.scrollTop = 0;
+  window.scrollTo(0,0);
+  closeSidebar();
+}
+
+function markDone(id, btn) {
+  const entry = allLessons.find(l => l.id === id);
+  if(!entry) return;
+  const tmpDiv = document.createElement('div');
+  tmpDiv.innerHTML = entry.content();
+  const cls = tmpDiv.querySelectorAll('.check-item');
+  // mark all checks
+  const allDone = isLessonDone(entry);
+  cls.forEach((_, i) => {
+    setSaved(`chk_${id}_${i}`, !allDone);
+  });
+  // re-render checks on page
+  document.querySelectorAll('.check-item').forEach((el, i) => {
+    const key = `chk_${id}_${i}`;
+    const nv = !allDone;
+    el.classList.toggle('checked', nv);
+    el.querySelector('.check-box').textContent = nv ? '✓' : '';
+  });
+  updateProgress();
+  const nowDone = isLessonDone(entry);
+  btn.classList.toggle('marked', nowDone);
+  btn.textContent = nowDone ? '✓ Concluída' : 'Marcar como concluída';
+  // update lp
+  const {total, done} = countLessonChecks(entry);
+  const pct = total>0?Math.round(done/total*100):0;
+  const lp = document.getElementById('lp-fill');
+  if(lp) { lp.style.width=pct+'%'; }
+}
+
+// ════════════════════════════════════════════════
+//  WELCOME SCREEN
+// ════════════════════════════════════════════════
+function showWelcome() {
+  const {total, done} = countChecks();
+  document.getElementById('breadcrumb').textContent = 'Bem-vindo';
+  document.getElementById('content').innerHTML = `
+    <div id="welcome-screen">
+      <div class="ws-icon">🎸</div>
+      <div class="ws-title">CURSO DE BAIXO<br><span>DO BÁSICO AO PRO</span></div>
+      <p class="ws-sub">Um plano de estudos completo e estruturado para você se tornar um baixista profissional. Todo o conteúdo, exercícios e checklists para acompanhar seu progresso.</p>
+      <div class="ws-stats">
+        <div class="ws-stat"><div class="ws-stat-n">4</div><div class="ws-stat-l">Fases</div></div>
+        <div class="ws-stat"><div class="ws-stat-n">23</div><div class="ws-stat-l">Módulos</div></div>
+        <div class="ws-stat"><div class="ws-stat-n">${total}</div><div class="ws-stat-l">Objetivos</div></div>
+        <div class="ws-stat"><div class="ws-stat-n">${done}</div><div class="ws-stat-l">Concluídos</div></div>
+      </div>
+      <button class="start-btn" onclick="loadLesson('f1m1')">
+        ${done > 0 ? '▶ Continuar Estudando' : '🎸 Começar o Curso'}
+      </button>
+      <p style="margin-top:16px;font-size:12px;color:var(--muted)">Seu progresso é salvo automaticamente no navegador</p>
+    </div>`;
+}
+
+// ════════════════════════════════════════════════
+//  TIMER
+// ════════════════════════════════════════════════
+let timerSec = 0, timerRunning = false, timerInterval = null;
+
+function timerToggle() {
+  const btn = document.getElementById('timer-start-btn');
+  if(timerRunning) {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    btn.textContent = '▶';
+  } else {
+    timerInterval = setInterval(() => {
+      timerSec++;
+      const m = String(Math.floor(timerSec/60)).padStart(2,'0');
+      const s = String(timerSec%60).padStart(2,'0');
+      document.getElementById('timer-display').textContent = m+':'+s;
+    }, 1000);
+    timerRunning = true;
+    btn.textContent = '⏸';
+  }
+}
+
+function timerReset() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerSec = 0;
+  document.getElementById('timer-display').textContent = '00:00';
+  document.getElementById('timer-start-btn').textContent = '▶';
+}
+
+// ════════════════════════════════════════════════
+//  SIDEBAR MOBILE
+// ════════════════════════════════════════════════
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').style.display =
+    document.getElementById('sidebar').classList.contains('open') ? 'block' : 'none';
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').style.display = 'none';
+}
+
+// ════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════
+buildAllLessons();
+buildSidebar();
+updateProgress();
+showWelcome();
+
+</script>
+</body>
+</html>
