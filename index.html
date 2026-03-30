@@ -253,55 +253,6 @@ body{
 }
 .timer-btn:hover{background:rgba(255,255,255,0.08);}
 
-/* metronome */
-#metro-widget{
-  display:flex;
-  align-items:center;
-  gap:6px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:6px;
-  padding:6px 12px;
-}
-.metro-label{
-  font-family:'Space Mono',monospace;
-  font-size:9px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  color:var(--muted);
-}
-#metro-bpm{
-  font-family:'Space Mono',monospace;
-  font-size:14px;
-  color:var(--green);
-  width:36px;
-  text-align:center;
-  cursor:pointer;
-  border:none;
-  background:transparent;
-  outline:none;
-}
-#metro-bpm:focus{
-  color:var(--text);
-  background:var(--card2);
-  border-radius:3px;
-}
-.metro-beat{
-  width:8px;height:8px;
-  border-radius:50%;
-  background:var(--border2);
-  flex-shrink:0;
-  transition:background 0.04s, box-shadow 0.04s;
-}
-.metro-beat.on{
-  background:var(--green);
-  box-shadow:0 0 8px var(--green);
-}
-@media(max-width:768px){
-  .metro-label{display:none;}
-  #metro-widget{padding:6px 8px;gap:4px;}
-}
-
 /* content area */
 #content{
   flex:1;
@@ -818,6 +769,33 @@ body::-webkit-scrollbar-thumb{background:var(--border);}
 .tap-btn-ex{padding:16px 24px;background:rgba(245,166,35,.15);border:2px solid var(--accent2);border-radius:8px;color:var(--accent2);font-size:16px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:none;margin-left:12px;}
 @media(max-width:600px){.quiz-options{grid-template-columns:1fr;}}
 
+/* ── expandable blocks ── */
+.expand-block{border:1px solid var(--border);border-radius:6px;margin-bottom:8px;overflow:hidden;}
+.expand-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px;background:var(--card);border:none;cursor:pointer;text-align:left;
+  color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;
+  transition:background .15s;gap:12px;}
+.expand-toggle:hover{background:var(--card2);}
+.expand-toggle-sub{font-size:11px;color:var(--muted);font-weight:400;margin-top:2px;}
+.expand-icon{font-size:20px;color:var(--muted);flex-shrink:0;line-height:1;transition:transform .2s;}
+.expand-body{padding:18px 20px;background:var(--surface);border-top:1px solid var(--border);
+  font-size:14px;color:var(--muted2);line-height:1.8;}
+.expand-body strong{color:var(--text);}
+.expand-body ul{padding-left:18px;margin-top:6px;}
+.expand-body ul li{margin-bottom:6px;}
+.expand-body .step{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start;}
+.expand-body .step-num{background:var(--accent);color:#fff;font-family:'Space Mono',monospace;
+  font-size:11px;font-weight:700;border-radius:50%;width:22px;height:22px;display:flex;
+  align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.expand-body .step-txt{flex:1;}
+/* ── video button ── */
+.video-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;
+  background:rgba(61,155,255,.12);border:1px solid rgba(61,155,255,.35);border-radius:6px;
+  color:var(--accent3);font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;
+  transition:all .2s;margin-top:4px;}
+.video-btn:hover{background:rgba(61,155,255,.22);border-color:var(--accent3);}
+.video-btn.empty{opacity:.4;border-style:dashed;cursor:default;}
+
 </style>
 </head>
 <body>
@@ -845,17 +823,6 @@ body::-webkit-scrollbar-thumb{background:var(--border);}
   <div id="topbar">
     <button id="menu-btn" onclick="toggleSidebar()">☰</button>
     <div id="breadcrumb">Selecione uma lição</div>
-    <div id="metro-widget">
-      <span class="metro-label">BPM</span>
-      <button class="timer-btn" onclick="metroBpm(-5)" title="-5 BPM" style="font-size:16px;line-height:1">−</button>
-      <input id="metro-bpm" type="number" value="80" min="20" max="300"
-             onchange="metroSetBpm(parseInt(this.value)||80)"
-             onkeydown="if(event.key==='Enter')this.blur()"
-             title="BPM — clique para editar">
-      <button class="timer-btn" onclick="metroBpm(+5)" title="+5 BPM" style="font-size:16px;line-height:1">+</button>
-      <div class="metro-beat" id="metro-beat"></div>
-      <button class="timer-btn" id="metro-start-btn" onclick="metroToggle()" title="Iniciar/Pausar metrônomo">▶</button>
-    </div>
     <div id="timer-widget">
       <span>⏱</span>
       <span id="timer-display">00:00</span>
@@ -1069,53 +1036,290 @@ const COURSE = [
         id: 'f1m1', num: 'M01',
         title: 'Conhecendo o Instrumento',
         desc: 'Antes de tocar, você precisa entender completamente o seu instrumento. Anatomia, regulagem, cuidado e como o som é produzido.',
+        video: '',
         content: () => `
-          <div class="section-title">📋 Conteúdo da Aula</div>
-          <div class="topics-grid">
-            ${topics([
-              ['🔩','Anatomia completa: corpo, braço, cavalete, captadores, tarraxas, bottons e porca de tensão'],
-              ['🎸','Tipos de baixo: Precision Bass, Jazz Bass, ativo vs passivo — diferenças de som e toque'],
-              ['🔌','Equipamento essencial: amplificador (combo vs cabeçote), cabo P10, afinador, correia'],
-              ['🔧','Regulagem básica: ação das cordas (distância ao braço), truss rod, intonação do cavalete'],
-              ['🧹','Manutenção: limpeza do braço, corpo e cordas; quando trocar as cordas'],
-              ['🎵','Afinação: uso do afinador cromático clip-on e método de ouvido pela 5ª corda'],
-              ['🪑','Postura sentado: baixo no joelho esquerdo ou cruzado, braço a 45°'],
-              ['🧍','Postura em pé: correia no comprimento certo, peso distribuído uniformemente'],
-              ['✋','Posição da mão direita: ancoragem no polegar, ângulo dos dedos sobre as cordas'],
-              ['🖐️','Posição da mão esquerda: polegar atrás do braço, dedos curvados, ponta dos dedos'],
-            ])}
+          <div class="section-title">🔩 Anatomia Completa</div>
+          <div class="info-box">Conheça cada parte do seu instrumento — tocar bem começa por entender o que você tem nas mãos.</div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('an-corpo')">
+              <span><strong>🎸 Corpo (Body)</strong><br><span class="expand-toggle-sub">Madeira maciça ou compensada que amplifica e sustenta o som</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="an-corpo" style="display:none">
+              <strong>Madeiras mais comuns:</strong><br><ul><li><strong>Alder (amieiro):</strong> equilibrada, médios presentes, usada no Fender Precision e Jazz Bass.</li><li><strong>Ash:</strong> mais brilhante e pesada, sustain longo, muito usada nos anos 70.</li><li><strong>Mahogany (mogno):</strong> mais grave e quente, usada em basses tipo Gibson.</li></ul><strong>Formato:</strong> O corpo define onde sua mão direita repousa e o equilíbrio do instrumento. Cortes (contours) reduzem peso e melhoram o encosto.
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('an-braco')">
+              <span><strong>🪵 Braço (Neck)</strong><br><span class="expand-toggle-sub">De onde vêm as notas — é aqui que sua mão esquerda trabalha</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="an-braco" style="display:none">
+              <strong>Madeiras:</strong><br><ul><li><strong>Maple (bordo):</strong> brilhante, atacado, resposta rápida. Comum no Fender.</li><li><strong>Mahogany:</strong> mais quente e macio no toque.</li></ul><strong>Escala (Scale Length):</strong> distância entre a pestana (nut) e o cavalete. O padrão Fender é 34" (long scale). Quanto maior, maior a tensão e o timbre grave.<br><br><strong>Perfil do braço (Neck Profile):</strong> formato da seção traseira — C, D, U. O perfil C é o mais neutro e confortável para iniciantes.
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('an-cavalete')">
+              <span><strong>🔩 Cavalete (Bridge)</strong><br><span class="expand-toggle-sub">Ancora as cordas ao corpo e afeta sustain e intonação</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="an-cavalete" style="display:none">
+              O cavalete é onde as cordas são presas ao corpo. Cada corda passa por um <strong>saddle (selim)</strong> individual que pode ser movido para frente/trás (intonação) e para cima/baixo (ação).<br><br><strong>Tipos:</strong><br><ul><li><strong>4 parafusos (Standard):</strong> simples, funcional, o mais comum.</li><li><strong>String-through body:</strong> as cordas passam pelo corpo antes do cavalete — mais sustain.</li></ul>
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('an-captador')">
+              <span><strong>🎛️ Captadores (Pickups)</strong><br><span class="expand-toggle-sub">Convertem a vibração das cordas em sinal elétrico</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="an-captador" style="display:none">
+              Os captadores são imãs envoltos em fio de cobre. A vibração das cordas de aço perturba o campo magnético e gera corrente elétrica — esse sinal vai ao amplificador.<br><br><strong>Posição:</strong> captadores mais próximos ao braço = som mais quente e gordo. Mais próximos ao cavalete = som brilhante e cortante.
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('an-tarraxa')">
+              <span><strong>🔑 Tarraxas (Tuning Pegs/Tuners)</strong><br><span class="expand-toggle-sub">Ajustam a tensão (e portanto o tom) de cada corda</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="an-tarraxa" style="display:none">
+              São engrenagens na cabeça do braço (headstock). Girar aumenta ou diminui a tensão da corda, subindo ou descendo o tom.<br><br><strong>Relação de transmissão:</strong> 12:1 ou 20:1 — quanto maior, mais preciso o ajuste. Tarraxas de qualidade (ex: Hipshot, Gotoh) mantêm a afinação muito melhor.<br><br><strong>Configuração 4-in-line:</strong> as 4 tarraxas do mesmo lado (padrão Fender). <strong>2+2:</strong> 2 de cada lado (padrão Gibson/Music Man).
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('an-nut')">
+              <span><strong>📎 Pestana / Nut (Porca de Tensão)</strong><br><span class="expand-toggle-sub">Peça no início do braço que guia e espaça as cordas</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="an-nut" style="display:none">
+              A nut é geralmente de osso, grafite ou sintético. Ela define:<br><ul><li>O <strong>espaçamento entre cordas</strong> nas casas mais baixas</li><li>A <strong>altura das cordas</strong> na região da 1ª a 3ª casa</li></ul>Uma nut muito alta = as primeiras casas pedem muito esforço e ficam desafinadas. Uma nut muito baixa = zumbido nas casas abertas. <strong>Luthier ajusta isso.</strong>
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('an-trussrod')">
+              <span><strong>⚙️ Truss Rod</strong><br><span class="expand-toggle-sub">Barra de aço interna que controla a curvatura do braço</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="an-trussrod" style="display:none">
+              Fica embutida dentro do braço. Tem uma porca (geralmente na cabeça do braço, atrás da pestana, ou no talão) que é girada com uma <strong>chave allen</strong>.<br><br><strong>Sentido horário:</strong> aperta — endireita o braço (reduz curvatura).<br><strong>Anti-horário:</strong> solta — permite que as cordas curcem o braço.<br><br><strong>ATENÇÃO:</strong> Nunca force mais de 1/4 de volta por vez. Aguarde o braço reagir (horas ou dias). Mexer errado parte o braço. Em dúvida, leve a um luthier.
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('an-bottons')">
+              <span><strong>🔘 Bottons (Strap Buttons)</strong><br><span class="expand-toggle-sub">Pinos de metal onde a correia é presa</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="an-bottons" style="display:none">
+              Há dois: um na base do corpo (inferior) e um no talão do braço (superior). Sempre use <strong>strap locks</strong> — travas que impedem a correia de soltar acidentalmente. Uma queda do baixo pode causar danos sérios.
+            </div>
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🎸 Tipos de Baixo</div>
+          <div class="info-box">Cada tipo de baixo tem uma identidade sonora e tátil única. Conhecer as diferenças ajuda você a escolher o instrumento certo para o seu estilo.</div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('tp-precision')">
+              <span><strong>🟠 Precision Bass (P-Bass)</strong><br><span class="expand-toggle-sub">Fender • O padrão do rock, pop e blues</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="tp-precision" style="display:none">
+              <strong>Captador:</strong> Split-coil (dois singles em forma de P, em humbucking).<br><strong>Som:</strong> gordo, mid-heavy, definido, soco no chest. Presença marcante no mix.<br><strong>Tocabilidade:</strong> braço mais largo e perfil em C/U — confortável para mãos maiores. Simples: 1 captador, volume e tone.<br><strong>Usado em:</strong> rock clássico, punk, country, pop, qualquer contexto onde o baixo precisa assentar o groove com firmeza.<br><strong>Referências:</strong> James Jamerson (Motown), Dee Dee Ramone, Roger Waters (Pink Floyd).
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('tp-jazz')">
+              <span><strong>🔵 Jazz Bass (J-Bass)</strong><br><span class="expand-toggle-sub">Fender • Versatilidade total — do jazz ao metal</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="tp-jazz" style="display:none">
+              <strong>Captadores:</strong> Dois single-coils (neck e bridge), com volume individual para cada.<br><strong>Som:</strong> mais brilhante e articulado que o P-Bass. Abrindo os dois volumes = som aberto e cheio. Somente bridge = cortante e nasal.<br><strong>Tocabilidade:</strong> braço mais fino e cônico — confortável para mãos menores e toque mais rápido.<br><strong>Usado em:</strong> jazz, funk, rock moderno, metal, sessão de estúdio (versátil).<br><strong>Referências:</strong> Jaco Pastorius, Marcus Miller, Geddy Lee, Flea.
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('tp-5cordas')">
+              <span><strong>🟣 Baixo de 5 Cordas</strong><br><span class="expand-toggle-sub">Estende o grave com a corda Si (B)</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="tp-5cordas" style="display:none">
+              <strong>Corda extra:</strong> Si grave (B) abaixo do Mi — alcança notas mais profundas sem subir posição no braço.<br><strong>Som:</strong> grave mais profundo, mais opções de voicing e posição.<br><strong>Tocabilidade:</strong> braço mais largo — exige adaptação. Recomendado após dominar o 4 cordas.<br><strong>Usado em:</strong> gospel, metal moderno, prog rock, música contemporânea.
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('tp-fretless')">
+              <span><strong>⬜ Baixo Fretless</strong><br><span class="expand-toggle-sub">Sem pestanas — som de contrabaixo acústico</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="tp-fretless" style="display:none">
+              <strong>Diferença:</strong> sem casas (pestanas) de metal no braço. A nota soa onde o dedo toca a madeira diretamente.<br><strong>Som:</strong> suave, contínuo, com glissando natural entre notas — parecido com um contrabaixo ou violoncelo.<br><strong>Tocabilidade:</strong> exige afinação precisa dos dedos (sem guia visual das casas). Recomendado apenas após dominar o fretted.<br><strong>Referências:</strong> Jaco Pastorius ("Portrait of Tracy"), Pino Palladino.
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('tp-ativo')">
+              <span><strong>🔋 Ativo vs Passivo</strong><br><span class="expand-toggle-sub">A diferença no circuito eletrônico interno</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="tp-ativo" style="display:none">
+              <strong>Passivo:</strong> sem bateria. Sinal direto do captador para a saída. Som mais orgânico e dinâmico — responde ao toque. Sem controles de EQ de boost. Mais simples e confiável.<br><br><strong>Ativo:</strong> pré-amplificador interno (bateria 9V, às vezes 18V). Permite <strong>boost e corte de frequências</strong> (graves, médios, agudos) direto no instrumento. Sinal mais forte e limpo em cabo longo.<br><br><strong>Qual escolher:</strong> Passivo para sons clássicos e estúdio analógico. Ativo para palco com muito cabo, estilos modernos e mais controle de EQ.
+            </div>
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🎛️ Tipos de Captador</div>
+          <div class="info-box">Os captadores definem o caráter sonoro do instrumento. Entender cada tipo ajuda a escolher o baixo certo e a tirar o melhor do seu.</div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('cap-single')">
+              <span><strong>🔴 Single-Coil</strong><br><span class="expand-toggle-sub">Som brilhante e cortante — padrão dos J-Bass</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="cap-single" style="display:none">
+              Um único enrolamento de fio em torno de imãs. Som articulado, brilhante, com muito ataque.<br><br><strong>Desvantagem:</strong> capta zumbido (hum) de interferência elétrica. Em estúdio isso pode ser um problema.<br><strong>Exemplos:</strong> Fender Jazz Bass (dois singles), alguns P-Bass vintage.
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('cap-split')">
+              <span><strong>🟠 Split-Coil (P-Bass)</strong><br><span class="expand-toggle-sub">O melhor dos dois mundos — sem zumbido</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="cap-split" style="display:none">
+              São na verdade <strong>dois single-coils opostos</strong> combinados — um cobre as cordas Mi e Lá, o outro cobre Ré e Sol. Isso cancela o hum (humbucking).<br><br>Som mais gordo e mid-heavy que o single-coil puro. O som característico do Fender Precision Bass.
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('cap-humbucker')">
+              <span><strong>⬛ Humbucker</strong><br><span class="expand-toggle-sub">Mais quente, mais gordo, sem interferência</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="cap-humbucker" style="display:none">
+              Dois bobinas em série com polaridade oposta — o ruído se cancela completamente. Som mais cheio, mais grave e com menos brilho que o single-coil.<br><br><strong>Usado em:</strong> Music Man StingRay (o humbucker mais famoso do baixo), ESP, Gibson, basses de metal e rock moderno.<br><strong>Referências:</strong> Flea (RHCP), Louis Johnson, Marcus Miller em alguns setups.
+            </div>
           </div>
           <div class="content-divider"></div>
           <div class="section-title">🎼 As 4 Cordas do Baixo</div>
-          <div class="info-box">
-            O baixo padrão tem <strong>4 cordas</strong>, afinadas da mais grossa para a mais fina:<br><br>
-            <strong>Mi (E)</strong> — corda mais grossa, som mais grave, 1ª corda de cima<br>
-            <strong>Lá (A)</strong> — segunda corda<br>
-            <strong>Ré (D)</strong> — terceira corda<br>
-            <strong>Sol (G)</strong> — corda mais fina, som mais agudo, 1ª corda de baixo<br><br>
-            Memorize: <em>Mi-Lá-Ré-Sol</em> ou em inglês <em>E-A-D-G</em>. Use esta frase para lembrar: <strong>"Estudar Até Dominar o Groove"</strong>.
+          <div class="info-box">O baixo padrão tem <strong>4 cordas</strong>, afinadas da mais grossa para a mais fina:<br><br><strong>Mi (E)</strong> — corda mais grossa, som mais grave, 1.ª corda de cima<br><strong>Lá (A)</strong> — segunda corda<br><strong>Ré (D)</strong> — terceira corda<br><strong>Sol (G)</strong> — corda mais fina, som mais agudo, 1.ª corda de baixo<br><br>Memorize: <em>Mi-Lá-Ré-Sol</em> (E-A-D-G). Frase: <strong>"Estudar Até Dominar o Groove"</strong>.
           </div>
           <div class="content-divider"></div>
-          <div class="section-title">🔢 As Casas do Braço</div>
-          <div class="info-box">
-            Cada <strong>casa (fret)</strong> representa um semitom. O braço tem geralmente <strong>20 a 24 casas</strong>.<br><br>
-            • Casa 0 = corda solta (sem apertar nada)<br>
-            • Casa 1 = dedo 1 logo após a pestana (mais próximo da cabeça)<br>
-            • Casa 12 = uma oitava acima da corda solta — as notas se repetem a partir daqui<br><br>
-            <strong>Regra de ouro:</strong> o dedo deve estar o mais próximo possível da corda de metal (pestana/fret) para a nota soar limpa, sem zumbido.
+          <div class="section-title">🔧 Regulagem Básica</div>
+          <div class="info-box">A regulagem é o ajuste fino que torna o instrumento confortável e afinado. Conheça cada parâmetro — mas leve a um luthier se tiver dúvida.</div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('reg-acao')">
+              <span><strong>🎚️ Ação das Cordas</strong><br><span class="expand-toggle-sub">Distância das cordas ao braço — conforto vs volume</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="reg-acao" style="display:none">
+              <strong>O que é:</strong> a altura das cordas em relação às casas. Alta = mais volume e menos zumbido, mas cansa a mão. Baixa = toque mais fácil e rápido, mas pode zunir.<br><br><strong>Como medir:</strong> use uma régua de feeler gauge (calibrador de folga) na 12.ª casa entre a corda e a pestana. Referência: ~1,5–2,0 mm no Mi, ~1,2–1,5 mm no Sol.<br><br><strong>Como ajustar:</strong> no cavalete, cada saddle tem um parafuso allen de altura. Gire no sentido horário para subir, anti-horário para baixar. Ajuste um pouco de cada vez e toque para testar.
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('reg-trussrod')">
+              <span><strong>⚙️ Truss Rod</strong><br><span class="expand-toggle-sub">Curvatura do braço — o ajuste mais delicado</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="reg-trussrod" style="display:none">
+              <strong>O que é:</strong> o braço deve ter uma curvatura levíssima (relief) para as cordas vibrarem sem bater nas casas intermediárias.<br><br><strong>Como verificar:</strong> prenda a 1.ª e a 12.ª casa simultaneamente e observe o espaço entre a corda e a 7.ª casa. Deve haver cerca de 0,2–0,3 mm.<br><br><strong>Como ajustar:</strong><br><div class="step"><div class="step-num">1</div><div class="step-txt">Localize a porca do truss rod (geralmente na cabeça do braço, atrás da nut, ou no talão).</div></div><div class="step"><div class="step-num">2</div><div class="step-txt">Use a chave allen correta (4 mm é comum no Fender).</div></div><div class="step"><div class="step-num">3</div><div class="step-txt">Gire <strong>1/4 de volta por vez</strong>. Horário = aperta (menos curvatura). Anti-horário = solta (mais curvatura).</div></div><div class="step"><div class="step-num">4</div><div class="step-txt">Aguarde pelo menos 15 minutos (ou até horas) para o braço reagir antes de girar novamente.</div></div><strong>NUNCA force além de 1/4 de volta por sessão. Em caso de dúvida, leve ao luthier.</strong>
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('reg-intonacao')">
+              <span><strong>🎯 Intonação (Cavalete)</strong><br><span class="expand-toggle-sub">Garante que o instrumento afine em todo o braço</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="reg-intonacao" style="display:none">
+              <strong>O que é:</strong> intonação correta significa que a <strong>12.ª casa afina exatamente 1 oitava acima da corda solta</strong>. Se a 12.ª estiver mais aguda = saddle para frente. Mais grave = saddle para trás.<br><br><strong>Como verificar:</strong><br><div class="step"><div class="step-num">1</div><div class="step-txt">Ligue o afinador cromático e toque a corda solta — afine perfeitamente.</div></div><div class="step"><div class="step-num">2</div><div class="step-txt">Toque a mesma corda pressionando a 12.ª casa.</div></div><div class="step"><div class="step-num">3</div><div class="step-txt">Compare: se a 12.ª está mais aguda, mova o saddle para longe do braço (aumenta a escala). Se mais grave, aproxime.</div></div><div class="step"><div class="step-num">4</div><div class="step-txt">Repita para cada corda. Esse processo exige paciência e é feito com cordas novas.</div></div>
+            </div>
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🧹 Manutenção e Limpeza</div>
+          <div class="info-box">Um instrumento bem cuidado soa melhor, dura mais e mantém o valor. Reserve 5 minutos depois de cada sessão de prática.</div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('man-cordas')">
+              <span><strong>🧵 Limpeza das Cordas</strong><br><span class="expand-toggle-sub">Após cada uso — prolonga a vida útil</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="man-cordas" style="display:none">
+              <strong>Material:</strong> pano de microfibra seco (sem produtos químicos nas cordas).<br><br><strong>Como fazer:</strong> Após tocar, envolva cada corda com o pano e deslize de uma ponta à outra, passando por baixo e por cima. Remove suor, óleo e sujeira que oxidam o aço.<br><br><strong>Produto extra:</strong> spray de limpeza de cordas (ex: GHS Fast Fret, Dunlop 65 String Cleaner) aplicado no pano — não diretamente na corda.<br><br><strong>Quando trocar:</strong> cordas mortas soam sem brilho, ficam escuras e perdem sustain. Em geral: <strong>a cada 3–6 meses</strong> de uso regular, ou quando sentir que o som mudou.
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('man-braco')">
+              <span><strong>🪵 Limpeza do Braço (Fretboard)</strong><br><span class="expand-toggle-sub">A cada 3–6 meses ou ao trocar cordas</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="man-braco" style="display:none">
+              <strong>Braço de rosewood/ebony (madeira escura, sem verniz):</strong><br><ul><li>Use cotonete com <strong>óleo de limão (lemon oil)</strong> ou óleo mineral puro</li><li>Passe em toda a madeira entre as casas</li><li>Aguarde 5 minutos e remova o excesso com pano seco</li></ul><strong>Braço de maple com verniz:</strong><br><ul><li>Use apenas pano seco levemente umedecido com água</li><li>Nunca use óleo em maple envernizado — danifica o acabamento</li></ul><strong>Pestanas:</strong> passe um pano seco para remover oxidação. Com o tempo, as pestanas desgastam — o luthier pode nivelá-las ou trocá-las.
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('man-corpo')">
+              <span><strong>✨ Limpeza do Corpo e Braço</strong><br><span class="expand-toggle-sub">Mantém o acabamento e protege a madeira</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="man-corpo" style="display:none">
+              <strong>Material:</strong> pano de microfibra + polish específico para instrumento (ex: Dunlop 65, Music Nomad).<br><br><strong>Como fazer:</strong> Aplique uma pequena quantidade de polish no pano (nunca diretamente no instrumento) e passe em movimentos circulares suaves. Remove impressões digitais, manchas e protege o acabamento.<br><br><strong>Nunca use:</strong> produtos domésticos (Pledge, Pinho-Sol, álcool puro) — podem dissolver o verniz e danificar a madeira.<br><br><strong>Hardware (tarraxas, cavalete):</strong> pano seco limpa o metal. Use WD-40 em spray com moderação em partes mecânicas.
+            </div>
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🎵 Afinação com Afinador</div>
+          <div class="info-box">Tocar desafinado é o maior inimigo de um iniciante. Afine antes de cada sessão — sem exceção.</div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('afin-clip')">
+              <span><strong>📎 Afinador Clip-On Cromático</strong><br><span class="expand-toggle-sub">O mais prático para iniciantes</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="afin-clip" style="display:none">
+              <strong>Como funciona:</strong> o afinador detecta a vibração mecânica da madeira via clipe na cabeça do braço — não precisa de microfone.<br><br><strong>Passo a passo:</strong><br><div class="step"><div class="step-num">1</div><div class="step-txt">Prenda o afinador na cabeça do braço. Ligue-o e certifique que está em modo cromático (mostra qualquer nota, não apenas de um instrumento específico).</div></div><div class="step"><div class="step-num">2</div><div class="step-txt">Toque a corda <strong>Mi (E)</strong> solta com firmeza. O display mostrará a nota mais próxima.</div></div><div class="step"><div class="step-num">3</div><div class="step-txt">Observe o indicador: agulha ou barra à <strong>esquerda = corda baixa</strong> (gire a tarraxa para aumentar tensão). À <strong>direita = corda alta</strong> (diminua a tensão).</div></div><div class="step"><div class="step-num">4</div><div class="step-txt">Quando o indicador estiver centralizado e verde, a nota está afinada. Repita para Lá (A), Ré (D) e Sol (G).</div></div><div class="step"><div class="step-num">5</div><div class="step-txt"><strong>Dica importante:</strong> sempre chegue na nota <em>subindo</em> a tensão (de baixo para cima). Se ultrapassar, abaixe um pouco além e suba novamente — evita escorregamento da tarraxa.</div></div><strong>Afinadores recomendados:</strong> Korg PC-1, Snark SN-8, TC Electronic PolyTune Clip.
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('afin-ouvido')">
+              <span><strong>👂 Afinação por Ouvido — Método da 5.ª Corda</strong><br><span class="expand-toggle-sub">Para quando não tiver afinador</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="afin-ouvido" style="display:none">
+              Baseado em tocar a mesma nota em duas cordas diferentes:<br><br><div class="step"><div class="step-num">1</div><div class="step-txt">Afine o Mi com um afinador ou referência externa (diapasão, piano, app).</div></div><div class="step"><div class="step-num">2</div><div class="step-txt">Toque o Mi na <strong>5.ª casa da corda Mi</strong> — essa nota é o Lá (A). Afine a corda Lá solta para igualar esse som.</div></div><div class="step"><div class="step-num">3</div><div class="step-txt">Toque o Lá na <strong>5.ª casa da corda Lá</strong> — essa nota é o Ré. Afine a corda Ré solta.</div></div><div class="step"><div class="step-num">4</div><div class="step-txt">Toque o Ré na <strong>5.ª casa da corda Ré</strong> — essa nota é o Sol. Afine a corda Sol solta.</div></div>Nota: esse método é relativo — se o Mi estiver errado, tudo estará errado. Prefira sempre o afinador.
+            </div>
+          </div>
+          <div class="content-divider"></div>
+          <div class="section-title">🧍 Postura em Pé</div>
+          <div class="info-box">A postura correta previne lesões e faz o instrumento soar melhor. Não existe uma postura universal — existe a postura certa para o seu corpo.</div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('pos-correia')">
+              <span><strong>📏 Comprimento da Correia</strong><br><span class="expand-toggle-sub">O ponto de partida de tudo</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="pos-correia" style="display:none">
+              O maior erro do iniciante é colocar o baixo muito baixo (estilo rock star) — isso torce o pulso esquerdo e causa lesões.<br><br><strong>Como encontrar o comprimento ideal:</strong><br><div class="step"><div class="step-num">1</div><div class="step-txt">Sente-se e coloque o baixo no colo, na posição em que você toca sentado.</div></div><div class="step"><div class="step-num">2</div><div class="step-txt">Prenda a correia e ajuste até que o instrumento fique <strong>na mesma posição em pé</strong> que estava sentado.</div></div><div class="step"><div class="step-num">3</div><div class="step-txt">A cabeça do braço deve ficar entre a altura do seu umbigo e do seu peito — nunca mais baixo.</div></div><strong>Referência visual:</strong> Paul McCartney, Geddy Lee — postura funcional e saudável.
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('pos-corpo')">
+              <span><strong>🧍 Posição do Corpo</strong><br><span class="expand-toggle-sub">Equilíbrio e relaxamento são prioridade</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="pos-corpo" style="display:none">
+              <ul><li><strong>Peso:</strong> distribua igualmente nos dois pés. Evite apoiar todo o peso num só lado.</li><li><strong>Quadril:</strong> levemente aberto, não cruzado. Ombros relaxados e baixos — não levantados.</li><li><strong>Torso:</strong> ligeiramente voltado para o lado esquerdo (ou direito, para canhotos), nunca de frente para o público com o braço em ângulo forçado.</li><li><strong>Movimento:</strong> o corpo deve poder se mover com o groove — tocar engessado prejudica o timing e o som.</li></ul>
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('pos-maos')">
+              <span><strong>✋ Posição das Mãos em Pé</strong><br><span class="expand-toggle-sub">Mantém o mesmo padrão da postura sentado</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="pos-maos" style="display:none">
+              <strong>Mão esquerda:</strong> o pulso deve estar relativamente reto. Se o braço estiver muito baixo, o pulso se dobra demais — dor e lesão com o tempo.<br><br><strong>Mão direita:</strong> o ângulo de ataque nas cordas deve ser o mesmo de quando você está sentado. Ajuste a correia até isso ser natural.<br><br><strong>Cotovelo direito:</strong> apoia levemente no corpo do baixo — não force. O antebraço fica paralelo às cordas.<br><br><strong>Teste rápido:</strong> toque sentado por 5 minutos. Depois levante e veja se algo mudou no seu toque. Se sim, ajuste a correia.
+            </div>
           </div>
           <div class="content-divider"></div>
           <div class="practice-box green">
-            <div class="pb-label">🎯 Prática da Semana 1–2</div>
-            <div class="pb-text">
-              <strong>Exercício 1 (10 min):</strong> Com o baixo no colo ou na correia, toque cada corda solta alternando os dedos indicador e médio da mão direita. Ouça cada nota. Ela deve soar limpa, sustentada e sem ruídos.<br><br>
-              <strong>Exercício 2 (10 min):</strong> Pressione a 1ª casa da corda Mi com o dedo 1 (indicador). Toque. Depois 2ª casa com dedo 2 (médio), 3ª com dedo 3 (anelar), 4ª com dedo 4 (mínimo). Desça de volta: 4-3-2-1. Faça nas 4 cordas.<br><br>
-              <strong>Meta:</strong> Cada nota deve soar sem zumbido. Se houver zumbido, ajuste o posicionamento do dedo (mais perto da pestana).
+            <div class="pb-label">🎯 Prática das Semanas 1–2</div>
+            <div class="pb-text"><strong>Exercício 1 (10 min):</strong> Com o baixo na correia ou no colo, toque cada corda solta alternando os dedos indicador e médio. Cada nota deve soar limpa e sustentada.<br><br><strong>Exercício 2 (10 min):</strong> Pressione a 1.ª casa da corda Mi com o dedo 1. Toque. Depois 2.ª casa com dedo 2, 3.ª com dedo 3, 4.ª com dedo 4. Desça de volta: 4-3-2-1. Repita nas 4 cordas.<br><br><strong>Meta:</strong> cada nota deve soar sem zumbido. Zumbindo? Aproxime o dedo da pestana (fret).
             </div>
           </div>
-          
           <div class="content-divider"></div>
           <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f1m1q','Quiz: Anatomia do Baixo',[
+            {q:'Como se chama a barra interna que controla a curvatura do braço?',o:['Truss Rod','Nut','Bridge','Saddle'],c:0,ok:'Correto! O truss rod ajusta a curvatura com uma chave allen.',fail:'É o Truss Rod — dentro do braço, ajustado com chave allen.'},
+            {q:'As 4 cordas do baixo, da mais grossa para a mais fina, são:',o:['Mi-Lá-Ré-Sol','Sol-Ré-Lá-Mi','Lá-Mi-Ré-Sol','Mi-Sol-Lá-Ré'],c:0,ok:'Perfeito! Mi(E)-Lá(A)-Ré(D)-Sol(G).',fail:'A ordem é Mi-Lá-Ré-Sol (E-A-D-G), da mais grave para a mais aguda.'},
+            {q:'O que diferencia um baixo ativo de um passivo?',o:['Número de cordas','Material do corpo','Pré-amplificador interno com bateria 9V','Tipo de cavalete'],c:2,ok:'Exato! O ativo tem pré-amp com bateria — mais controle de EQ.',fail:'Ativo = pré-amplificador interno (bateria 9V). Passivo = circuito simples, sem bateria.'},
+            {q:'Onde o polegar da mão direita deve ficar ao tocar fingerstyle?',o:['Na corda Sol','Sobre o captador (âncora)','Livre no ar','Sobre a porca de tensão'],c:1,ok:'Correto! Polegar ancorado no captador dá referência e estabilidade.',fail:'O polegar ancora no captador ou na corda Mi, servindo de ponto fixo para a mão.'},
+            {q:'Intonação é o ajuste que garante que:',o:['O volume seja constante','A 12ª casa afine exatamente 1 oitava acima da corda solta','A ação das cordas seja baixa','O truss rod esteja reto'],c:1,ok:'Perfeito! Intonação = cavalete ajustado para oitava exata na 12ª casa.',fail:'Intonação: ajuste do cavalete para a 12ª casa soar exatamente 1 oitava acima da corda solta.'},
+          ])}
           ${EX.build('flashcard','f1m1fc','Flashcards: Partes do Instrumento',[
             {f:'Truss Rod',b:'Barra interna no braço. Controla a curvatura (relief). Ajustada com chave allen. Cuidado: mexer errado quebra o braço!'},
             {f:'Ação das Cordas',b:'Distância das cordas ao braço. Alta = volume maior, menos zumbido. Baixa = toque mais fácil, pode zunir.'},
@@ -1124,13 +1328,6 @@ const COURSE = [
             {f:'Captador Jazz Bass (J-Bass)',b:'Dois singles coil paralelos. Som brilhante, articulado. Fender Jazz Bass. Muito usado no jazz e funk.'},
             {f:'Baixo Ativo vs Passivo',b:'Ativo: pré-amp interno (bateria 9V), boost de EQ possível. Passivo: circuito simples, som mais orgânico.'},
             {f:'Nut (Porca de Tensão)',b:'Peça no início do braço que guia as cordas. Altura errada = desafinação nas primeiras casas.'},
-          ])}
-          ${EX.build('quiz','f1m1q','Quiz: Anatomia do Baixo',[
-            {q:'Como se chama a barra interna que controla a curvatura do braço?',o:['Truss Rod','Nut','Bridge','Saddle'],c:0,ok:'Correto! O truss rod ajusta a curvatura com uma chave allen.',fail:'É o Truss Rod — dentro do braço, ajustado com chave allen.'},
-            {q:'As 4 cordas do baixo, da mais grossa para a mais fina, são:',o:['Mi-Lá-Ré-Sol','Sol-Ré-Lá-Mi','Lá-Mi-Ré-Sol','Mi-Sol-Lá-Ré'],c:0,ok:'Perfeito! Mi(E)-Lá(A)-Ré(D)-Sol(G).',fail:'A ordem é Mi-Lá-Ré-Sol (E-A-D-G), da mais grave para a mais aguda.'},
-            {q:'O que diferencia um baixo ativo de um passivo?',o:['Número de cordas','Material do corpo','Pré-amplificador interno com bateria 9V','Tipo de cavalete'],c:2,ok:'Exato! O ativo tem pré-amp com bateria — mais controle de EQ.',fail:'Ativo = pré-amplificador interno (bateria 9V). Passivo = circuito simples, sem bateria.'},
-            {q:'Onde o polegar da mão direita deve ficar ao tocar fingerstyle?',o:['Na corda Sol','Sobre o captador (âncora)','Livre no ar','Sobre a porca de tensão'],c:1,ok:'Correto! Polegar ancorado no captador dá referência e estabilidade.',fail:'O polegar ancora no captador ou na corda Mi, servindo de ponto fixo para a mão.'},
-            {q:'Intonação é o ajuste que garante que:',o:['O volume seja constante','A 12ª casa afine exatamente 1 oitava acima da corda solta','A ação das cordas seja baixa','O truss rod esteja reto'],c:1,ok:'Perfeito! Intonação = cavalete ajustado para oitava exata na 12ª casa.',fail:'Intonação: ajuste do cavalete para a 12ª casa soar exatamente 1 oitava acima da corda solta.'},
           ])}
           <div class="checklist" id="cl_f1m1">
             ${checks('f1m1',[
@@ -1147,6 +1344,7 @@ const COURSE = [
         id: 'f1m2', num: 'M02',
         title: 'Teoria Musical Essencial',
         desc: 'Teoria não é opcional para quem quer ser profissional. Aprenda o suficiente para entender o que está tocando e se comunicar com outros músicos.',
+        video: '',
         content: () => `
           <div class="section-title">🎼 As 12 Notas Musicais</div>
           <div class="info-box">
@@ -1250,6 +1448,7 @@ E |---0-2-0-0-3-0---|</pre>
         id: 'f1m3', num: 'M03',
         title: 'Técnica da Mão Direita',
         desc: 'A mão direita define seu som, groove e dinâmica. É onde nasce a música. Invista aqui mais do que em qualquer outro lugar no início.',
+        video: '',
         content: () => `
           <div class="section-title">👆 Fingerstyle — A Técnica Fundamental</div>
           <div class="info-box">
@@ -1316,6 +1515,7 @@ E |---0-2-0-0-3-0---|</pre>
         id: 'f1m4', num: 'M04',
         title: 'Técnica da Mão Esquerda',
         desc: 'Clareza, velocidade e independência dos dedos da mão esquerda são construídas aqui. Paciência e consistência são a chave.',
+        video: '',
         content: () => `
           <div class="section-title">🖐️ Posicionamento Correto</div>
           <div class="info-box">
@@ -1388,6 +1588,7 @@ E |--1--2--3--4--|--4--3--2--1--|</pre><br>
         id: 'f1m5', num: 'M05',
         title: 'Groove, Ritmo e Metrônomo',
         desc: 'Um baixista profissional é, antes de tudo, um músico de ritmo. O groove é o que faz as pessoas dançarem. Desenvolva-o desde o início.',
+        video: '',
         content: () => `
           <div class="section-title">⏱️ Como Usar o Metrônomo Corretamente</div>
           <div class="info-box">
@@ -1439,6 +1640,12 @@ A |--3-3-3-3-3-3-3-3--|  (nota Dó, 3ª casa da corda Lá)</pre><br>
             {t:'note',l:'3'},{t:'ghost',l:'e'},{t:'ghost',l:'+'},{t:'ghost',l:'a'},
             {t:'note',l:'4'},{t:'ghost',l:'e'},{t:'note',l:'+'},{t:'ghost',l:'a'},
           ],80)}
+          ${EX.build('quiz','f1m5q','Quiz: Groove e Ritmo',[
+            {q:'O que é "pocket" na linguagem dos músicos?',o:['Espaço no palco','Sincronismo perfeito entre baixo e bateria, criando um groove irresistível','Técnica de slap','Acorde de 5 notas'],c:1,ok:'Correto! Pocket = baixo e bateria travados juntos.',fail:'Pocket: quando baixo e bateria estão tão sincronizados que criam uma "bolsa" rítmica irresistível.'},
+            {q:'Qual instrumento da bateria o baixo deve "travar" prioritariamente?',o:['Chimbal (hi-hat)','Caixa (snare)','Bumbo (kick drum)','Prato (crash)'],c:2,ok:'Exato! Bumbo + baixo = fundação rítmica da banda.',fail:'O bumbo (kick drum) e o baixo formam juntos a fundação rítmica. Eles devem soar como um só.'},
+            {q:'Como contar 16 semicolcheias em 4/4?',o:['1-2-3-4','1-e-2-e','1-e-+-a-2-e-+-a-3-e-+-a-4-e-+-a','1-ah-2-ah-3-ah-4-ah'],c:2,ok:'Correto! 1-e-+-a para cada tempo = 16 subdivisões.',fail:'Semicolcheias: 1-e-+-a por tempo. 4 tempos × 4 subdivisões = 16 por compasso.'},
+            {q:'Por que configurar o metrônomo apenas nos tempos 2 e 4?',o:['Fica mais fácil','Simula o snare da bateria, treinando o groove real','Aumenta a velocidade','É a configuração padrão'],c:1,ok:'Exato! O snare no 2 e 4 é o coração do rock e pop.',fail:'Metrônomo no 2 e 4 simula a caixa da bateria, forçando você a internalizar o groove real.'},
+          ])}
           ${EX.build('flashcard','f1m5fc','Flashcards: Vocabulário de Groove',[
             {f:'Pocket',b:'Sincronismo perfeito entre baixo e bateria. O groove "encaixa" e faz as pessoas moverem o corpo involuntariamente.'},
             {f:'"On the One" — James Brown',b:'O tempo 1 é o ponto de resolução máxima. Toda a banda converge para o "Um". Filosofia do funk americano.'},
@@ -1446,12 +1653,6 @@ A |--3-3-3-3-3-3-3-3--|  (nota Dó, 3ª casa da corda Lá)</pre><br>
             {f:'Ahead of the Beat',b:'Tocar levemente antes do tempo. Cria urgência e tensão. Comum no punk e música acelerada.'},
             {f:'Subdivisão',b:'Divisão do tempo em partes menores. Colcheias (÷2), semicolcheias (÷4). Define a "grade" rítmica do groove.'},
             {f:'Síncope',b:'Acentuação no tempo fraco. Motor do samba, funk e jazz. Cria surpresa e movimento rítmico.'},
-          ])}
-          ${EX.build('quiz','f1m5q','Quiz: Groove e Ritmo',[
-            {q:'O que é "pocket" na linguagem dos músicos?',o:['Espaço no palco','Sincronismo perfeito entre baixo e bateria, criando um groove irresistível','Técnica de slap','Acorde de 5 notas'],c:1,ok:'Correto! Pocket = baixo e bateria travados juntos.',fail:'Pocket: quando baixo e bateria estão tão sincronizados que criam uma "bolsa" rítmica irresistível.'},
-            {q:'Qual instrumento da bateria o baixo deve "travar" prioritariamente?',o:['Chimbal (hi-hat)','Caixa (snare)','Bumbo (kick drum)','Prato (crash)'],c:2,ok:'Exato! Bumbo + baixo = fundação rítmica da banda.',fail:'O bumbo (kick drum) e o baixo formam juntos a fundação rítmica. Eles devem soar como um só.'},
-            {q:'Como contar 16 semicolcheias em 4/4?',o:['1-2-3-4','1-e-2-e','1-e-+-a-2-e-+-a-3-e-+-a-4-e-+-a','1-ah-2-ah-3-ah-4-ah'],c:2,ok:'Correto! 1-e-+-a para cada tempo = 16 subdivisões.',fail:'Semicolcheias: 1-e-+-a por tempo. 4 tempos × 4 subdivisões = 16 por compasso.'},
-            {q:'Por que configurar o metrônomo apenas nos tempos 2 e 4?',o:['Fica mais fácil','Simula o snare da bateria, treinando o groove real','Aumenta a velocidade','É a configuração padrão'],c:1,ok:'Exato! O snare no 2 e 4 é o coração do rock e pop.',fail:'Metrônomo no 2 e 4 simula a caixa da bateria, forçando você a internalizar o groove real.'},
           ])}
           <div class="checklist" id="cl_f1m5">
             ${checks('f1m5',[
@@ -1494,6 +1695,7 @@ A |--3-3-3-3-3-3-3-3--|  (nota Dó, 3ª casa da corda Lá)</pre><br>
         id: 'f2m6', num: 'M06',
         title: 'Escalas Fundamentais',
         desc: 'As escalas são o vocabulário da música. Aprenda-as em todas as posições, em todas as tonalidades.',
+        video: '',
         content: () => `
           <div class="section-title">🎵 A Escala Maior — A Mãe de Tudo</div>
           <div class="info-box">
@@ -1584,6 +1786,7 @@ E |--5--8--|</pre>
         id: 'f2m7', num: 'M07',
         title: 'Acordes e Arpejos para Baixo',
         desc: 'O baixista não toca acordes como o violão, mas entender a harmonia de um acorde é essencial para criar linhas que se encaixem perfeitamente.',
+        video: '',
         content: () => `
           <div class="section-title">🔺 O Que é um Acorde?</div>
           <div class="info-box">
@@ -1626,6 +1829,12 @@ E |--5--8--|</pre>
           
           <div class="content-divider"></div>
           <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f2m7q','Quiz: Acordes e Arpejos',[
+            {q:'Quais notas formam a tríade de Dó maior (C)?',o:['C-D-E','C-E-G','C-E-F','C-F-G'],c:1,ok:'Correto! C-E-G = raiz(1), terça maior(3), quinta justa(5).',fail:'Tríade maior = 1-3-5. Em Dó: C(1) + E(3) + G(5).'},
+            {q:'O que diferencia m7 de Maj7?',o:['Número de notas','m7 tem b3 e b7; Maj7 tem 3 e 7 naturais','O ritmo','Nada'],c:1,ok:'Correto! m7 = menor; Maj7 = maior. A 3ª e a 7ª definem tudo.',fail:'m7: 1-b3-5-b7. Maj7: 1-3-5-7. A 3ª (maior/menor) e a 7ª (maior/menor) definem o caráter.'},
+            {q:'O que é arpejo no contexto do baixo?',o:['Técnica de slap','Tocar as notas de um acorde uma de cada vez','Acorde com todas as notas simultâneas','Nome de uma escala'],c:1,ok:'Exato! Arpejo = notas do acorde em sequência.',fail:'Arpejo: notas de um acorde tocadas sequencialmente. Base do walking bass e linhas de soul.'},
+            {q:'Na progressão I-IV-V em Dó maior, qual é o acorde V?',o:['Fá (F)','Sol (G)','Ré (D)','Lá (A)'],c:1,ok:'Correto! O 5º grau de Dó maior é Sol (G).',fail:'Em Dó maior: I=C, II=D, III=E, IV=F, V=G. O acorde V é Sol (G).'},
+          ])}
           ${EX.build('flashcard','f2m7fc','Flashcards: Acordes',[
             {f:'Tríade Maior',b:'1-3-5. Ex: C-E-G. Som brilhante e estável. "Acorde feliz".'},
             {f:'Tríade Menor',b:'1-b3-5. Ex: C-Eb-G. Som mais escuro e melancólico.'},
@@ -1634,12 +1843,6 @@ E |--5--8--|</pre>
             {f:'Acorde m7',b:'1-b3-5-b7. Ex: Am7=A-C-E-G. Funk, jazz, neo soul.'},
             {f:'Progressão II-V-I',b:'A mais importante do jazz. Em Dó: Dm7-G7-Cmaj7. Tensão (V) → Resolução (I).'},
             {f:'Nota de Passagem',b:'Nota cromática que conecta dois acordes. Cria o "caminhar" do walking bass.'},
-          ])}
-          ${EX.build('quiz','f2m7q','Quiz: Acordes e Arpejos',[
-            {q:'Quais notas formam a tríade de Dó maior (C)?',o:['C-D-E','C-E-G','C-E-F','C-F-G'],c:1,ok:'Correto! C-E-G = raiz(1), terça maior(3), quinta justa(5).',fail:'Tríade maior = 1-3-5. Em Dó: C(1) + E(3) + G(5).'},
-            {q:'O que diferencia m7 de Maj7?',o:['Número de notas','m7 tem b3 e b7; Maj7 tem 3 e 7 naturais','O ritmo','Nada'],c:1,ok:'Correto! m7 = menor; Maj7 = maior. A 3ª e a 7ª definem tudo.',fail:'m7: 1-b3-5-b7. Maj7: 1-3-5-7. A 3ª (maior/menor) e a 7ª (maior/menor) definem o caráter.'},
-            {q:'O que é arpejo no contexto do baixo?',o:['Técnica de slap','Tocar as notas de um acorde uma de cada vez','Acorde com todas as notas simultâneas','Nome de uma escala'],c:1,ok:'Exato! Arpejo = notas do acorde em sequência.',fail:'Arpejo: notas de um acorde tocadas sequencialmente. Base do walking bass e linhas de soul.'},
-            {q:'Na progressão I-IV-V em Dó maior, qual é o acorde V?',o:['Fá (F)','Sol (G)','Ré (D)','Lá (A)'],c:1,ok:'Correto! O 5º grau de Dó maior é Sol (G).',fail:'Em Dó maior: I=C, II=D, III=E, IV=F, V=G. O acorde V é Sol (G).'},
           ])}
           <div class="checklist" id="cl_f2m7">
             ${checks('f2m7',[
@@ -1656,6 +1859,7 @@ E |--5--8--|</pre>
         id: 'f2m8', num: 'M08',
         title: 'Os 7 Modos da Escala Maior',
         desc: 'Os modos gregos são a expansão do seu vocabulário harmônico. Essencial para jazz, fusion e música contemporânea.',
+        video: '',
         content: () => `
           <div class="section-title">🎭 O Que são Modos?</div>
           <div class="info-box">
@@ -1704,6 +1908,13 @@ E |--5--8--|</pre>
           
           <div class="content-divider"></div>
           <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f2m8q','Quiz: Os 7 Modos',[
+            {q:'O Dórico difere do Eólio (menor natural) por qual nota?',o:['b2 (segunda menor)','#4 (quarta aumentada)','6ª maior (natural, não abaixada)','b7 (sétima menor)'],c:2,ok:'Correto! Dórico tem 6ª maior; Eólio tem 6ª menor. Essa nota muda tudo.',fail:'Dórico = menor com 6ª maior. Eólio = menor com 6ª menor. É a única diferença entre os dois.'},
+            {q:'"So What" de Miles Davis é inteiramente em qual modo?',o:['Mixolídio','Lócrio','Dórico','Lídio'],c:2,ok:'Correto! So What está em Ré Dórico — o cânone do jazz modal.',fail:'"So What" está em Ré Dórico. É a obra-prima do jazz modal. Ouça com atenção ao baixo de Paul Chambers.'},
+            {q:'Qual modo é chamado de "escala do blues-rock" por ter b7?',o:['Jônico','Frígio','Lídio','Mixolídio'],c:3,ok:'Exato! Mixolídio = maior com b7. O sabor do blues e do rock clássico.',fail:'Mixolídio = escala maior com sétima abaixada (b7). Dá o "sabor" do blues e do rock.'},
+            {q:'O Frígio tem caráter sombrio e exótico por causa de qual intervalo característico?',o:['#4','b3','b2 (segunda menor)','b6'],c:2,ok:'Correto! O b2 cria o intervalo de semitom logo no início — som dramático e exótico.',fail:'Frígio: b2 (segunda menor). Esse semitom inicial cria o caráter dramático, usado no flamenco e metal.'},
+            {q:'Qual modo tem o #4 (quarta aumentada) como nota característica?',o:['Jônico','Dórico','Lídio','Eólio'],c:2,ok:'Correto! Lídio = maior com #4. Som etéreo e "flutuante".',fail:'Lídio tem #4 (trítono acima da raiz). Cria som etéreo, dreamy. Usado por John Williams e muitos composers.'},
+          ])}
           ${EX.build('flashcard','f2m8fc','Flashcards: Os 7 Modos',[
             {f:'Jônico (I)',b:'A escala maior. T-T-st-T-T-T-st. Brilhante e estável. C-D-E-F-G-A-B.'},
             {f:'Dórico (II)',b:'Menor com 6ª maior. Funk e jazz menor. Lá Dórico: A-B-C-D-E-F#-G.'},
@@ -1712,13 +1923,6 @@ E |--5--8--|</pre>
             {f:'Mixolídio (V)',b:'Maior com b7. Blues, rock, dominant. G-A-B-C-D-E-F.'},
             {f:'Eólio (VI)',b:'Menor natural. Melancólico. Rock alternativo, pop menor. A-B-C-D-E-F-G.'},
             {f:'Lócrio (VII)',b:'Diminuto, instável. Raro mas importante no jazz. B-C-D-E-F-G-A.'},
-          ])}
-          ${EX.build('quiz','f2m8q','Quiz: Os 7 Modos',[
-            {q:'O Dórico difere do Eólio (menor natural) por qual nota?',o:['b2 (segunda menor)','#4 (quarta aumentada)','6ª maior (natural, não abaixada)','b7 (sétima menor)'],c:2,ok:'Correto! Dórico tem 6ª maior; Eólio tem 6ª menor. Essa nota muda tudo.',fail:'Dórico = menor com 6ª maior. Eólio = menor com 6ª menor. É a única diferença entre os dois.'},
-            {q:'"So What" de Miles Davis é inteiramente em qual modo?',o:['Mixolídio','Lócrio','Dórico','Lídio'],c:2,ok:'Correto! So What está em Ré Dórico — o cânone do jazz modal.',fail:'"So What" está em Ré Dórico. É a obra-prima do jazz modal. Ouça com atenção ao baixo de Paul Chambers.'},
-            {q:'Qual modo é chamado de "escala do blues-rock" por ter b7?',o:['Jônico','Frígio','Lídio','Mixolídio'],c:3,ok:'Exato! Mixolídio = maior com b7. O sabor do blues e do rock clássico.',fail:'Mixolídio = escala maior com sétima abaixada (b7). Dá o "sabor" do blues e do rock.'},
-            {q:'O Frígio tem caráter sombrio e exótico por causa de qual intervalo característico?',o:['#4','b3','b2 (segunda menor)','b6'],c:2,ok:'Correto! O b2 cria o intervalo de semitom logo no início — som dramático e exótico.',fail:'Frígio: b2 (segunda menor). Esse semitom inicial cria o caráter dramático, usado no flamenco e metal.'},
-            {q:'Qual modo tem o #4 (quarta aumentada) como nota característica?',o:['Jônico','Dórico','Lídio','Eólio'],c:2,ok:'Correto! Lídio = maior com #4. Som etéreo e "flutuante".',fail:'Lídio tem #4 (trítono acima da raiz). Cria som etéreo, dreamy. Usado por John Williams e muitos composers.'},
           ])}
           <div class="checklist" id="cl_f2m8">
             ${checks('f2m8',[
@@ -1735,6 +1939,7 @@ E |--5--8--|</pre>
         id: 'f2m9', num: 'M09',
         title: 'Estilos Musicais — Parte 1',
         desc: 'Cada estilo musical tem suas regras, vocabulário e grandes referências. Mergulhe fundo em cada um antes de seguir para o próximo.',
+        video: '',
         content: () => `
           <div class="section-title">🤘 Rock Bass</div>
           <div class="info-box">
@@ -1812,6 +2017,7 @@ E7 | D7 | A7 | E7</pre><br>
         id: 'f2m10', num: 'M10',
         title: 'Slap Bass — Técnica Completa',
         desc: 'O slap é uma das técnicas mais percussivas e expressivas do baixo. Exige coordenação, groove e timing preciso.',
+        video: '',
         content: () => `
           <div class="section-title">👍 O Golpe do Polegar (Thumb / T)</div>
           <div class="info-box">
@@ -1870,6 +2076,12 @@ Tempo: 1   e   2   e   3   e   4   e
             {t:'note',l:'T'},{t:'ghost',l:'G'},{t:'note',l:'P'},{t:'ghost',l:'G'},
             {t:'note',l:'T'},{t:'ghost',l:'G'},{t:'note',l:'P'},{t:'ghost',l:'G'},
           ],65)}
+          ${EX.build('quiz','f2m10q','Quiz: Slap Bass',[
+            {q:'O movimento do polegar no thumb deve vir de:',o:['Todo o braço','Apenas o pulso (rotação de torneira)','Do cotovelo','Do ombro'],c:1,ok:'Correto! Pulso = eficiência e controle. Braço = cansaço e imprecisão.',fail:'O thumb é uma rotação do pulso, como virar uma chave. O braço permanece quase estático.'},
+            {q:'Por que o polegar deve ricochetear imediatamente após o golpe?',o:['Para não machucar a corda','Para não abafar a nota e permitir o sustain','Para economizar energia','Sem motivo técnico'],c:1,ok:'Exato! Ficar na corda abafa o sustain da nota.',fail:'Se o polegar ficar pressionado, abafa a corda. O ricochete libera a vibração e o sustain.'},
+            {q:'Quem é considerado o inventor do slap bass?',o:['Flea','Victor Wooten','Larry Graham','Marcus Miller'],c:2,ok:'Correto! Larry Graham desenvolveu o slap com Sly & the Family Stone nos anos 60.',fail:'Larry Graham inventou o slap originalmente como substituto da bateria nos shows de família.'},
+            {q:'O "double thumb" consiste em:',o:['Usar dois polegares','Alternância down-up com o mesmo polegar, como palheta','Slap com os dois dedos médios','Técnica de tapping'],c:1,ok:'Correto! Down + up com o polegar = dobro de velocidade no slap.',fail:'Double thumb: o polegar faz down stroke E up stroke (como palheta alternate). 2× mais velocidade.'},
+          ])}
           ${EX.build('flashcard','f2m10fc','Flashcards: Slap Bass',[
             {f:'Thumb Down',b:'Golpe do polegar para baixo na corda Mi/Lá. Movimento do pulso. Ricochete imediato. Som percussivo e sustentado.'},
             {f:'Pop',b:'Indicador puxa a corda Sol/Ré para cima e solta. A corda bate nas pestanas = estalo característico do slap.'},
@@ -1877,12 +2089,6 @@ Tempo: 1   e   2   e   3   e   4   e
             {f:'Double Thumb',b:'Down E up com o polegar (como alternate picking). Dobra a velocidade. Referência: Victor Wooten.'},
             {f:'Larry Graham',b:'Inventor do slap. "Thank You" com Sly & the Family Stone (1969). O primeiro a usar o thumb no baixo.'},
             {f:'Marcus Miller',b:'Slap refinado e musical. "Tutu" (Miles Davis). Equilibra groove, melodia e técnica impecável.'},
-          ])}
-          ${EX.build('quiz','f2m10q','Quiz: Slap Bass',[
-            {q:'O movimento do polegar no thumb deve vir de:',o:['Todo o braço','Apenas o pulso (rotação de torneira)','Do cotovelo','Do ombro'],c:1,ok:'Correto! Pulso = eficiência e controle. Braço = cansaço e imprecisão.',fail:'O thumb é uma rotação do pulso, como virar uma chave. O braço permanece quase estático.'},
-            {q:'Por que o polegar deve ricochetear imediatamente após o golpe?',o:['Para não machucar a corda','Para não abafar a nota e permitir o sustain','Para economizar energia','Sem motivo técnico'],c:1,ok:'Exato! Ficar na corda abafa o sustain da nota.',fail:'Se o polegar ficar pressionado, abafa a corda. O ricochete libera a vibração e o sustain.'},
-            {q:'Quem é considerado o inventor do slap bass?',o:['Flea','Victor Wooten','Larry Graham','Marcus Miller'],c:2,ok:'Correto! Larry Graham desenvolveu o slap com Sly & the Family Stone nos anos 60.',fail:'Larry Graham inventou o slap originalmente como substituto da bateria nos shows de família.'},
-            {q:'O "double thumb" consiste em:',o:['Usar dois polegares','Alternância down-up com o mesmo polegar, como palheta','Slap com os dois dedos médios','Técnica de tapping'],c:1,ok:'Correto! Down + up com o polegar = dobro de velocidade no slap.',fail:'Double thumb: o polegar faz down stroke E up stroke (como palheta alternate). 2× mais velocidade.'},
           ])}
           <div class="checklist" id="cl_f2m10">
             ${checks('f2m10',[
@@ -1899,6 +2105,7 @@ Tempo: 1   e   2   e   3   e   4   e
         id: 'f2m11', num: 'M11',
         title: 'Leitura de Partitura',
         desc: 'Ler partitura é o que separa músicos amadores de profissionais. Clave de fá, claves de dó e notação rítmica são suas ferramentas.',
+        video: '',
         content: () => `
           <div class="section-title">🎼 A Clave de Fá — A Clave do Baixo</div>
           <div class="info-box">
@@ -1958,6 +2165,7 @@ Tempo: 1   e   2   e   3   e   4   e
         id: 'f2m12', num: 'M12',
         title: 'Improvisação e Criatividade',
         desc: 'Improvisar é conversar musicalmente. Aprenda a criar solos e fraseados que fazem sentido dentro de uma harmonia.',
+        video: '',
         content: () => `
           <div class="section-title">🗣️ A Linguagem da Improvisação</div>
           <div class="info-box">
@@ -2029,6 +2237,7 @@ Tempo: 1   e   2   e   3   e   4   e
         id: 'f3m13', num: 'M13',
         title: 'Funk Bass — O Groove Definitivo',
         desc: 'O funk é a escola definitiva do groove. Semicolcheias, ghostnotes, pocket e interação com a bateria são levados ao extremo.',
+        video: '',
         content: () => `
           <div class="section-title">🔥 O Ritmo do Funk — Semicolcheias</div>
           <div class="info-box">
@@ -2093,6 +2302,7 @@ Tempo: 1   e   2   e   3   e   4   e
         id: 'f3m14', num: 'M14',
         title: 'Jazz Bass — Walking Bass',
         desc: 'O jazz é o doutorado do músico. Harmonia sofisticada, walking bass e improvisação em tempo real são as exigências.',
+        video: '',
         content: () => `
           <div class="section-title">🚶 O Que é Walking Bass?</div>
           <div class="info-box">
@@ -2136,6 +2346,12 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
           
           <div class="content-divider"></div>
           <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f3m14q','Quiz: Walking Bass e Jazz',[
+            {q:'As "guide tones" mais importantes de um acorde são:',o:['Raiz e 5ª','3ª e 7ª','2ª e 6ª','4ª e 8ª'],c:1,ok:'Correto! 3ª e 7ª definem se o acorde é maior, menor ou dominante.',fail:'3ª e 7ª são as guide tones. Definem o caráter do acorde. Prioridade no walking bass.'},
+            {q:'Uma "chromatic approach note" é:',o:['Nota muito aguda','Nota 1 semitom antes da nota alvo do próximo acorde','Nota aleatória da escala cromática','Técnica de vibrato'],c:1,ok:'Exato! 1 semitom antes da nota alvo conecta acordes suavemente.',fail:'Chromatic approach: nota 1 semitom acima ou abaixo da nota alvo. Cria movimento suave entre acordes.'},
+            {q:'Walking bass usa quantas semínimas por compasso?',o:['2','4','8','16'],c:1,ok:'Correto! 4 notas por compasso — uma por tempo. É o "caminhar".',fail:'Walking bass = 4 semínimas por compasso. Uma nota em cada tempo do 4/4. Daí o nome "walking".'},
+            {q:'Qual standard de jazz é o mais indicado para aprender walking bass?',o:['Giant Steps','Autumn Leaves','Take Five','Round Midnight'],c:1,ok:'Correto! Autumn Leaves tem progressão clara — ideal para iniciantes no walking.',fail:'"Autumn Leaves" tem progressão II-V-I em maior e menor. Perfeito para treinar walking bass.'},
+          ])}
           ${EX.build('flashcard','f3m14fc','Flashcards: Jazz e Walking Bass',[
             {f:'Walking Bass',b:'4 semínimas por compasso. Linha melódica e harmônica que "caminha" de acorde em acorde. Padrão do jazz acústico.'},
             {f:'Guide Tones (3ª e 7ª)',b:'Notas mais informativas de um acorde. Definem se é maior, menor ou dominante. Prioridade no walking.'},
@@ -2143,12 +2359,6 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
             {f:'Progressão II-V-I',b:'A mais usada no jazz. Em Dó: Dm7-G7-Cmaj7. Subdominante → Dominante → Tônica. Aprenda em todas as 12 tonalidades.'},
             {f:'Autumn Leaves (Les Feuilles Mortes)',b:'Standard de jazz por Joseph Kosma. Progressão II-V-I em maior e menor. O melhor para aprender walking bass.'},
             {f:'Ron Carter',b:'Maior walking bassist da história. Quinteto de Miles Davis (1964-68). Definiu o padrão do contrabaixo no jazz moderno.'},
-          ])}
-          ${EX.build('quiz','f3m14q','Quiz: Walking Bass e Jazz',[
-            {q:'As "guide tones" mais importantes de um acorde são:',o:['Raiz e 5ª','3ª e 7ª','2ª e 6ª','4ª e 8ª'],c:1,ok:'Correto! 3ª e 7ª definem se o acorde é maior, menor ou dominante.',fail:'3ª e 7ª são as guide tones. Definem o caráter do acorde. Prioridade no walking bass.'},
-            {q:'Uma "chromatic approach note" é:',o:['Nota muito aguda','Nota 1 semitom antes da nota alvo do próximo acorde','Nota aleatória da escala cromática','Técnica de vibrato'],c:1,ok:'Exato! 1 semitom antes da nota alvo conecta acordes suavemente.',fail:'Chromatic approach: nota 1 semitom acima ou abaixo da nota alvo. Cria movimento suave entre acordes.'},
-            {q:'Walking bass usa quantas semínimas por compasso?',o:['2','4','8','16'],c:1,ok:'Correto! 4 notas por compasso — uma por tempo. É o "caminhar".',fail:'Walking bass = 4 semínimas por compasso. Uma nota em cada tempo do 4/4. Daí o nome "walking".'},
-            {q:'Qual standard de jazz é o mais indicado para aprender walking bass?',o:['Giant Steps','Autumn Leaves','Take Five','Round Midnight'],c:1,ok:'Correto! Autumn Leaves tem progressão clara — ideal para iniciantes no walking.',fail:'"Autumn Leaves" tem progressão II-V-I em maior e menor. Perfeito para treinar walking bass.'},
           ])}
           <div class="checklist" id="cl_f3m14">
             ${checks('f3m14',[
@@ -2165,6 +2375,7 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
         id: 'f3m15', num: 'M15',
         title: 'Técnicas Avançadas',
         desc: 'Técnicas que poucos dominam e que fazem a diferença em um nível alto de musicalidade.',
+        video: '',
         content: () => `
           <div class="section-title">🕊️ Harmônicos Naturais</div>
           <div class="info-box">
@@ -2208,6 +2419,12 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
           
           <div class="content-divider"></div>
           <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f3m15q','Quiz: Técnicas Avançadas',[
+            {q:'Como se produz um harmônico natural?',o:['Pressionando forte na casa','Encostando levemente o dedo sobre a casa, sem pressionar até o braço','Usando palheta muito forte','Pedal de efeito'],c:1,ok:'Correto! Toque leve sobre a casa, sem pressionar. Levante imediatamente.',fail:'Harmônico natural: dedo levemente sobre a casa (sem pressionar). Toque e levante o dedo simultaneamente.'},
+            {q:'A casa 7 de qualquer corda produz qual harmônico natural?',o:['Oitava','Quinta (uma oitava e meia acima)','Oitava dupla (2 oitavas)','Terça maior'],c:1,ok:'Correto! Casa 7 = quinta acima da corda solta.',fail:'Harmonics: casa 12=oitava, casa 7=quinta (1 oitava e meia), casa 5=oitava dupla.'},
+            {q:'O "double thumb" duplica a velocidade do slap ao:',o:['Usar dois polegares','Fazer down stroke E up stroke com o mesmo polegar','Alternar polegar e indicador','Usar ambas as mãos'],c:1,ok:'Correto! Down + up com o polegar = 2× velocidade.',fail:'Double thumb: polegar faz down stroke (normal) + up stroke (ao voltar). Como alternate picking.'},
+            {q:'O tapping no baixo envolve:',o:['Só a mão direita no braço','Ambas as mãos no braço, produzindo notas independentemente','Percussão no corpo do baixo','Só harmônicos'],c:1,ok:'Exato! Ambas as mãos no braço = possibilidade de intervalos impossíveis de outra forma.',fail:'Tapping: mão direita também toca no braço, criando notas independentes da mão esquerda.'},
+          ])}
           ${EX.build('flashcard','f3m15fc','Flashcards: Técnicas Avançadas',[
             {f:'Harmônico Natural',b:'Dedo levemente sobre casa 12, 7 ou 5. Som campânico. Casa 12=oitava, 7=quinta, 5=oitava dupla.'},
             {f:'Harmônico Artificial',b:'Mão esq. pressiona; mão dir. toca levemente 12 casas acima. Produz harmônico em qualquer nota.'},
@@ -2215,12 +2432,6 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
             {f:'Tapping',b:'Mão direita também toca no braço. Permite arpejos e saltos de intervalos impossíveis com uma mão só.'},
             {f:'Portrait of Tracy — Jaco',b:'Solo de baixo fretless de Jaco Pastorius inteiramente em harmônicos. O ponto mais alto da arte do baixo elétrico.'},
             {f:'Victor Wooten',b:'O maior baixista vivo. Double thumb, tapping, groove insano. "Classical Thump" e "Amazing Grace" são obras-primas.'},
-          ])}
-          ${EX.build('quiz','f3m15q','Quiz: Técnicas Avançadas',[
-            {q:'Como se produz um harmônico natural?',o:['Pressionando forte na casa','Encostando levemente o dedo sobre a casa, sem pressionar até o braço','Usando palheta muito forte','Pedal de efeito'],c:1,ok:'Correto! Toque leve sobre a casa, sem pressionar. Levante imediatamente.',fail:'Harmônico natural: dedo levemente sobre a casa (sem pressionar). Toque e levante o dedo simultaneamente.'},
-            {q:'A casa 7 de qualquer corda produz qual harmônico natural?',o:['Oitava','Quinta (uma oitava e meia acima)','Oitava dupla (2 oitavas)','Terça maior'],c:1,ok:'Correto! Casa 7 = quinta acima da corda solta.',fail:'Harmonics: casa 12=oitava, casa 7=quinta (1 oitava e meia), casa 5=oitava dupla.'},
-            {q:'O "double thumb" duplica a velocidade do slap ao:',o:['Usar dois polegares','Fazer down stroke E up stroke com o mesmo polegar','Alternar polegar e indicador','Usar ambas as mãos'],c:1,ok:'Correto! Down + up com o polegar = 2× velocidade.',fail:'Double thumb: polegar faz down stroke (normal) + up stroke (ao voltar). Como alternate picking.'},
-            {q:'O tapping no baixo envolve:',o:['Só a mão direita no braço','Ambas as mãos no braço, produzindo notas independentemente','Percussão no corpo do baixo','Só harmônicos'],c:1,ok:'Exato! Ambas as mãos no braço = possibilidade de intervalos impossíveis de outra forma.',fail:'Tapping: mão direita também toca no braço, criando notas independentes da mão esquerda.'},
           ])}
           <div class="checklist" id="cl_f3m15">
             ${checks('f3m15',[
@@ -2237,6 +2448,7 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
         id: 'f3m16', num: 'M16',
         title: 'Estilos Avançados — Parte 2',
         desc: 'Amplie seu repertório estilístico com gêneros que exigem mais sofisticação técnica e harmônica.',
+        video: '',
         content: () => `
           <div class="section-title">🧬 Fusion — A Intersecção de Tudo</div>
           <div class="info-box">
@@ -2294,6 +2506,7 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
         id: 'f3m17', num: 'M17',
         title: 'Harmonia Funcional Avançada',
         desc: 'Entenda como a harmonia funciona em profundidade para criar linhas de baixo que são musicalmente inteligentes.',
+        video: '',
         content: () => `
           <div class="section-title">🏗️ Funções Harmônicas</div>
           <div class="info-box">
@@ -2335,6 +2548,12 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
           
           <div class="content-divider"></div>
           <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f3m17q','Quiz: Harmonia Funcional',[
+            {q:'Qual é a função harmônica do acorde V7 (dominante com sétima)?',o:['Repouso e estabilidade','Tensão máxima que quer resolver no I','Movimento moderado','Finalização'],c:1,ok:'Correto! V7 = máxima tensão. Sempre resolve no I.',fail:'V7 (dominante) é o acorde de maior tensão. "Puxa" para a tônica como gravidade.'},
+            {q:'Em Dó maior, qual é o acorde V7?',o:['Dm7','G7','Fmaj7','Am7'],c:1,ok:'Correto! G7 é o V7 de Dó maior.',fail:'Em Dó maior: I=C, II=D, III=E, IV=F, V=G. O V7 é G7 (Sol dominante sétima).'},
+            {q:'O que é empréstimo modal?',o:['Pegar instrumento emprestado','Usar acorde da tonalidade paralela (maior ↔ menor)','Modulação permanente','Substituição de dominante'],c:1,ok:'Exato! Em "Yesterday", o Fm é emprestado do Fá menor.',fail:'Empréstimo modal: usar acorde da tonalidade paralela. Em Dó maior, usar Cm, Fm ou Ab (do menor).'},
+            {q:'Como baixista, o sinal mais claro de que a música modulou é:',o:['A letra menciona','A tônica muda e os acordes giram em torno de um novo centro tonal','O andamento muda','O cantor sobe de registro'],c:1,ok:'Correto! A nova tônica é o sinal da modulação.',fail:'Modulação: o centro tonal muda. A nova raiz passa a ser o ponto de repouso. Ancore no tempo 1.'},
+          ])}
           ${EX.build('flashcard','f3m17fc','Flashcards: Harmonia',[
             {f:'Tônica',b:'Função de repouso. Graus I, III, VI. Onde a música "chega em casa". Estabilidade e conclusão.'},
             {f:'Dominante',b:'Tensão máxima. Grau V (V7). Sempre quer resolver na tônica. Motor da progressão harmônica.'},
@@ -2342,12 +2561,6 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
             {f:'Progressão II-V-I',b:'S→D→T. A mais usada na música. Em jazz: Dm7-G7-Cmaj7. Base de centenas de standards.'},
             {f:'Empréstimo Modal',b:'Usar acorde da tonalidade paralela. Em Dó maior: Cm, Fm, Abmaj7 são emprestados do menor.'},
             {f:'Modulação',b:'Mudança de centro tonal. Tipos: direta, por acorde pivô, por dominante secundário.'},
-          ])}
-          ${EX.build('quiz','f3m17q','Quiz: Harmonia Funcional',[
-            {q:'Qual é a função harmônica do acorde V7 (dominante com sétima)?',o:['Repouso e estabilidade','Tensão máxima que quer resolver no I','Movimento moderado','Finalização'],c:1,ok:'Correto! V7 = máxima tensão. Sempre resolve no I.',fail:'V7 (dominante) é o acorde de maior tensão. "Puxa" para a tônica como gravidade.'},
-            {q:'Em Dó maior, qual é o acorde V7?',o:['Dm7','G7','Fmaj7','Am7'],c:1,ok:'Correto! G7 é o V7 de Dó maior.',fail:'Em Dó maior: I=C, II=D, III=E, IV=F, V=G. O V7 é G7 (Sol dominante sétima).'},
-            {q:'O que é empréstimo modal?',o:['Pegar instrumento emprestado','Usar acorde da tonalidade paralela (maior ↔ menor)','Modulação permanente','Substituição de dominante'],c:1,ok:'Exato! Em "Yesterday", o Fm é emprestado do Fá menor.',fail:'Empréstimo modal: usar acorde da tonalidade paralela. Em Dó maior, usar Cm, Fm ou Ab (do menor).'},
-            {q:'Como baixista, o sinal mais claro de que a música modulou é:',o:['A letra menciona','A tônica muda e os acordes giram em torno de um novo centro tonal','O andamento muda','O cantor sobe de registro'],c:1,ok:'Correto! A nova tônica é o sinal da modulação.',fail:'Modulação: o centro tonal muda. A nova raiz passa a ser o ponto de repouso. Ancore no tempo 1.'},
           ])}
           <div class="checklist" id="cl_f3m17">
             ${checks('f3m17',[
@@ -2364,6 +2577,7 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
         id: 'f3m18', num: 'M18',
         title: 'Composição e Criação de Linhas',
         desc: 'Um profissional de verdade sabe criar. Aprenda a compor grooves, intros e linhas que se tornam marcantes.',
+        video: '',
         content: () => `
           <div class="section-title">✍️ Como Criar um Riff de Baixo Original</div>
           <div class="info-box">
@@ -2438,6 +2652,7 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
         id: 'f4m19', num: 'M19',
         title: 'Session Player — Como Funciona',
         desc: 'Session player é o músico que entra em estúdio, lê o chart, grava e entrega. Confiança, versatilidade e profissionalismo acima de tudo.',
+        video: '',
         content: () => `
           <div class="section-title">📋 Lendo um Chart de Estúdio</div>
           <div class="info-box">
@@ -2487,6 +2702,12 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
           
           <div class="content-divider"></div>
           <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f4m19q','Quiz: Session Player',[
+            {q:'Qual é a postura correta em uma sessão de estúdio?',o:['Tocar o que você acha melhor','Ouvir produtor e artista — eles têm a visão da música','Mostrar todo seu vocabulário','Improvisar sempre'],c:1,ok:'Correto! Em sessão você serve a visão do artista e do produtor.',fail:'Em estúdio: ouça, execute, entregue. Não é hora de mostrar habilidade — é hora de servir a música.'},
+            {q:'O Nashville Number System é:',o:['App de afinação','Sistema numérico de cifras (1-2-3-4-5-6-7) muito usado no country e gospel','Tipo de compasso','Técnica de slap'],c:1,ok:'Correto! NNS usa graus numéricos em vez de letras — permite transposição instantânea.',fail:'NNS: usa números (1,2,3...) em vez de notas. O músico transpõe imediatamente para qualquer tom.'},
+            {q:'Por que chegar cedo a uma sessão de estúdio?',o:['Para cobrar hora extra','Para montar, afinar e estar pronto quando o produtor chegar','Para impressionar a equipe','Sem motivo especial'],c:1,ok:'Exato! Profissional está pronto quando o trabalho começa.',fail:'Chegar cedo = montar, afinar, aquecer. Quando o produtor chega, você já está pronto para gravar.'},
+            {q:'O que é um lead sheet?',o:['Contrato musical','Partitura simplificada com melodia, cifras e letra','Lista de músicas do show','Planilha de pagamento'],c:1,ok:'Correto! Lead sheet: melodia + cifras + letra. Padrão em jazz e sessões.',fail:'Lead sheet: melodia, cifras de acordes e letra. O músico cria o acompanhamento com base nas cifras.'},
+          ])}
           ${EX.build('flashcard','f4m19fc','Flashcards: Carreira e Estúdio',[
             {f:'Nashville Number System',b:'Cifra numérica: 1=tônica, 4=subdominante, 5=dominante. Transposição instantânea. Padrão no country e gospel americano.'},
             {f:'Lead Sheet',b:'Melodia + cifras + letra. Sem arranjo completo. O músico cria o acompanhamento. Padrão em jazz.'},
@@ -2494,12 +2715,6 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
             {f:'DI Box',b:'Direct Injection: converte sinal do baixo para XLR balanceado. Padrão em estúdio e ao vivo. Radial J48 = referência.'},
             {f:'SoundBetter / AirGigs',b:'Plataformas de freelance musical para sessões remotas. Conecta músicos a artistas do mundo todo.'},
             {f:'Home Studio Básico',b:'Focusrite Scarlett 2i2 + Reaper ou GarageBand + DI Box + fones bons = qualidade profissional em casa.'},
-          ])}
-          ${EX.build('quiz','f4m19q','Quiz: Session Player',[
-            {q:'Qual é a postura correta em uma sessão de estúdio?',o:['Tocar o que você acha melhor','Ouvir produtor e artista — eles têm a visão da música','Mostrar todo seu vocabulário','Improvisar sempre'],c:1,ok:'Correto! Em sessão você serve a visão do artista e do produtor.',fail:'Em estúdio: ouça, execute, entregue. Não é hora de mostrar habilidade — é hora de servir a música.'},
-            {q:'O Nashville Number System é:',o:['App de afinação','Sistema numérico de cifras (1-2-3-4-5-6-7) muito usado no country e gospel','Tipo de compasso','Técnica de slap'],c:1,ok:'Correto! NNS usa graus numéricos em vez de letras — permite transposição instantânea.',fail:'NNS: usa números (1,2,3...) em vez de notas. O músico transpõe imediatamente para qualquer tom.'},
-            {q:'Por que chegar cedo a uma sessão de estúdio?',o:['Para cobrar hora extra','Para montar, afinar e estar pronto quando o produtor chegar','Para impressionar a equipe','Sem motivo especial'],c:1,ok:'Exato! Profissional está pronto quando o trabalho começa.',fail:'Chegar cedo = montar, afinar, aquecer. Quando o produtor chega, você já está pronto para gravar.'},
-            {q:'O que é um lead sheet?',o:['Contrato musical','Partitura simplificada com melodia, cifras e letra','Lista de músicas do show','Planilha de pagamento'],c:1,ok:'Correto! Lead sheet: melodia + cifras + letra. Padrão em jazz e sessões.',fail:'Lead sheet: melodia, cifras de acordes e letra. O músico cria o acompanhamento com base nas cifras.'},
           ])}
           <div class="checklist" id="cl_f4m19">
             ${checks('f4m19',[
@@ -2516,6 +2731,7 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
         id: 'f4m20', num: 'M20',
         title: 'Som, Equipamento e Home Studio',
         desc: 'Um profissional sabe como soar bem em qualquer situação: ao vivo, em estúdio, ou em home studio.',
+        video: '',
         content: () => `
           <div class="section-title">🔌 DI Box — O Que É e Quando Usar</div>
           <div class="info-box">
@@ -2572,6 +2788,7 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
         id: 'f4m21', num: 'M21',
         title: 'Performance ao Vivo',
         desc: 'O palco é onde tudo acontece. Preparação, presença cênica e gerenciamento de pressão são habilidades que se desenvolvem só tocando ao vivo.',
+        video: '',
         content: () => `
           <div class="section-title">🎭 Presença de Palco</div>
           <div class="info-box">
@@ -2618,6 +2835,12 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
           
           <div class="content-divider"></div>
           <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f4m21q','Quiz: Performance e Carreira',[
+            {q:'A melhor forma de superar a ansiedade de palco a longo prazo é:',o:['Evitar tocar ao vivo','Tomar remédios calmantes','Tocar ao vivo com frequência — superexposição gradual','Só tocar em casa'],c:2,ok:'Correto! A ansiedade diminui com experiência acumulada de palco.',fail:'A melhor cura é a exposição repetida. Cada show te prepara para o próximo.'},
+            {q:'Qual mix pedir no monitor de palco?',o:['Máximo de tudo','Seu baixo + bumbo da bateria + voz líder','Só guitarra','Só sua própria voz'],c:1,ok:'Correto! Baixo + bumbo + voz = referência rítmica e harmônica completa.',fail:'No monitor: SEU baixo, o bumbo e a voz líder. Com isso você se orienta perfeitamente no palco.'},
+            {q:'Por que postar vídeos tocando nas redes sociais regularmente?',o:['Para ficar famoso','Para criar presença, portfólio e oportunidades que chegam até você','Para ganhar dinheiro direto','Sem importância'],c:1,ok:'Exato! Consistência online = presença e oportunidades.',fail:'Presença online cria portfólio, atrai oportunidades e mantém você "no radar" da comunidade musical.'},
+            {q:'Qual fonte de renda é geralmente mais estável para um músico?',o:['Royalties de streaming','Shows esporádicos','Aulas de música regulares','Venda de CDs'],c:2,ok:'Correto! Aulas criam renda recorrente e previsível.',fail:'Aulas de música = renda recorrente e estável. Shows são imprevisíveis; aulas garantem consistência financeira.'},
+          ])}
           ${EX.build('flashcard','f4m21fc','Flashcards: Performance e Carreira',[
             {f:'Presença de Palco',b:'Comunicar que você acredita no que toca. Olhar para a banda. Mover-se com o groove. Interagir.'},
             {f:'In-Ear Monitor (IEM)',b:'Fone intra-auricular no palco. Isola ruído externo, protege audição, permite mix personalizado.'},
@@ -2625,12 +2848,6 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
             {f:'Regra do Conteúdo Online',b:'Consistência > Perfeição. 1 vídeo por semana por 1 ano = portfólio que 95% dos músicos não têm.'},
             {f:'Networking Musical',b:'A maioria dos trabalhos vem de indicação. Seja o músico que todos querem chamar: confiável, positivo, preparado.'},
             {f:'Fontes de Renda Musical',b:'Shows + Sessões + Aulas + Produção + Conteúdo digital. Diversifique. Não dependa de uma só fonte.'},
-          ])}
-          ${EX.build('quiz','f4m21q','Quiz: Performance e Carreira',[
-            {q:'A melhor forma de superar a ansiedade de palco a longo prazo é:',o:['Evitar tocar ao vivo','Tomar remédios calmantes','Tocar ao vivo com frequência — superexposição gradual','Só tocar em casa'],c:2,ok:'Correto! A ansiedade diminui com experiência acumulada de palco.',fail:'A melhor cura é a exposição repetida. Cada show te prepara para o próximo.'},
-            {q:'Qual mix pedir no monitor de palco?',o:['Máximo de tudo','Seu baixo + bumbo da bateria + voz líder','Só guitarra','Só sua própria voz'],c:1,ok:'Correto! Baixo + bumbo + voz = referência rítmica e harmônica completa.',fail:'No monitor: SEU baixo, o bumbo e a voz líder. Com isso você se orienta perfeitamente no palco.'},
-            {q:'Por que postar vídeos tocando nas redes sociais regularmente?',o:['Para ficar famoso','Para criar presença, portfólio e oportunidades que chegam até você','Para ganhar dinheiro direto','Sem importância'],c:1,ok:'Exato! Consistência online = presença e oportunidades.',fail:'Presença online cria portfólio, atrai oportunidades e mantém você "no radar" da comunidade musical.'},
-            {q:'Qual fonte de renda é geralmente mais estável para um músico?',o:['Royalties de streaming','Shows esporádicos','Aulas de música regulares','Venda de CDs'],c:2,ok:'Correto! Aulas criam renda recorrente e previsível.',fail:'Aulas de música = renda recorrente e estável. Shows são imprevisíveis; aulas garantem consistência financeira.'},
           ])}
           <div class="checklist" id="cl_f4m21">
             ${checks('f4m21',[
@@ -2647,6 +2864,7 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
         id: 'f4m22', num: 'M22',
         title: 'Carreira, Networking e Conteúdo',
         desc: 'Ser um ótimo músico não é suficiente. Você precisa ser conhecido, confiável e fácil de trabalhar.',
+        video: '',
         content: () => `
           <div class="section-title">🤝 Construindo Sua Rede de Músicos</div>
           <div class="info-box">
@@ -2694,6 +2912,12 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
           
           <div class="content-divider"></div>
           <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f4m22q','Quiz: O Músico Completo',[
+            {q:'Por que estudar piano ajuda um baixista?',o:['Para tocar dois instrumentos','Piano exibe harmonia visualmente — acelera o entendimento de acordes e tonalidades','Para ganhar mais dinheiro','Não ajuda'],c:1,ok:'Correto! No piano você vê fisicamente as notas de cada acorde.',fail:'Piano: você vê as notas de todos os acordes. Clarifica harmonia e acelera seu desenvolvimento no baixo.'},
+            {q:'O que é transcrição musical?',o:['Copiar partitura de outra fonte','Ouvir uma gravação e escrever o que você escuta (notas, ritmo, dinâmica)','Técnica de slap avançada','Traduzir letras de música'],c:1,ok:'Exato! Transcrever é o exercício de ouvido mais poderoso.',fail:'Transcrever: ouvir e escrever. Desenvolve ouvido, vocabulário musical e análise ao mesmo tempo.'},
+            {q:'Como prevenir LER (Lesão por Esforço Repetitivo)?',o:['Tocar o máximo possível','Aquecimento antes de praticar, pausas a cada 45min, parar imediatamente com dor','Usar cordas mais finas','Tocar mais devagar sempre'],c:1,ok:'Correto! Prevenção é a única estratégia eficaz.',fail:'Aquecimento, pausas regulares e respeitar a dor. LER pode encerrar permanentemente uma carreira.'},
+            {q:'Qual é a frequência ideal de transcrição para um músico em desenvolvimento?',o:['1 por ano','1 por semana','1 por dia','Nunca — use TABs prontas'],c:1,ok:'Correto! 1 por semana transforma seu ouvido em meses.',fail:'1 transcrição por semana = 52 linhas de baixo dos melhores músicos do mundo no seu ouvido por ano.'},
+          ])}
           ${EX.build('flashcard','f4m22fc','Flashcards: Desenvolvimento Contínuo',[
             {f:'Transcrição',b:'Ouvir e escrever o que você escuta. 1 por semana. Desenvolve ouvido, vocabulário e análise musical.'},
             {f:'Ouvido Relativo',b:'Identificar intervalos e acordes em relação a uma referência. Treina-se com transcrição e solmização.'},
@@ -2701,12 +2925,6 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
             {f:'Prática Deliberada',b:'Focar nos pontos fracos com atenção total, não repetir o que já sabe bem. Mais eficiente que horas automáticas.'},
             {f:'Berklee Online',b:'Cursos certificados online da maior escola de música do mundo. Recomendado para teoria e prática avançada.'},
             {f:'O Próximo Passo',b:'Você completou o curso. Agora: toque com pessoas reais, grave tudo, publique, não pare de estudar. Nunca.'},
-          ])}
-          ${EX.build('quiz','f4m22q','Quiz: O Músico Completo',[
-            {q:'Por que estudar piano ajuda um baixista?',o:['Para tocar dois instrumentos','Piano exibe harmonia visualmente — acelera o entendimento de acordes e tonalidades','Para ganhar mais dinheiro','Não ajuda'],c:1,ok:'Correto! No piano você vê fisicamente as notas de cada acorde.',fail:'Piano: você vê as notas de todos os acordes. Clarifica harmonia e acelera seu desenvolvimento no baixo.'},
-            {q:'O que é transcrição musical?',o:['Copiar partitura de outra fonte','Ouvir uma gravação e escrever o que você escuta (notas, ritmo, dinâmica)','Técnica de slap avançada','Traduzir letras de música'],c:1,ok:'Exato! Transcrever é o exercício de ouvido mais poderoso.',fail:'Transcrever: ouvir e escrever. Desenvolve ouvido, vocabulário musical e análise ao mesmo tempo.'},
-            {q:'Como prevenir LER (Lesão por Esforço Repetitivo)?',o:['Tocar o máximo possível','Aquecimento antes de praticar, pausas a cada 45min, parar imediatamente com dor','Usar cordas mais finas','Tocar mais devagar sempre'],c:1,ok:'Correto! Prevenção é a única estratégia eficaz.',fail:'Aquecimento, pausas regulares e respeitar a dor. LER pode encerrar permanentemente uma carreira.'},
-            {q:'Qual é a frequência ideal de transcrição para um músico em desenvolvimento?',o:['1 por ano','1 por semana','1 por dia','Nunca — use TABs prontas'],c:1,ok:'Correto! 1 por semana transforma seu ouvido em meses.',fail:'1 transcrição por semana = 52 linhas de baixo dos melhores músicos do mundo no seu ouvido por ano.'},
           ])}
           <div class="checklist" id="cl_f4m22">
             ${checks('f4m22',[
@@ -2723,6 +2941,7 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
         id: 'f4m23', num: 'M23',
         title: 'O Músico Completo — Estudo Perpétuo',
         desc: 'Os maiores músicos do mundo nunca param de estudar. Esta é a mentalidade que separa os que chegam dos que ficam.',
+        video: '',
         content: () => `
           <div class="section-title">🎹 Estudar Piano — Por Que É Essencial</div>
           <div class="info-box">
@@ -2996,6 +3215,9 @@ function loadLesson(id) {
       <p class="lh-desc">${entry.desc}</p>
       <div class="lh-meta">
         <span class="lh-tag ${phase.badgeClass}">${phase.duration}</span>
+        ${entry.video
+          ? `<a class="video-btn" href="${entry.video}" target="_blank" rel="noopener">▶ Assistir Aula</a>`
+          : `<span class="video-btn empty">🎬 Vídeo em breve</span>`}
       </div>
     </div>
 
@@ -3077,6 +3299,19 @@ function showWelcome() {
 }
 
 // ════════════════════════════════════════════════
+//  EXPANDABLE SECTIONS
+// ════════════════════════════════════════════════
+function toggleExpand(id) {
+  const body = document.getElementById(id);
+  if (!body) return;
+  const btn  = body.previousElementSibling;
+  const icon = btn ? btn.querySelector('.expand-icon') : null;
+  const open = body.style.display !== 'none';
+  body.style.display = open ? 'none' : 'block';
+  if (icon) icon.textContent = open ? '+' : '−';
+}
+
+// ════════════════════════════════════════════════
 //  TIMER
 // ════════════════════════════════════════════════
 let timerSec = 0, timerRunning = false, timerInterval = null;
@@ -3105,66 +3340,6 @@ function timerReset() {
   timerSec = 0;
   document.getElementById('timer-display').textContent = '00:00';
   document.getElementById('timer-start-btn').textContent = '▶';
-}
-
-// ════════════════════════════════════════════════
-//  METRONOME
-// ════════════════════════════════════════════════
-let metroBpm_ = 80, metroRunning = false, metroInterval = null, metroCtx = null;
-
-function metroClick() {
-  // Web Audio API click — beat sound
-  if (!metroCtx) metroCtx = new (window.AudioContext || window.webkitAudioContext)();
-  // Mobile browsers suspend AudioContext until a user gesture — resume it
-  const play = () => {
-    const now = metroCtx.currentTime;
-    const osc = metroCtx.createOscillator();
-    const gain = metroCtx.createGain();
-    osc.connect(gain);
-    gain.connect(metroCtx.destination);
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(1000, now);
-    gain.gain.setValueAtTime(0.5, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
-    osc.start(now);
-    osc.stop(now + 0.06);
-  };
-  if (metroCtx.state === 'suspended') {
-    metroCtx.resume().then(play);
-  } else {
-    play();
-  }
-  // Visual beat flash
-  const dot = document.getElementById('metro-beat');
-  if (dot) { dot.classList.add('on'); setTimeout(() => dot.classList.remove('on'), 80); }
-}
-
-function metroToggle() {
-  const btn = document.getElementById('metro-start-btn');
-  if (metroRunning) {
-    clearInterval(metroInterval);
-    metroRunning = false;
-    btn.textContent = '▶';
-  } else {
-    metroClick();
-    metroInterval = setInterval(metroClick, 60000 / metroBpm_);
-    metroRunning = true;
-    btn.textContent = '⏸';
-  }
-}
-
-function metroBpm(delta) {
-  metroSetBpm(metroBpm_ + delta);
-}
-
-function metroSetBpm(val) {
-  metroBpm_ = Math.max(20, Math.min(300, val || 80));
-  const el = document.getElementById('metro-bpm');
-  if (el) el.value = metroBpm_;
-  if (metroRunning) {
-    clearInterval(metroInterval);
-    metroInterval = setInterval(metroClick, 60000 / metroBpm_);
-  }
 }
 
 // ════════════════════════════════════════════════
