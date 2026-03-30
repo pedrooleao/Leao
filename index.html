@@ -697,6 +697,78 @@ body{
 body::-webkit-scrollbar{width:6px;}
 body::-webkit-scrollbar-track{background:var(--bg);}
 body::-webkit-scrollbar-thumb{background:var(--border);}
+
+/* ══ EXERCISE ENGINE ══ */
+.exercise-block{background:var(--surface);border:1px solid var(--border2);border-radius:10px;overflow:hidden;margin:28px 0;}
+.ex-header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--card);border-bottom:1px solid var(--border);}
+.ex-badge{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;padding:4px 10px;border-radius:3px;text-transform:uppercase;flex-shrink:0;}
+.ex-badge.quiz{background:rgba(168,85,247,.15);color:var(--purple);}
+.ex-badge.fretboard{background:rgba(61,155,255,.15);color:var(--accent3);}
+.ex-badge.rhythm{background:rgba(245,166,35,.15);color:var(--accent2);}
+.ex-badge.flashcard{background:rgba(34,201,117,.15);color:var(--green);}
+.ex-title{font-size:15px;font-weight:600;flex:1;}
+.ex-body{padding:22px 20px;}
+.ex-question{font-size:15px;font-weight:600;margin-bottom:16px;line-height:1.5;}
+.ex-subtitle{font-size:13px;color:var(--muted2);margin-bottom:14px;}
+.ex-progress-bar{height:3px;background:var(--border);border-radius:3px;margin-bottom:14px;overflow:hidden;}
+.ex-progress-fill{height:100%;background:var(--purple);border-radius:3px;transition:width .4s ease;}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px;}
+.quiz-opt{padding:12px 16px;background:var(--card2);border:1.5px solid var(--border);border-radius:7px;cursor:pointer;font-size:14px;transition:all .2s;text-align:left;font-family:'DM Sans',sans-serif;color:var(--text);}
+.quiz-opt:hover:not(:disabled){border-color:var(--border2);background:rgba(255,255,255,.06);}
+.quiz-opt.correct{background:rgba(34,201,117,.14);border-color:var(--green);color:var(--green);}
+.quiz-opt.wrong{background:rgba(255,77,77,.12);border-color:#ff4d4d;color:#ff4d4d;}
+.quiz-opt:disabled{cursor:default;}
+.quiz-feedback{padding:12px 16px;border-radius:7px;font-size:13px;line-height:1.6;margin-bottom:12px;display:none;}
+.quiz-feedback.show{display:block;}
+.quiz-feedback.ok{background:rgba(34,201,117,.1);border:1px solid rgba(34,201,117,.3);color:var(--green);}
+.quiz-feedback.fail{background:rgba(255,77,77,.1);border:1px solid rgba(255,77,77,.3);color:#ff8888;}
+.ex-btn{padding:10px 22px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.ex-btn.next-q{background:var(--accent);color:#fff;}
+.ex-btn.next-q:hover{background:#e03d10;}
+.ex-btn.restart-q{background:var(--card2);color:var(--muted2);border:1px solid var(--border);}
+.ex-result{text-align:center;padding:8px 0;}
+.ex-result-num{font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:1;}
+.ex-result-label{font-size:13px;color:var(--muted2);margin-bottom:12px;}
+.ex-result-msg{font-size:14px;margin-bottom:18px;}
+.fretboard-wrap{overflow-x:auto;margin-bottom:16px;}
+.fretboard-ex{display:inline-flex;flex-direction:column;gap:2px;padding:14px;background:var(--card2);border-radius:8px;min-width:500px;}
+.fb-row-ex{display:flex;align-items:center;}
+.fb-sl{width:28px;font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);text-align:right;padding-right:6px;flex-shrink:0;}
+.fb-fr{width:38px;height:34px;border-right:2px solid #3a3a5a;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.fb-fr.nut{border-left:5px solid #aaa;}
+.fb-fn-row{display:flex;margin-left:28px;}
+.fb-fn{width:38px;text-align:center;font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);flex-shrink:0;}
+.fb-dot-ex{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.07);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:'Space Mono',monospace;transition:all .2s;cursor:pointer;}
+.fb-dot-ex:hover{background:rgba(255,255,255,.15);}
+.fb-dot-ex.cdot{background:var(--green);border-color:var(--green);color:#fff;animation:fpop .3s ease;}
+.fb-dot-ex.wdot{background:#ff4d4d;border-color:#ff4d4d;color:#fff;}
+.fb-dot-ex.rdot{background:rgba(34,201,117,.3);border-color:var(--green);color:var(--green);}
+@keyframes fpop{0%{transform:scale(.8)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.flashcard-wrap{perspective:1000px;margin-bottom:16px;}
+.flashcard-ex{width:100%;height:160px;position:relative;transform-style:preserve-3d;transition:transform .5s ease;cursor:pointer;}
+.flashcard-ex.flipped{transform:rotateY(180deg);}
+.fc-face-ex{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px;border-radius:10px;backface-visibility:hidden;border:1px solid var(--border2);text-align:center;}
+.fc-front-ex{background:var(--card2);}
+.fc-back-ex{background:var(--card);transform:rotateY(180deg);}
+.fc-lbl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;}
+.fc-cnt{font-size:clamp(15px,2.5vw,21px);font-weight:700;line-height:1.3;}
+.fc-hint{font-size:11px;color:var(--muted);margin-top:8px;}
+.fc-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.fc-ctr{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);}
+.fc-rating{display:flex;gap:8px;margin-top:12px;justify-content:center;flex-wrap:wrap;}
+.fc-rbtn{padding:8px 14px;border:1px solid var(--border);border-radius:5px;background:var(--card2);color:var(--muted2);cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.fc-rbtn:hover{border-color:var(--border2);color:var(--text);}
+.rhythm-staff-ex{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:18px;margin-bottom:14px;}
+.beat-track-ex{display:flex;gap:6px;align-items:center;margin-bottom:12px;flex-wrap:wrap;}
+.beat-cell-ex{width:42px;height:42px;border-radius:6px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);cursor:pointer;transition:all .15s;user-select:none;background:var(--card);font-weight:700;}
+.beat-cell-ex.note-beat{background:rgba(61,155,255,.15);border-color:var(--accent3);color:var(--accent3);}
+.beat-cell-ex.ghost-beat{background:rgba(255,255,255,.03);border-color:var(--border2);color:var(--muted);}
+.beat-cell-ex.playing-beat{background:var(--accent2)!important;border-color:var(--accent2)!important;color:#000!important;transform:scale(1.12);}
+.play-btn-ex{display:flex;align-items:center;justify-content:center;gap:8px;padding:11px 20px;background:rgba(61,155,255,.12);border:1.5px solid rgba(61,155,255,.3);border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;color:var(--accent3);transition:all .2s;margin-bottom:12px;width:fit-content;}
+.play-btn-ex:hover{background:rgba(61,155,255,.2);}
+.tap-btn-ex{padding:16px 24px;background:rgba(245,166,35,.15);border:2px solid var(--accent2);border-radius:8px;color:var(--accent2);font-size:16px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:none;margin-left:12px;}
+@media(max-width:600px){.quiz-options{grid-template-columns:1fr;}}
+
 </style>
 </head>
 <body>
@@ -738,6 +810,188 @@ body::-webkit-scrollbar-thumb{background:var(--border);}
 </div>
 
 <script>
+// ══════════════════════════════════════════
+// EXERCISE ENGINE
+// ══════════════════════════════════════════
+const EX={
+  _qS:{},_qD:{},
+  quiz(id,qs){
+    const e='EQ'+id;
+    this._qS[e]={i:0,sc:0,ans:false,done:false};
+    this._qD[e]=qs;
+    setTimeout(()=>this._qR(e),30);
+    return`<div class="ex-body" id="${e}"><p style="color:var(--muted);font-size:13px">Carregando...</p></div>`;
+  },
+  _qR(e){
+    const el=document.getElementById(e);if(!el)return;
+    const s=this._qS[e],qs=this._qD[e];
+    if(s.done){
+      const p=Math.round(s.sc/qs.length*100);
+      const m=p===100?'🏆 Perfeito!':p>=70?'✅ Muito bem! Continue praticando.':p>=40?'📚 Revise o conteúdo e tente novamente.':'💪 Releia a lição com atenção e tente de novo.';
+      el.innerHTML=`<div class="ex-result"><div class="ex-result-num" style="color:${p>=70?'var(--green)':'var(--accent)'}">${s.sc}/${qs.length}</div><div class="ex-result-label">acertos — ${p}%</div><div class="ex-result-msg">${m}</div><button class="ex-btn restart-q" onclick="EX._qRst('${e}')">↺ Tentar novamente</button></div>`;
+      try{localStorage.setItem('exs_'+e,s.sc+'/'+qs.length);}catch(x){}
+      updateProgress();return;
+    }
+    const q=qs[s.i],pr=Math.round(s.i/qs.length*100);
+    el.innerHTML=`<div class="ex-progress-bar"><div class="ex-progress-fill" style="width:${pr}%"></div></div>
+      <p style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:10px">PERGUNTA ${s.i+1} DE ${qs.length}</p>
+      <div class="ex-question">${q.q}</div>${q.sub?`<div class="ex-subtitle">${q.sub}</div>`:''}
+      <div class="quiz-options">${q.o.map((x,i)=>`<button class="quiz-opt" onclick="EX._qA('${e}',${i})" id="${e}o${i}">${x}</button>`).join('')}</div>
+      <div class="quiz-feedback" id="${e}fb"></div>
+      <div style="text-align:right;margin-top:6px"><button class="ex-btn next-q" id="${e}nx" onclick="EX._qN('${e}')" style="display:none">${s.i<qs.length-1?'Próxima →':'Ver resultado'}</button></div>`;
+  },
+  _qA(e,ch){
+    const s=this._qS[e];if(s.ans)return;s.ans=true;
+    const q=this._qD[e][s.i],ok=ch===q.c;if(ok)s.sc++;
+    for(let i=0;i<q.o.length;i++){const b=document.getElementById(e+'o'+i);if(b){b.disabled=true;if(i===q.c)b.classList.add('correct');else if(i===ch&&!ok)b.classList.add('wrong');}}
+    const fb=document.getElementById(e+'fb');
+    if(fb){fb.textContent=(ok?'✓ '+(q.ok||'Correto!'):'✗ '+(q.fail||'Resposta correta: '+q.o[q.c]));fb.className='quiz-feedback show '+(ok?'ok':'fail');}
+    const nx=document.getElementById(e+'nx');if(nx)nx.style.display='inline-block';
+  },
+  _qN(e){const s=this._qS[e],qs=this._qD[e];s.i++;s.ans=false;if(s.i>=qs.length)s.done=true;this._qR(e);},
+  _qRst(e){this._qS[e]={i:0,sc:0,ans:false,done:false};this._qR(e);},
+
+  _fS:{},_fD:{},
+  fretboard(id,chs){
+    const e='EF'+id;
+    this._fS[e]={i:0,sc:0,done:false,sel:false};
+    this._fD[e]=chs;
+    setTimeout(()=>this._fR(e),30);
+    return`<div class="ex-body" id="${e}"><p style="color:var(--muted);font-size:13px">Carregando...</p></div>`;
+  },
+  _fR(e){
+    const el=document.getElementById(e);if(!el)return;
+    const s=this._fS[e],chs=this._fD[e];
+    if(s.done){
+      const p=Math.round(s.sc/chs.length*100);
+      el.innerHTML=`<div class="ex-result"><div class="ex-result-num" style="color:${p>=70?'var(--green)':'var(--accent)'}">${s.sc}/${chs.length}</div><div class="ex-result-label">notas corretas no braço</div><div class="ex-result-msg">${p>=70?'🎸 Excelente leitura do braço!':'📍 Continue memorizando as posições das notas.'}</div><button class="ex-btn restart-q" onclick="EX._fRst('${e}')">↺ Tentar novamente</button></div>`;return;
+    }
+    const ch=chs[s.i];
+    const strs=['Sol','Ré','Lá','Mi'],ops=['G','D','A','E'];
+    const AN=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+    const nAt=(o,f)=>AN[(AN.indexOf(o)+f)%12];
+    const pr=Math.round(s.i/chs.length*100);
+    let fb=`<div class="fretboard-ex"><div class="fb-fn-row"><div style="width:28px"></div>${Array.from({length:13},(_,i)=>`<div class="fb-fn">${i}</div>`).join('')}</div>`;
+    strs.forEach((str,si)=>{
+      fb+=`<div class="fb-row-ex"><div class="fb-sl">${str}</div>`;
+      for(let f=0;f<=12;f++){const note=nAt(ops[si],f);fb+=`<div class="fb-fr${f===0?' nut':''}"><div class="fb-dot-ex" id="${e}s${si}f${f}" onclick="EX._fC('${e}',${si},${f},'${note}')"></div></div>`;}
+      fb+=`</div>`;
+    });
+    fb+=`</div>`;
+    el.innerHTML=`<div class="ex-progress-bar"><div class="ex-progress-fill" style="width:${pr}%"></div></div>
+      <p style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:10px">DESAFIO ${s.i+1} DE ${chs.length}</p>
+      <div class="ex-question">Encontre a nota <strong style="color:var(--accent3);font-size:20px">${ch.n}</strong> na corda <strong>${strs[ch.s]}</strong></div>
+      <div class="ex-subtitle">Clique no ponto correto do braço 👇</div>
+      <div class="fretboard-wrap">${fb}</div>
+      <div class="quiz-feedback" id="${e}fb"></div>
+      <button class="ex-btn next-q" id="${e}nx" onclick="EX._fN('${e}')" style="display:none;margin-top:10px">${s.i<chs.length-1?'Próximo →':'Ver resultado'}</button>`;
+  },
+  _fC(e,si,fi,note){
+    const s=this._fS[e];if(s.sel)return;s.sel=true;
+    const ch=this._fD[e][s.i],ok=ch.s===si&&ch.f===fi;if(ok)s.sc++;
+    const d=document.getElementById(e+'s'+si+'f'+fi);if(d){d.classList.add(ok?'cdot':'wdot');d.textContent=note;}
+    if(!ok){const cd=document.getElementById(e+'s'+ch.s+'f'+ch.f);if(cd){cd.classList.add('rdot');cd.textContent=ch.n;}}
+    const fb=document.getElementById(e+'fb');
+    if(fb){fb.textContent=ok?`✓ Correto! ${note} — corda ${['Sol','Ré','Lá','Mi'][si]}, casa ${fi}.`:`✗ Era casa ${ch.f} da corda ${['Sol','Ré','Lá','Mi'][ch.s]}.`;fb.className='quiz-feedback show '+(ok?'ok':'fail');}
+    const nx=document.getElementById(e+'nx');if(nx)nx.style.display='inline-block';
+  },
+  _fN(e){const s=this._fS[e],d=this._fD[e];s.i++;s.sel=false;if(s.i>=d.length)s.done=true;this._fR(e);},
+  _fRst(e){this._fS[e]={i:0,sc:0,done:false,sel:false};this._fR(e);},
+
+  _cS:{},_cD:{},
+  flashcard(id,cards){
+    const e='EC'+id;
+    this._cS[e]={i:0,flip:false,known:[],unk:[]};
+    this._cD[e]=[...cards];
+    setTimeout(()=>this._cR(e),30);
+    return`<div class="ex-body" id="${e}"><p style="color:var(--muted);font-size:13px">Carregando...</p></div>`;
+  },
+  _cR(e){
+    const el=document.getElementById(e);if(!el)return;
+    const s=this._cS[e],cs=this._cD[e];
+    if(s.i>=cs.length){
+      const k=s.known.length,u=s.unk.length;
+      el.innerHTML=`<div class="ex-result"><div class="ex-result-num" style="color:var(--green)">${k}</div><div class="ex-result-label">de ${cs.length} conceitos dominados</div><div class="ex-result-msg">${u>0?`📚 Estude mais os ${u} que não soube.`:'🏆 Você domina todos os conceitos!'}</div><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="ex-btn restart-q" onclick="EX._cRst('${e}')">↺ Revisar tudo</button>${u>0?`<button class="ex-btn next-q" onclick="EX._cWrong('${e}')">Revisar erros (${u})</button>`:''}</div></div>`;return;
+    }
+    const c=cs[s.i];
+    el.innerHTML=`<div class="fc-nav"><span class="fc-ctr">${s.i+1}/${cs.length}</span><span style="font-size:11px;color:var(--muted)">Clique para revelar</span></div>
+      <div class="flashcard-wrap"><div class="flashcard-ex${s.flip?' flipped':''}" onclick="EX._cFlip('${e}')">
+        <div class="fc-face-ex fc-front-ex"><div class="fc-lbl">Conceito</div><div class="fc-cnt">${c.f}</div><div class="fc-hint">Toque para revelar</div></div>
+        <div class="fc-face-ex fc-back-ex"><div class="fc-lbl">Resposta</div><div class="fc-cnt" style="font-size:clamp(12px,2vw,15px);font-weight:400">${c.b}</div></div>
+      </div></div>
+      ${s.flip?`<div class="fc-rating">
+        <button class="fc-rbtn" style="border-color:rgba(255,77,77,.4);color:#ff4d4d" onclick="EX._cRate('${e}',false)">😕 Não sei</button>
+        <button class="fc-rbtn" style="border-color:rgba(245,166,35,.4);color:var(--accent2)" onclick="EX._cRate('${e}',true)">🤔 Mais ou menos</button>
+        <button class="fc-rbtn" style="border-color:rgba(34,201,117,.4);color:var(--green)" onclick="EX._cRate('${e}',true)">✓ Sei bem!</button>
+      </div>`:'<div style="height:44px"></div>'}`;
+  },
+  _cFlip(e){this._cS[e].flip=!this._cS[e].flip;this._cR(e);},
+  _cRate(e,k){const s=this._cS[e],cs=this._cD[e];if(k)s.known.push(cs[s.i]);else s.unk.push(cs[s.i]);s.i++;s.flip=false;this._cR(e);},
+  _cRst(e){const cs=[...this._cD[e]];this._cS[e]={i:0,flip:false,known:[],unk:[]};this._cR(e);},
+  _cWrong(e){const u=[...this._cS[e].unk];this._cD[e]=u;this._cS[e]={i:0,flip:false,known:[],unk:[]};this._cR(e);},
+
+  _rS:{},_rP:{},
+  rhythm(id,pat,bpm){
+    const e='ER'+id;
+    this._rS[e]={on:false,int:null,beat:-1,bpm:bpm||80,hits:[]};
+    this._rP[e]=pat;
+    setTimeout(()=>this._rRen(e,pat,bpm||80),30);
+    return`<div class="ex-body" id="${e}"></div>`;
+  },
+  _rRen(e,pat,bpm){
+    const el=document.getElementById(e);if(!el)return;
+    el.innerHTML=`<div class="ex-question">Exercício Rítmico — acompanhe o padrão</div>
+      <div class="ex-subtitle">Pressione <strong>🥁 TAP</strong> nas células azuis. As cinzas são ghost notes.</div>
+      <div class="rhythm-staff-ex">
+        <div class="beat-track-ex" id="${e}tr">${pat.map((b,i)=>`<div class="beat-cell-ex ${b.t==='note'?'note-beat':b.t==='ghost'?'ghost-beat':''}" id="${e}b${i}">${b.l}</div>`).join('')}</div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <span style="font-family:'Space Mono',monospace;font-size:12px;color:var(--muted2)">BPM: <strong id="${e}bl">${bpm}</strong></span>
+          <input type="range" min="40" max="160" value="${bpm}" oninput="EX._rBpm('${e}',+this.value)" style="accent-color:var(--accent2);cursor:pointer">
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <button class="play-btn-ex" id="${e}pb" onclick="EX._rTog('${e}')">▶ Iniciar metrônomo</button>
+        <button class="tap-btn-ex" id="${e}tb" onclick="EX._rTap('${e}')">🥁 TAP</button>
+      </div>
+      <div id="${e}res" style="font-size:13px;color:var(--muted2);min-height:20px;margin-top:8px"></div>`;
+  },
+  _rBpm(e,v){const s=this._rS[e];s.bpm=v;const l=document.getElementById(e+'bl');if(l)l.textContent=v;if(s.on){this._rStop(e);this._rStart(e);}},
+  _rTog(e){const s=this._rS[e];if(s.on)this._rStop(e);else this._rStart(e);},
+  _rStart(e){
+    const s=this._rS[e],pat=this._rP[e];
+    s.on=true;s.beat=-1;s.hits=[];
+    const pb=document.getElementById(e+'pb'),tb=document.getElementById(e+'tb');
+    if(pb)pb.textContent='⏹ Parar';if(tb)tb.style.display='inline-block';
+    const ms=Math.round(60000/s.bpm);
+    s.int=setInterval(()=>{s.beat=(s.beat+1)%pat.length;pat.forEach((_,i)=>{const c=document.getElementById(e+'b'+i);if(c)c.classList.toggle('playing-beat',i===s.beat);});},ms);
+  },
+  _rStop(e){
+    const s=this._rS[e],pat=this._rP[e];
+    clearInterval(s.int);s.on=false;s.beat=-1;
+    const pb=document.getElementById(e+'pb'),tb=document.getElementById(e+'tb');
+    if(pb)pb.textContent='▶ Iniciar metrônomo';if(tb)tb.style.display='none';
+    pat.forEach((_,i)=>{const c=document.getElementById(e+'b'+i);if(c)c.classList.remove('playing-beat');});
+    const res=document.getElementById(e+'res');
+    if(res&&s.hits.length>0){const ok=s.hits.filter(h=>h).length,p=Math.round(ok/s.hits.length*100);res.innerHTML=`<span style="color:${p>=70?'var(--green)':'var(--accent2)'}">Precisão: ${p}% (${ok}/${s.hits.length} batidas no tempo certo)</span>`;}
+  },
+  _rTap(e){
+    const s=this._rS[e],pat=this._rP[e];if(!s.on)return;
+    const ok=pat[s.beat]&&pat[s.beat].t==='note';s.hits.push(ok);
+    const tb=document.getElementById(e+'tb');
+    if(tb){tb.style.background=ok?'rgba(34,201,117,.3)':'rgba(255,77,77,.3)';setTimeout(()=>{if(tb)tb.style.background='rgba(245,166,35,.15)';},150);}
+  },
+
+  build(type,id,title,data,bpm){
+    const lbl={quiz:'Quiz',fretboard:'Braço do Baixo',flashcard:'Flashcards',rhythm:'Exercício Rítmico'};
+    let body='';
+    if(type==='quiz')body=this.quiz(id,data);
+    else if(type==='fretboard')body=this.fretboard(id,data);
+    else if(type==='flashcard')body=this.flashcard(id,data);
+    else if(type==='rhythm')body=this.rhythm(id,data,bpm);
+    return`<div class="exercise-block"><div class="ex-header"><span class="ex-badge ${type}">${lbl[type]||type}</span><span class="ex-title">${title}</span></div>${body}</div>`;
+  }
+};
+
 // ════════════════════════════════════════════════
 //  DATA — COURSE STRUCTURE
 // ════════════════════════════════════════════════
@@ -799,6 +1053,25 @@ const COURSE = [
               <strong>Meta:</strong> Cada nota deve soar sem zumbido. Se houver zumbido, ajuste o posicionamento do dedo (mais perto da pestana).
             </div>
           </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f1m1q','Quiz: Anatomia do Baixo',[
+            {q:'Como se chama a barra interna que controla a curvatura do braço?',o:['Truss Rod','Nut','Bridge','Saddle'],c:0,ok:'Correto! O truss rod ajusta a curvatura com uma chave allen.',fail:'É o Truss Rod — dentro do braço, ajustado com chave allen.'},
+            {q:'As 4 cordas do baixo, da mais grossa para a mais fina, são:',o:['Mi-Lá-Ré-Sol','Sol-Ré-Lá-Mi','Lá-Mi-Ré-Sol','Mi-Sol-Lá-Ré'],c:0,ok:'Perfeito! Mi(E)-Lá(A)-Ré(D)-Sol(G).',fail:'A ordem é Mi-Lá-Ré-Sol (E-A-D-G), da mais grave para a mais aguda.'},
+            {q:'O que diferencia um baixo ativo de um passivo?',o:['Número de cordas','Material do corpo','Pré-amplificador interno com bateria 9V','Tipo de cavalete'],c:2,ok:'Exato! O ativo tem pré-amp com bateria — mais controle de EQ.',fail:'Ativo = pré-amplificador interno (bateria 9V). Passivo = circuito simples, sem bateria.'},
+            {q:'Onde o polegar da mão direita deve ficar ao tocar fingerstyle?',o:['Na corda Sol','Sobre o captador (âncora)','Livre no ar','Sobre a porca de tensão'],c:1,ok:'Correto! Polegar ancorado no captador dá referência e estabilidade.',fail:'O polegar ancora no captador ou na corda Mi, servindo de ponto fixo para a mão.'},
+            {q:'Intonação é o ajuste que garante que:',o:['O volume seja constante','A 12ª casa afine exatamente 1 oitava acima da corda solta','A ação das cordas seja baixa','O truss rod esteja reto'],c:1,ok:'Perfeito! Intonação = cavalete ajustado para oitava exata na 12ª casa.',fail:'Intonação: ajuste do cavalete para a 12ª casa soar exatamente 1 oitava acima da corda solta.'},
+          ])}
+          ${EX.build('flashcard','f1m1fc','Flashcards: Partes do Instrumento',[
+            {f:'Truss Rod',b:'Barra interna no braço. Controla a curvatura (relief). Ajustada com chave allen. Cuidado: mexer errado quebra o braço!'},
+            {f:'Ação das Cordas',b:'Distância das cordas ao braço. Alta = volume maior, menos zumbido. Baixa = toque mais fácil, pode zunir.'},
+            {f:'Intonação',b:'Ajuste do cavalete. Garante que a 12ª casa afine exatamente 1 oitava acima da corda solta. Verifique com afinador.'},
+            {f:'Captador Precision (P-Bass)',b:'Single coil em forma de P. Som gordo, mid-heavy, definido. Clássico do Fender Precision Bass.'},
+            {f:'Captador Jazz Bass (J-Bass)',b:'Dois singles coil paralelos. Som brilhante, articulado. Fender Jazz Bass. Muito usado no jazz e funk.'},
+            {f:'Baixo Ativo vs Passivo',b:'Ativo: pré-amp interno (bateria 9V), boost de EQ possível. Passivo: circuito simples, som mais orgânico.'},
+            {f:'Nut (Porca de Tensão)',b:'Peça no início do braço que guia as cordas. Altura errada = desafinação nas primeiras casas.'},
+          ])}
           <div class="checklist" id="cl_f1m1">
             ${checks('f1m1',[
               'Consigo nomear todas as partes do baixo',
@@ -887,6 +1160,21 @@ E |---0-2-0-0-3-0---|</pre>
               Dica: use o metrônomo em 60 BPM. Toque uma nota por pulso e diga o nome dela em voz alta. Isso ativa memória muscular + auditiva + verbal ao mesmo tempo.
             </div>
           </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('fretboard','f1m2fb','Identifique a Nota no Braço',[
+            {n:'E',s:3,f:0},{n:'A',s:2,f:0},{n:'D',s:1,f:0},{n:'G',s:0,f:0},
+            {n:'F',s:3,f:1},{n:'B',s:3,f:7},{n:'C',s:2,f:3},{n:'G',s:2,f:10},
+            {n:'A',s:3,f:5},{n:'D',s:3,f:10},{n:'E',s:2,f:7},{n:'F#',s:3,f:2},
+          ])}
+          ${EX.build('quiz','f1m2q','Quiz: Teoria Básica',[
+            {q:'Qual nota está na 2ª casa da corda Mi (E)?',o:['F','F#','G','G#'],c:1,ok:'Correto! E(0)→F(1)→F#(2).',fail:'E aberta=0, F=casa 1, F#=casa 2.'},
+            {q:'1 tom equivale a quantas casas no braço do baixo?',o:['1','2','3','4'],c:1,ok:'Correto! 1 tom = 2 semitons = 2 casas.',fail:'1 tom = 2 semitons = 2 casas no braço.'},
+            {q:'O que acontece na 12ª casa de qualquer corda?',o:['Uma nota nova','A mesma nota da corda solta, 1 oitava acima','Fim do braço','Nota mais grave'],c:1,ok:'Perfeito! A 12ª casa = oitava da corda solta.',fail:'A 12ª casa repete a nota da corda solta, 1 oitava acima. As notas se repetem a partir daí.'},
+            {q:'Qual nota está na 3ª casa da corda Lá (A)?',o:['B','C','C#','D'],c:1,ok:'Correto! A(0)→A#(1)→B(2)→C(3).',fail:'Lá aberta + 3 casas: A→A#→B→C. Resposta: C (Dó).'},
+            {q:'TAB (tablatura) usa 4 linhas que representam:',o:['4 tempos do compasso','As 4 cordas do baixo','4 dedos da mão','4 posições'],c:1,ok:'Exato! Cada linha = 1 corda; números = casas.',fail:'TAB: 4 linhas = 4 cordas. Número na linha = casa a pressionar. 0 = corda solta.'},
+          ])}
           <div class="checklist" id="cl_f1m2">
             ${checks('f1m2',[
               'Sei nomear as 12 notas musicais em ordem',
@@ -939,6 +1227,19 @@ E |---0-2-0-0-3-0---|</pre>
               <strong>Aumento de velocidade:</strong> Só aumente o BPM quando conseguir fazer o exercício sem erros por 3 dias seguidos.
             </div>
           </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('rhythm','f1m3rh','Ritmo: Colcheias com Alternância i-m',[
+            {t:'note',l:'i'},{t:'note',l:'m'},{t:'note',l:'i'},{t:'note',l:'m'},
+            {t:'note',l:'i'},{t:'note',l:'m'},{t:'note',l:'i'},{t:'note',l:'m'},
+          ],80)}
+          ${EX.build('quiz','f1m3q','Quiz: Técnica da Mão Direita',[
+            {q:'O "rest stroke" (toque de repouso) significa:',o:['Parar para descansar','O dedo ataca e pousa na corda seguinte','Tocar com a palma','Polegar descansa na corda'],c:1,ok:'Exato! Rest stroke = mais volume e consistência.',fail:'Rest stroke: o dedo ataca a corda e pousa na próxima, gerando mais pressão e projeção.'},
+            {q:'Qual é o erro mais comum na mão direita de iniciantes?',o:['Tocar muito forte','Usar sempre o mesmo dedo sem alternar','Usar palheta','Tocar rápido demais'],c:1,ok:'Correto! A alternância i-m deve virar reflexo automático.',fail:'Tocar sempre com o mesmo dedo gera desigualdade de som e limita drasticamente a velocidade.'},
+            {q:'Palm mute é realizado com:',o:['Polegar esquerdo','Lateral da palma direita apoiada no cavalete','Dedo mínimo','Toda a palma da mão'],c:1,ok:'Correto! Lateral da palma no cavalete = som abafado.',fail:'Palm mute: lateral da palma da mão direita toca as cordas próximo ao cavalete.'},
+            {q:'Ghost note é tecnicamente:',o:['Nota muito aguda','Nota abafada pela mão esquerda — percussiva, sem pitch definido','Harmônico natural','Nota na 12ª casa'],c:1,ok:'Perfeito! Ghost note = ataque percussivo sem altura definida.',fail:'Ghost note: mão esq. afrouxa as cordas; mão dir. ataca. Resultado: som percussivo sem pitch.'},
+          ])}
           <div class="checklist" id="cl_f1m3">
             ${checks('f1m3',[
               'Alterno i-m automaticamente sem pensar',
@@ -998,6 +1299,19 @@ E |--1--2--3--4--|--4--3--2--1--|</pre><br>
               <em>Aumente 5 BPM por semana quando estiver confortável.</em>
             </div>
           </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('rhythm','f1m4rh','Ritmo: Exercício Cromático 1-2-3-4',[
+            {t:'note',l:'1'},{t:'note',l:'2'},{t:'note',l:'3'},{t:'note',l:'4'},
+            {t:'note',l:'4'},{t:'note',l:'3'},{t:'note',l:'2'},{t:'note',l:'1'},
+          ],65)}
+          ${EX.build('quiz','f1m4q','Quiz: Técnica da Mão Esquerda',[
+            {q:'Onde deve estar o polegar da mão esquerda?',o:['Enrolado por cima do braço','Atrás do braço, oposto ao dedo médio','Livre, sem encostar','Na frente do braço'],c:1,ok:'Correto! Polegar atrás = mais força e alcance dos dedos.',fail:'O polegar fica atrás do braço, centralizado. Enrolar por cima limita o alcance e cansa.'},
+            {q:'Por que pressionar a corda próximo à pestana (fret)?',o:['Para mudar o tom','Para a nota soar limpa, com menos esforço e sem zumbido','Para fazer harmônicos','Para tocar mais rápido'],c:1,ok:'Exato! Perto da pestana = nota limpa e eficiente.',fail:'Perto da pestana = menor pressão necessária e zero zumbido. Longe = zumbido ou nota morta.'},
+            {q:'O que é hammer-on?',o:['Golpe do polegar no slap','Bater o dedo na casa para soar a nota sem novo ataque da mão direita','Slide descendente','Técnica de palm mute'],c:1,ok:'Correto! Hammer-on = legato ascendente.',fail:'Hammer-on: o dedo "martela" a casa fazendo a nota soar sem novo toque da mão direita.'},
+            {q:'No exercício cromático 1-2-3-4, cada número representa:',o:['O número da corda','O dedo (1=indicador, 2=médio, 3=anelar, 4=mínimo)','A casa no braço','O tempo do metrônomo'],c:1,ok:'Correto! 1=indicador, 2=médio, 3=anelar, 4=mínimo.',fail:'Os números representam os dedos: 1=indicador, 2=médio, 3=anelar, 4=mínimo (mindinho).'},
+          ])}
           <div class="checklist" id="cl_f1m4">
             ${checks('f1m4',[
               'Meu polegar fica atrás do braço, não por cima',
@@ -1056,6 +1370,29 @@ A |--3-3-3-3-3-3-3-3--|  (nota Dó, 3ª casa da corda Lá)</pre><br>
               <strong>Desafio:</strong> Transcreva a linha de baixo de "Stand By Me" — Ben E. King. É perfeita para iniciantes e tem groove impecável.
             </div>
           </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('rhythm','f1m5rh','Groove Básico em 4/4 — Tap no tempo!',[
+            {t:'note',l:'1'},{t:'ghost',l:'e'},{t:'ghost',l:'+'},{t:'ghost',l:'a'},
+            {t:'note',l:'2'},{t:'ghost',l:'e'},{t:'note',l:'+'},{t:'ghost',l:'a'},
+            {t:'note',l:'3'},{t:'ghost',l:'e'},{t:'ghost',l:'+'},{t:'ghost',l:'a'},
+            {t:'note',l:'4'},{t:'ghost',l:'e'},{t:'note',l:'+'},{t:'ghost',l:'a'},
+          ],80)}
+          ${EX.build('quiz','f1m5q','Quiz: Groove e Ritmo',[
+            {q:'O que é "pocket" na linguagem dos músicos?',o:['Espaço no palco','Sincronismo perfeito entre baixo e bateria, criando um groove irresistível','Técnica de slap','Acorde de 5 notas'],c:1,ok:'Correto! Pocket = baixo e bateria travados juntos.',fail:'Pocket: quando baixo e bateria estão tão sincronizados que criam uma "bolsa" rítmica irresistível.'},
+            {q:'Qual instrumento da bateria o baixo deve "travar" prioritariamente?',o:['Chimbal (hi-hat)','Caixa (snare)','Bumbo (kick drum)','Prato (crash)'],c:2,ok:'Exato! Bumbo + baixo = fundação rítmica da banda.',fail:'O bumbo (kick drum) e o baixo formam juntos a fundação rítmica. Eles devem soar como um só.'},
+            {q:'Como contar 16 semicolcheias em 4/4?',o:['1-2-3-4','1-e-2-e','1-e-+-a-2-e-+-a-3-e-+-a-4-e-+-a','1-ah-2-ah-3-ah-4-ah'],c:2,ok:'Correto! 1-e-+-a para cada tempo = 16 subdivisões.',fail:'Semicolcheias: 1-e-+-a por tempo. 4 tempos × 4 subdivisões = 16 por compasso.'},
+            {q:'Por que configurar o metrônomo apenas nos tempos 2 e 4?',o:['Fica mais fácil','Simula o snare da bateria, treinando o groove real','Aumenta a velocidade','É a configuração padrão'],c:1,ok:'Exato! O snare no 2 e 4 é o coração do rock e pop.',fail:'Metrônomo no 2 e 4 simula a caixa da bateria, forçando você a internalizar o groove real.'},
+          ])}
+          ${EX.build('flashcard','f1m5fc','Flashcards: Vocabulário de Groove',[
+            {f:'Pocket',b:'Sincronismo perfeito entre baixo e bateria. O groove "encaixa" e faz as pessoas moverem o corpo involuntariamente.'},
+            {f:'"On the One" — James Brown',b:'O tempo 1 é o ponto de resolução máxima. Toda a banda converge para o "Um". Filosofia do funk americano.'},
+            {f:'Behind the Beat',b:'Tocar levemente depois do tempo. Cria sensação de peso e relaxamento. Comum no reggae, R&B e soul.'},
+            {f:'Ahead of the Beat',b:'Tocar levemente antes do tempo. Cria urgência e tensão. Comum no punk e música acelerada.'},
+            {f:'Subdivisão',b:'Divisão do tempo em partes menores. Colcheias (÷2), semicolcheias (÷4). Define a "grade" rítmica do groove.'},
+            {f:'Síncope',b:'Acentuação no tempo fraco. Motor do samba, funk e jazz. Cria surpresa e movimento rítmico.'},
+          ])}
           <div class="checklist" id="cl_f1m5">
             ${checks('f1m5',[
               'Uso o metrônomo em toda sessão de prática',
@@ -1157,6 +1494,21 @@ E |--5--8--|</pre>
               Em 3 meses você vai conhecer a pentatônica em toda parte do braço.
             </div>
           </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('fretboard','f2m6fb','Identifique Notas em Posição de Escala',[
+            {n:'C',s:2,f:3},{n:'E',s:3,f:12},{n:'G',s:3,f:3},
+            {n:'A',s:2,f:12},{n:'D',s:2,f:5},{n:'F',s:3,f:8},
+            {n:'B',s:2,f:9},{n:'G',s:0,f:0},{n:'C',s:0,f:5},
+          ])}
+          ${EX.build('quiz','f2m6q','Quiz: Escalas',[
+            {q:'Qual é a fórmula de tons (T) e semitons (st) da escala maior?',o:['T-T-T-st-T-T-st','T-T-st-T-T-T-st','st-T-T-st-T-T-T','T-st-T-T-st-T-T'],c:1,ok:'Perfeito! Tom-Tom-semitom-Tom-Tom-Tom-semitom.',fail:'Escala maior: T-T-st-T-T-T-st. Memorize: 2 tons, semitom, 3 tons, semitom.'},
+            {q:'A pentatônica menor tem quantas notas?',o:['7','5','6','8'],c:1,ok:'Correto! Penta = 5. Pentatônica menor: 1-b3-4-5-b7.',fail:'Pentatônica = 5 notas. Menor: raiz, terça menor, quarta, quinta, sétima menor.'},
+            {q:'O que é o "Box 1" da pentatônica?',o:['A primeira música aprendida','Um shape de dedos no braço que pode ser movido para qualquer tonalidade','Técnica de slap','Acorde de 5 notas'],c:1,ok:'Exato! Mova o box para qualquer casa e você está em outra tonalidade.',fail:'Box 1 é um padrão visual/motor de dedos. Mova para qualquer casa inicial e você muda de tonalidade.'},
+            {q:'A escala menor natural difere da maior por quais graus?',o:['1º e 5º','3º, 6º e 7º abaixados (b3, b6, b7)','2º e 4º','Apenas o 7º'],c:1,ok:'Correto! b3, b6 e b7 são as notas características da menor natural.',fail:'Menor natural = maior com 3º, 6º e 7º graus abaixados 1 semitom (b3, b6, b7).'},
+            {q:'Se a pentatônica menor de Lá (A) começa na 5ª casa da corda Mi, onde começa a de Ré (D)?',o:['3ª casa','7ª casa','10ª casa','12ª casa'],c:2,ok:'Correto! Ré é 5 semitons acima de Lá → 5ª+5 = 10ª casa.',fail:'Lá = 5ª casa. Ré está 5 semitons acima → 10ª casa. O shape é idêntico!'},
+          ])}
           <div class="checklist" id="cl_f2m6">
             ${checks('f2m6',[
               'Sei a fórmula da escala maior de cabeça',
@@ -1211,6 +1563,24 @@ E |--5--8--|</pre>
               <strong>Passo 4:</strong> Adicione notas de passagem cromáticas entre os acordes. Esse é o embrião do walking bass!
             </div>
           </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f2m7q','Quiz: Acordes e Arpejos',[
+            {q:'Quais notas formam a tríade de Dó maior (C)?',o:['C-D-E','C-E-G','C-E-F','C-F-G'],c:1,ok:'Correto! C-E-G = raiz(1), terça maior(3), quinta justa(5).',fail:'Tríade maior = 1-3-5. Em Dó: C(1) + E(3) + G(5).'},
+            {q:'O que diferencia m7 de Maj7?',o:['Número de notas','m7 tem b3 e b7; Maj7 tem 3 e 7 naturais','O ritmo','Nada'],c:1,ok:'Correto! m7 = menor; Maj7 = maior. A 3ª e a 7ª definem tudo.',fail:'m7: 1-b3-5-b7. Maj7: 1-3-5-7. A 3ª (maior/menor) e a 7ª (maior/menor) definem o caráter.'},
+            {q:'O que é arpejo no contexto do baixo?',o:['Técnica de slap','Tocar as notas de um acorde uma de cada vez','Acorde com todas as notas simultâneas','Nome de uma escala'],c:1,ok:'Exato! Arpejo = notas do acorde em sequência.',fail:'Arpejo: notas de um acorde tocadas sequencialmente. Base do walking bass e linhas de soul.'},
+            {q:'Na progressão I-IV-V em Dó maior, qual é o acorde V?',o:['Fá (F)','Sol (G)','Ré (D)','Lá (A)'],c:1,ok:'Correto! O 5º grau de Dó maior é Sol (G).',fail:'Em Dó maior: I=C, II=D, III=E, IV=F, V=G. O acorde V é Sol (G).'},
+          ])}
+          ${EX.build('flashcard','f2m7fc','Flashcards: Acordes',[
+            {f:'Tríade Maior',b:'1-3-5. Ex: C-E-G. Som brilhante e estável. "Acorde feliz".'},
+            {f:'Tríade Menor',b:'1-b3-5. Ex: C-Eb-G. Som mais escuro e melancólico.'},
+            {f:'Acorde Dom7 (dominante)',b:'1-3-5-b7. Ex: G7=G-B-D-F. Tensão que resolve na tônica. Motor da harmonia.'},
+            {f:'Acorde Maj7',b:'1-3-5-7. Ex: Cmaj7=C-E-G-B. Suave, jazzístico, bossa nova.'},
+            {f:'Acorde m7',b:'1-b3-5-b7. Ex: Am7=A-C-E-G. Funk, jazz, neo soul.'},
+            {f:'Progressão II-V-I',b:'A mais importante do jazz. Em Dó: Dm7-G7-Cmaj7. Tensão (V) → Resolução (I).'},
+            {f:'Nota de Passagem',b:'Nota cromática que conecta dois acordes. Cria o "caminhar" do walking bass.'},
+          ])}
           <div class="checklist" id="cl_f2m7">
             ${checks('f2m7',[
               'Sei a diferença entre acorde maior e menor',
@@ -1271,6 +1641,25 @@ E |--5--8--|</pre>
               Não tente aprender tudo de uma vez. Um modo por semana, totalmente absorvido.
             </div>
           </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f2m8q','Quiz: Os 7 Modos',[
+            {q:'O Dórico difere do Eólio (menor natural) por qual nota?',o:['b2 (segunda menor)','#4 (quarta aumentada)','6ª maior (natural, não abaixada)','b7 (sétima menor)'],c:2,ok:'Correto! Dórico tem 6ª maior; Eólio tem 6ª menor. Essa nota muda tudo.',fail:'Dórico = menor com 6ª maior. Eólio = menor com 6ª menor. É a única diferença entre os dois.'},
+            {q:'"So What" de Miles Davis é inteiramente em qual modo?',o:['Mixolídio','Lócrio','Dórico','Lídio'],c:2,ok:'Correto! So What está em Ré Dórico — o cânone do jazz modal.',fail:'"So What" está em Ré Dórico. É a obra-prima do jazz modal. Ouça com atenção ao baixo de Paul Chambers.'},
+            {q:'Qual modo é chamado de "escala do blues-rock" por ter b7?',o:['Jônico','Frígio','Lídio','Mixolídio'],c:3,ok:'Exato! Mixolídio = maior com b7. O sabor do blues e do rock clássico.',fail:'Mixolídio = escala maior com sétima abaixada (b7). Dá o "sabor" do blues e do rock.'},
+            {q:'O Frígio tem caráter sombrio e exótico por causa de qual intervalo característico?',o:['#4','b3','b2 (segunda menor)','b6'],c:2,ok:'Correto! O b2 cria o intervalo de semitom logo no início — som dramático e exótico.',fail:'Frígio: b2 (segunda menor). Esse semitom inicial cria o caráter dramático, usado no flamenco e metal.'},
+            {q:'Qual modo tem o #4 (quarta aumentada) como nota característica?',o:['Jônico','Dórico','Lídio','Eólio'],c:2,ok:'Correto! Lídio = maior com #4. Som etéreo e "flutuante".',fail:'Lídio tem #4 (trítono acima da raiz). Cria som etéreo, dreamy. Usado por John Williams e muitos composers.'},
+          ])}
+          ${EX.build('flashcard','f2m8fc','Flashcards: Os 7 Modos',[
+            {f:'Jônico (I)',b:'A escala maior. T-T-st-T-T-T-st. Brilhante e estável. C-D-E-F-G-A-B.'},
+            {f:'Dórico (II)',b:'Menor com 6ª maior. Funk e jazz menor. Lá Dórico: A-B-C-D-E-F#-G.'},
+            {f:'Frígio (III)',b:'Menor com b2. Som exótico e sombrio. Flamenco, metal. E-F-G-A-B-C-D.'},
+            {f:'Lídio (IV)',b:'Maior com #4. Etéreo, dreamy. F-G-A-B-C-D-E.'},
+            {f:'Mixolídio (V)',b:'Maior com b7. Blues, rock, dominant. G-A-B-C-D-E-F.'},
+            {f:'Eólio (VI)',b:'Menor natural. Melancólico. Rock alternativo, pop menor. A-B-C-D-E-F-G.'},
+            {f:'Lócrio (VII)',b:'Diminuto, instável. Raro mas importante no jazz. B-C-D-E-F-G-A.'},
+          ])}
           <div class="checklist" id="cl_f2m8">
             ${checks('f2m8',[
               'Sei nomear os 7 modos em ordem',
@@ -1335,6 +1724,19 @@ E7 | D7 | A7 | E7</pre><br>
               <strong>Mês 4 — Samba/Bossa:</strong> "Garota de Ipanema" (Jobim) e "Mas que Nada" (Jorge Ben). Fundamental para o músico brasileiro.
             </div>
           </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('rhythm','f2m9rh','Groove de Blues — Feel em Shuffle',[
+            {t:'note',l:'1'},{t:'ghost',l:'+'},{t:'note',l:'2'},{t:'ghost',l:'+'},
+            {t:'note',l:'3'},{t:'ghost',l:'+'},{t:'note',l:'4'},{t:'ghost',l:'+'},
+          ],75)}
+          ${EX.build('quiz','f2m9q','Quiz: Estilos Musicais',[
+            {q:'O "one drop" é característica rítmica de qual estilo?',o:['Funk','Rock','Reggae','Jazz'],c:2,ok:'Correto! No reggae, o bumbo não toca no tempo 1.',fail:'One drop: característico do reggae. O bumbo "pula" o tempo 1, criando o groove único do estilo.'},
+            {q:'Em uma progressão de blues em Lá (12 compassos), qual é o IV grau?',o:['E7','B7','D7','G7'],c:2,ok:'Correto! O IV grau de Lá maior é Ré (D).',fail:'Em Lá maior: I=A, II=B, III=C#, IV=D, V=E. O IV é D7.'},
+            {q:'O feel do reggae é descrito como:',o:['Ahead of the beat (na frente)','Behind the beat (atrás), pesado e relaxado','Exatamente no tempo','Muito rápido e urgente'],c:1,ok:'Exato! Reggae: behind the beat. Cria sensação de peso e relaxamento.',fail:'Reggae: "behind the beat" — levemente depois do tempo. Cria peso e o feeling relaxado característico.'},
+            {q:'No samba brasileiro, a síncope significa:',o:['Tocar só nas batidas fortes','Acentuar o tempo fraco, criando o movimento característico','Técnica de slap','Tipo de acorde'],c:1,ok:'Correto! A síncope é o motor do samba.',fail:'Síncope = acentuação no tempo fraco. É o que dá ao samba sua energia e movimento característicos.'},
+          ])}
           <div class="checklist" id="cl_f2m9">
             ${checks('f2m9',[
               'Conheço a progressão de 12 compassos do blues',
@@ -1401,6 +1803,27 @@ Tempo: 1   e   2   e   3   e   4   e
               Grave-se! O slap parece ótimo na sua cabeça mas pode estar fora do tempo. O vídeo não mente.
             </div>
           </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('rhythm','f2m10rh','Padrão de Slap: T-G-P-G',[
+            {t:'note',l:'T'},{t:'ghost',l:'G'},{t:'note',l:'P'},{t:'ghost',l:'G'},
+            {t:'note',l:'T'},{t:'ghost',l:'G'},{t:'note',l:'P'},{t:'ghost',l:'G'},
+          ],65)}
+          ${EX.build('quiz','f2m10q','Quiz: Slap Bass',[
+            {q:'O movimento do polegar no thumb deve vir de:',o:['Todo o braço','Apenas o pulso (rotação de torneira)','Do cotovelo','Do ombro'],c:1,ok:'Correto! Pulso = eficiência e controle. Braço = cansaço e imprecisão.',fail:'O thumb é uma rotação do pulso, como virar uma chave. O braço permanece quase estático.'},
+            {q:'Por que o polegar deve ricochetear imediatamente após o golpe?',o:['Para não machucar a corda','Para não abafar a nota e permitir o sustain','Para economizar energia','Sem motivo técnico'],c:1,ok:'Exato! Ficar na corda abafa o sustain da nota.',fail:'Se o polegar ficar pressionado, abafa a corda. O ricochete libera a vibração e o sustain.'},
+            {q:'Quem é considerado o inventor do slap bass?',o:['Flea','Victor Wooten','Larry Graham','Marcus Miller'],c:2,ok:'Correto! Larry Graham desenvolveu o slap com Sly & the Family Stone nos anos 60.',fail:'Larry Graham inventou o slap originalmente como substituto da bateria nos shows de família.'},
+            {q:'O "double thumb" consiste em:',o:['Usar dois polegares','Alternância down-up com o mesmo polegar, como palheta','Slap com os dois dedos médios','Técnica de tapping'],c:1,ok:'Correto! Down + up com o polegar = dobro de velocidade no slap.',fail:'Double thumb: o polegar faz down stroke E up stroke (como palheta alternate). 2× mais velocidade.'},
+          ])}
+          ${EX.build('flashcard','f2m10fc','Flashcards: Slap Bass',[
+            {f:'Thumb Down',b:'Golpe do polegar para baixo na corda Mi/Lá. Movimento do pulso. Ricochete imediato. Som percussivo e sustentado.'},
+            {f:'Pop',b:'Indicador puxa a corda Sol/Ré para cima e solta. A corda bate nas pestanas = estalo característico do slap.'},
+            {f:'Ghost Note no Slap',b:'Thumb ou pop com cordas abafadas. Só percussão, sem pitch. É o esqueleto do groove. Sem elas, o slap fica vazio.'},
+            {f:'Double Thumb',b:'Down E up com o polegar (como alternate picking). Dobra a velocidade. Referência: Victor Wooten.'},
+            {f:'Larry Graham',b:'Inventor do slap. "Thank You" com Sly & the Family Stone (1969). O primeiro a usar o thumb no baixo.'},
+            {f:'Marcus Miller',b:'Slap refinado e musical. "Tutu" (Miles Davis). Equilibra groove, melodia e técnica impecável.'},
+          ])}
           <div class="checklist" id="cl_f2m10">
             ${checks('f2m10',[
               'Faço o thumb com o pulso (não com o braço)',
@@ -1580,6 +2003,21 @@ Tempo: 1   e   2   e   3   e   4   e
               Grave-se e compare com os originais. Vá ajustando até o groove "travar".
             </div>
           </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('rhythm','f3m13rh','Groove de Funk — 16 Semicolcheias',[
+            {t:'note',l:'1'},{t:'ghost',l:'e'},{t:'ghost',l:'+'},{t:'note',l:'a'},
+            {t:'ghost',l:'2'},{t:'note',l:'e'},{t:'ghost',l:'+'},{t:'ghost',l:'a'},
+            {t:'note',l:'3'},{t:'ghost',l:'e'},{t:'ghost',l:'+'},{t:'note',l:'a'},
+            {t:'ghost',l:'4'},{t:'note',l:'e'},{t:'ghost',l:'+'},{t:'ghost',l:'a'},
+          ],90)}
+          ${EX.build('quiz','f3m13q','Quiz: Funk Bass',[
+            {q:'Qual subdivisão rítmica é a base do funk?',o:['Colcheias (8)','Semicolcheias (16)','Tercinas','Quiálteras de 5'],c:1,ok:'Correto! 16 semicolcheias por compasso é a grade do funk.',fail:'O funk vive nas semicolcheias — 16 por compasso. Grade: 1-e-+-a × 4.'},
+            {q:'O que acontece se você tirar todas as ghost notes de um groove de funk?',o:['Fica mais limpo','O groove colapsa e perde o feel','Fica mais rápido','Soa igual'],c:1,ok:'Exato! Ghost notes são o esqueleto invisível do groove.',fail:'Ghost notes são a textura do funk. Sem elas o groove fica plano, vazio e sem vida.'},
+            {q:'A filosofia "On the One" de James Brown significa:',o:['Usar apenas 1 dedo','O tempo 1 é o ponto de resolução e energia máxima de tudo','Tocar 1 nota por compasso','1 instrumento de cada vez'],c:1,ok:'Correto! Tudo converge para o Um.',fail:'"On the One": o downbeat do tempo 1 é sagrado. Bumbo, baixo e banda inteira resolvem no 1.'},
+            {q:'Qual linha exemplifica melhor o funk de Stevie Wonder?',o:['"Billie Jean" — Michael Jackson','"Superstition" — Stevie Wonder','"Come Together" — Beatles','"La Grange" — ZZ Top'],c:1,ok:'Correto! Superstition tem uma das linhas mais icônicas do funk.',fail:'"Superstition" (Stevie Wonder) — Nathan Watts no baixo. Masterclass de groove funk.'},
+          ])}
           <div class="checklist" id="cl_f3m13">
             ${checks('f3m13',[
               'Consigo subdividir em semicolcheias vocalmente e instrumentalmente',
@@ -1635,6 +2073,23 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
               Baixe os playalong de Jamey Aebersold (series "Play-A-Long") — são o recurso mais usado em escolas de jazz do mundo.
             </div>
           </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f3m14q','Quiz: Walking Bass e Jazz',[
+            {q:'As "guide tones" mais importantes de um acorde são:',o:['Raiz e 5ª','3ª e 7ª','2ª e 6ª','4ª e 8ª'],c:1,ok:'Correto! 3ª e 7ª definem se o acorde é maior, menor ou dominante.',fail:'3ª e 7ª são as guide tones. Definem o caráter do acorde. Prioridade no walking bass.'},
+            {q:'Uma "chromatic approach note" é:',o:['Nota muito aguda','Nota 1 semitom antes da nota alvo do próximo acorde','Nota aleatória da escala cromática','Técnica de vibrato'],c:1,ok:'Exato! 1 semitom antes da nota alvo conecta acordes suavemente.',fail:'Chromatic approach: nota 1 semitom acima ou abaixo da nota alvo. Cria movimento suave entre acordes.'},
+            {q:'Walking bass usa quantas semínimas por compasso?',o:['2','4','8','16'],c:1,ok:'Correto! 4 notas por compasso — uma por tempo. É o "caminhar".',fail:'Walking bass = 4 semínimas por compasso. Uma nota em cada tempo do 4/4. Daí o nome "walking".'},
+            {q:'Qual standard de jazz é o mais indicado para aprender walking bass?',o:['Giant Steps','Autumn Leaves','Take Five','Round Midnight'],c:1,ok:'Correto! Autumn Leaves tem progressão clara — ideal para iniciantes no walking.',fail:'"Autumn Leaves" tem progressão II-V-I em maior e menor. Perfeito para treinar walking bass.'},
+          ])}
+          ${EX.build('flashcard','f3m14fc','Flashcards: Jazz e Walking Bass',[
+            {f:'Walking Bass',b:'4 semínimas por compasso. Linha melódica e harmônica que "caminha" de acorde em acorde. Padrão do jazz acústico.'},
+            {f:'Guide Tones (3ª e 7ª)',b:'Notas mais informativas de um acorde. Definem se é maior, menor ou dominante. Prioridade no walking.'},
+            {f:'Chromatic Approach',b:'Nota 1 semitom antes da nota alvo do próximo acorde. Conecta acordes suavemente. Fundamental no walking.'},
+            {f:'Progressão II-V-I',b:'A mais usada no jazz. Em Dó: Dm7-G7-Cmaj7. Subdominante → Dominante → Tônica. Aprenda em todas as 12 tonalidades.'},
+            {f:'Autumn Leaves (Les Feuilles Mortes)',b:'Standard de jazz por Joseph Kosma. Progressão II-V-I em maior e menor. O melhor para aprender walking bass.'},
+            {f:'Ron Carter',b:'Maior walking bassist da história. Quinteto de Miles Davis (1964-68). Definiu o padrão do contrabaixo no jazz moderno.'},
+          ])}
           <div class="checklist" id="cl_f3m14">
             ${checks('f3m14',[
               'Entendo o que é a progressão II-V-I',
@@ -1690,6 +2145,23 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
               Profundidade > Largura. Domine uma antes de começar outra. O músico que sabe 10 técnicas medianamente perde para o que domina 3 técnicas completamente.
             </div>
           </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f3m15q','Quiz: Técnicas Avançadas',[
+            {q:'Como se produz um harmônico natural?',o:['Pressionando forte na casa','Encostando levemente o dedo sobre a casa, sem pressionar até o braço','Usando palheta muito forte','Pedal de efeito'],c:1,ok:'Correto! Toque leve sobre a casa, sem pressionar. Levante imediatamente.',fail:'Harmônico natural: dedo levemente sobre a casa (sem pressionar). Toque e levante o dedo simultaneamente.'},
+            {q:'A casa 7 de qualquer corda produz qual harmônico natural?',o:['Oitava','Quinta (uma oitava e meia acima)','Oitava dupla (2 oitavas)','Terça maior'],c:1,ok:'Correto! Casa 7 = quinta acima da corda solta.',fail:'Harmonics: casa 12=oitava, casa 7=quinta (1 oitava e meia), casa 5=oitava dupla.'},
+            {q:'O "double thumb" duplica a velocidade do slap ao:',o:['Usar dois polegares','Fazer down stroke E up stroke com o mesmo polegar','Alternar polegar e indicador','Usar ambas as mãos'],c:1,ok:'Correto! Down + up com o polegar = 2× velocidade.',fail:'Double thumb: polegar faz down stroke (normal) + up stroke (ao voltar). Como alternate picking.'},
+            {q:'O tapping no baixo envolve:',o:['Só a mão direita no braço','Ambas as mãos no braço, produzindo notas independentemente','Percussão no corpo do baixo','Só harmônicos'],c:1,ok:'Exato! Ambas as mãos no braço = possibilidade de intervalos impossíveis de outra forma.',fail:'Tapping: mão direita também toca no braço, criando notas independentes da mão esquerda.'},
+          ])}
+          ${EX.build('flashcard','f3m15fc','Flashcards: Técnicas Avançadas',[
+            {f:'Harmônico Natural',b:'Dedo levemente sobre casa 12, 7 ou 5. Som campânico. Casa 12=oitava, 7=quinta, 5=oitava dupla.'},
+            {f:'Harmônico Artificial',b:'Mão esq. pressiona; mão dir. toca levemente 12 casas acima. Produz harmônico em qualquer nota.'},
+            {f:'Double Thumb',b:'Down + up com o polegar. Dobra a velocidade. Victor Wooten é a referência máxima. "Amazing Grace" solo.'},
+            {f:'Tapping',b:'Mão direita também toca no braço. Permite arpejos e saltos de intervalos impossíveis com uma mão só.'},
+            {f:'Portrait of Tracy — Jaco',b:'Solo de baixo fretless de Jaco Pastorius inteiramente em harmônicos. O ponto mais alto da arte do baixo elétrico.'},
+            {f:'Victor Wooten',b:'O maior baixista vivo. Double thumb, tapping, groove insano. "Classical Thump" e "Amazing Grace" são obras-primas.'},
+          ])}
           <div class="checklist" id="cl_f3m15">
             ${checks('f3m15',[
               'Consigo produzir harmônicos naturais nas casas 12, 7 e 5',
@@ -1800,6 +2272,23 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
               <strong>Músicas sugeridas:</strong> "Girl from Ipanema", "Fly Me to the Moon", "Yesterday", "Ain't No Sunshine"
             </div>
           </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f3m17q','Quiz: Harmonia Funcional',[
+            {q:'Qual é a função harmônica do acorde V7 (dominante com sétima)?',o:['Repouso e estabilidade','Tensão máxima que quer resolver no I','Movimento moderado','Finalização'],c:1,ok:'Correto! V7 = máxima tensão. Sempre resolve no I.',fail:'V7 (dominante) é o acorde de maior tensão. "Puxa" para a tônica como gravidade.'},
+            {q:'Em Dó maior, qual é o acorde V7?',o:['Dm7','G7','Fmaj7','Am7'],c:1,ok:'Correto! G7 é o V7 de Dó maior.',fail:'Em Dó maior: I=C, II=D, III=E, IV=F, V=G. O V7 é G7 (Sol dominante sétima).'},
+            {q:'O que é empréstimo modal?',o:['Pegar instrumento emprestado','Usar acorde da tonalidade paralela (maior ↔ menor)','Modulação permanente','Substituição de dominante'],c:1,ok:'Exato! Em "Yesterday", o Fm é emprestado do Fá menor.',fail:'Empréstimo modal: usar acorde da tonalidade paralela. Em Dó maior, usar Cm, Fm ou Ab (do menor).'},
+            {q:'Como baixista, o sinal mais claro de que a música modulou é:',o:['A letra menciona','A tônica muda e os acordes giram em torno de um novo centro tonal','O andamento muda','O cantor sobe de registro'],c:1,ok:'Correto! A nova tônica é o sinal da modulação.',fail:'Modulação: o centro tonal muda. A nova raiz passa a ser o ponto de repouso. Ancore no tempo 1.'},
+          ])}
+          ${EX.build('flashcard','f3m17fc','Flashcards: Harmonia',[
+            {f:'Tônica',b:'Função de repouso. Graus I, III, VI. Onde a música "chega em casa". Estabilidade e conclusão.'},
+            {f:'Dominante',b:'Tensão máxima. Grau V (V7). Sempre quer resolver na tônica. Motor da progressão harmônica.'},
+            {f:'Subdominante',b:'Movimento moderado. Graus II e IV. Afasta da tônica sem tensão extrema.'},
+            {f:'Progressão II-V-I',b:'S→D→T. A mais usada na música. Em jazz: Dm7-G7-Cmaj7. Base de centenas de standards.'},
+            {f:'Empréstimo Modal',b:'Usar acorde da tonalidade paralela. Em Dó maior: Cm, Fm, Abmaj7 são emprestados do menor.'},
+            {f:'Modulação',b:'Mudança de centro tonal. Tipos: direta, por acorde pivô, por dominante secundário.'},
+          ])}
           <div class="checklist" id="cl_f3m17">
             ${checks('f3m17',[
               'Sei identificar as funções T, S, D de um acorde',
@@ -1935,6 +2424,23 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
               Esta prática vai desenvolver sua <strong>musicalidade instantânea</strong> — a habilidade mais valorizada em sessões.
             </div>
           </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f4m19q','Quiz: Session Player',[
+            {q:'Qual é a postura correta em uma sessão de estúdio?',o:['Tocar o que você acha melhor','Ouvir produtor e artista — eles têm a visão da música','Mostrar todo seu vocabulário','Improvisar sempre'],c:1,ok:'Correto! Em sessão você serve a visão do artista e do produtor.',fail:'Em estúdio: ouça, execute, entregue. Não é hora de mostrar habilidade — é hora de servir a música.'},
+            {q:'O Nashville Number System é:',o:['App de afinação','Sistema numérico de cifras (1-2-3-4-5-6-7) muito usado no country e gospel','Tipo de compasso','Técnica de slap'],c:1,ok:'Correto! NNS usa graus numéricos em vez de letras — permite transposição instantânea.',fail:'NNS: usa números (1,2,3...) em vez de notas. O músico transpõe imediatamente para qualquer tom.'},
+            {q:'Por que chegar cedo a uma sessão de estúdio?',o:['Para cobrar hora extra','Para montar, afinar e estar pronto quando o produtor chegar','Para impressionar a equipe','Sem motivo especial'],c:1,ok:'Exato! Profissional está pronto quando o trabalho começa.',fail:'Chegar cedo = montar, afinar, aquecer. Quando o produtor chega, você já está pronto para gravar.'},
+            {q:'O que é um lead sheet?',o:['Contrato musical','Partitura simplificada com melodia, cifras e letra','Lista de músicas do show','Planilha de pagamento'],c:1,ok:'Correto! Lead sheet: melodia + cifras + letra. Padrão em jazz e sessões.',fail:'Lead sheet: melodia, cifras de acordes e letra. O músico cria o acompanhamento com base nas cifras.'},
+          ])}
+          ${EX.build('flashcard','f4m19fc','Flashcards: Carreira e Estúdio',[
+            {f:'Nashville Number System',b:'Cifra numérica: 1=tônica, 4=subdominante, 5=dominante. Transposição instantânea. Padrão no country e gospel americano.'},
+            {f:'Lead Sheet',b:'Melodia + cifras + letra. Sem arranjo completo. O músico cria o acompanhamento. Padrão em jazz.'},
+            {f:'Etiqueta de Estúdio',b:'Chegue cedo. Instrumento afinado. Ouça. Não critique. Sirva a música. Seja fácil de trabalhar.'},
+            {f:'DI Box',b:'Direct Injection: converte sinal do baixo para XLR balanceado. Padrão em estúdio e ao vivo. Radial J48 = referência.'},
+            {f:'SoundBetter / AirGigs',b:'Plataformas de freelance musical para sessões remotas. Conecta músicos a artistas do mundo todo.'},
+            {f:'Home Studio Básico',b:'Focusrite Scarlett 2i2 + Reaper ou GarageBand + DI Box + fones bons = qualidade profissional em casa.'},
+          ])}
           <div class="checklist" id="cl_f4m19">
             ${checks('f4m19',[
               'Consigo ler um chart básico com cifras e ritmo',
@@ -2049,6 +2555,23 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
               Cada show é uma aula que nenhum professor pode te dar.
             </div>
           </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f4m21q','Quiz: Performance e Carreira',[
+            {q:'A melhor forma de superar a ansiedade de palco a longo prazo é:',o:['Evitar tocar ao vivo','Tomar remédios calmantes','Tocar ao vivo com frequência — superexposição gradual','Só tocar em casa'],c:2,ok:'Correto! A ansiedade diminui com experiência acumulada de palco.',fail:'A melhor cura é a exposição repetida. Cada show te prepara para o próximo.'},
+            {q:'Qual mix pedir no monitor de palco?',o:['Máximo de tudo','Seu baixo + bumbo da bateria + voz líder','Só guitarra','Só sua própria voz'],c:1,ok:'Correto! Baixo + bumbo + voz = referência rítmica e harmônica completa.',fail:'No monitor: SEU baixo, o bumbo e a voz líder. Com isso você se orienta perfeitamente no palco.'},
+            {q:'Por que postar vídeos tocando nas redes sociais regularmente?',o:['Para ficar famoso','Para criar presença, portfólio e oportunidades que chegam até você','Para ganhar dinheiro direto','Sem importância'],c:1,ok:'Exato! Consistência online = presença e oportunidades.',fail:'Presença online cria portfólio, atrai oportunidades e mantém você "no radar" da comunidade musical.'},
+            {q:'Qual fonte de renda é geralmente mais estável para um músico?',o:['Royalties de streaming','Shows esporádicos','Aulas de música regulares','Venda de CDs'],c:2,ok:'Correto! Aulas criam renda recorrente e previsível.',fail:'Aulas de música = renda recorrente e estável. Shows são imprevisíveis; aulas garantem consistência financeira.'},
+          ])}
+          ${EX.build('flashcard','f4m21fc','Flashcards: Performance e Carreira',[
+            {f:'Presença de Palco',b:'Comunicar que você acredita no que toca. Olhar para a banda. Mover-se com o groove. Interagir.'},
+            {f:'In-Ear Monitor (IEM)',b:'Fone intra-auricular no palco. Isola ruído externo, protege audição, permite mix personalizado.'},
+            {f:'Setlist de Memória',b:'Conhecer o repertório completamente libera sua atenção para o groove, a banda e o público.'},
+            {f:'Regra do Conteúdo Online',b:'Consistência > Perfeição. 1 vídeo por semana por 1 ano = portfólio que 95% dos músicos não têm.'},
+            {f:'Networking Musical',b:'A maioria dos trabalhos vem de indicação. Seja o músico que todos querem chamar: confiável, positivo, preparado.'},
+            {f:'Fontes de Renda Musical',b:'Shows + Sessões + Aulas + Produção + Conteúdo digital. Diversifique. Não dependa de uma só fonte.'},
+          ])}
           <div class="checklist" id="cl_f4m21">
             ${checks('f4m21',[
               'Toquei ao vivo pelo menos 1 vez',
@@ -2108,6 +2631,23 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
               Não busque perfeição. Busque consistência. Em 90 dias você vai ter um portfólio e uma presença que 95% dos músicos não têm.
             </div>
           </div>
+          
+          <div class="content-divider"></div>
+          <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('quiz','f4m22q','Quiz: O Músico Completo',[
+            {q:'Por que estudar piano ajuda um baixista?',o:['Para tocar dois instrumentos','Piano exibe harmonia visualmente — acelera o entendimento de acordes e tonalidades','Para ganhar mais dinheiro','Não ajuda'],c:1,ok:'Correto! No piano você vê fisicamente as notas de cada acorde.',fail:'Piano: você vê as notas de todos os acordes. Clarifica harmonia e acelera seu desenvolvimento no baixo.'},
+            {q:'O que é transcrição musical?',o:['Copiar partitura de outra fonte','Ouvir uma gravação e escrever o que você escuta (notas, ritmo, dinâmica)','Técnica de slap avançada','Traduzir letras de música'],c:1,ok:'Exato! Transcrever é o exercício de ouvido mais poderoso.',fail:'Transcrever: ouvir e escrever. Desenvolve ouvido, vocabulário musical e análise ao mesmo tempo.'},
+            {q:'Como prevenir LER (Lesão por Esforço Repetitivo)?',o:['Tocar o máximo possível','Aquecimento antes de praticar, pausas a cada 45min, parar imediatamente com dor','Usar cordas mais finas','Tocar mais devagar sempre'],c:1,ok:'Correto! Prevenção é a única estratégia eficaz.',fail:'Aquecimento, pausas regulares e respeitar a dor. LER pode encerrar permanentemente uma carreira.'},
+            {q:'Qual é a frequência ideal de transcrição para um músico em desenvolvimento?',o:['1 por ano','1 por semana','1 por dia','Nunca — use TABs prontas'],c:1,ok:'Correto! 1 por semana transforma seu ouvido em meses.',fail:'1 transcrição por semana = 52 linhas de baixo dos melhores músicos do mundo no seu ouvido por ano.'},
+          ])}
+          ${EX.build('flashcard','f4m22fc','Flashcards: Desenvolvimento Contínuo',[
+            {f:'Transcrição',b:'Ouvir e escrever o que você escuta. 1 por semana. Desenvolve ouvido, vocabulário e análise musical.'},
+            {f:'Ouvido Relativo',b:'Identificar intervalos e acordes em relação a uma referência. Treina-se com transcrição e solmização.'},
+            {f:'LER — Prevenção',b:'Aquecimento antes de praticar. Pausa de 10min a cada 45min. Nunca toque com dor. Suas mãos são sua carreira.'},
+            {f:'Prática Deliberada',b:'Focar nos pontos fracos com atenção total, não repetir o que já sabe bem. Mais eficiente que horas automáticas.'},
+            {f:'Berklee Online',b:'Cursos certificados online da maior escola de música do mundo. Recomendado para teoria e prática avançada.'},
+            {f:'O Próximo Passo',b:'Você completou o curso. Agora: toque com pessoas reais, grave tudo, publique, não pare de estudar. Nunca.'},
+          ])}
           <div class="checklist" id="cl_f4m22">
             ${checks('f4m22',[
               'Tenho perfil profissional no Instagram com minha música',
@@ -2527,6 +3067,7 @@ buildAllLessons();
 buildSidebar();
 updateProgress();
 showWelcome();
+
 </script>
 </body>
 </html>
