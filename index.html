@@ -253,6 +253,55 @@ body{
 }
 .timer-btn:hover{background:rgba(255,255,255,0.08);}
 
+/* metronome */
+#metro-widget{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:6px 12px;
+}
+.metro-label{
+  font-family:'Space Mono',monospace;
+  font-size:9px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+#metro-bpm{
+  font-family:'Space Mono',monospace;
+  font-size:14px;
+  color:var(--green);
+  width:36px;
+  text-align:center;
+  cursor:pointer;
+  border:none;
+  background:transparent;
+  outline:none;
+}
+#metro-bpm:focus{
+  color:var(--text);
+  background:var(--card2);
+  border-radius:3px;
+}
+.metro-beat{
+  width:8px;height:8px;
+  border-radius:50%;
+  background:var(--border2);
+  flex-shrink:0;
+  transition:background 0.04s, box-shadow 0.04s;
+}
+.metro-beat.on{
+  background:var(--green);
+  box-shadow:0 0 8px var(--green);
+}
+@media(max-width:768px){
+  .metro-label{display:none;}
+  #metro-widget{padding:6px 8px;gap:4px;}
+}
+
 /* content area */
 #content{
   flex:1;
@@ -796,6 +845,17 @@ body::-webkit-scrollbar-thumb{background:var(--border);}
   <div id="topbar">
     <button id="menu-btn" onclick="toggleSidebar()">☰</button>
     <div id="breadcrumb">Selecione uma lição</div>
+    <div id="metro-widget">
+      <span class="metro-label">BPM</span>
+      <button class="timer-btn" onclick="metroBpm(-5)" title="-5 BPM" style="font-size:16px;line-height:1">−</button>
+      <input id="metro-bpm" type="number" value="80" min="20" max="300"
+             onchange="metroSetBpm(parseInt(this.value)||80)"
+             onkeydown="if(event.key==='Enter')this.blur()"
+             title="BPM — clique para editar">
+      <button class="timer-btn" onclick="metroBpm(+5)" title="+5 BPM" style="font-size:16px;line-height:1">+</button>
+      <div class="metro-beat" id="metro-beat"></div>
+      <button class="timer-btn" id="metro-start-btn" onclick="metroToggle()" title="Iniciar/Pausar metrônomo">▶</button>
+    </div>
     <div id="timer-widget">
       <span>⏱</span>
       <span id="timer-display">00:00</span>
@@ -3045,6 +3105,58 @@ function timerReset() {
   timerSec = 0;
   document.getElementById('timer-display').textContent = '00:00';
   document.getElementById('timer-start-btn').textContent = '▶';
+}
+
+// ════════════════════════════════════════════════
+//  METRONOME
+// ════════════════════════════════════════════════
+let metroBpm_ = 80, metroRunning = false, metroInterval = null, metroCtx = null;
+
+function metroClick() {
+  // Web Audio API click — beat sound
+  if (!metroCtx) metroCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const now = metroCtx.currentTime;
+  const osc = metroCtx.createOscillator();
+  const gain = metroCtx.createGain();
+  osc.connect(gain);
+  gain.connect(metroCtx.destination);
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(1000, now);
+  gain.gain.setValueAtTime(0.5, now);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+  osc.start(now);
+  osc.stop(now + 0.06);
+  // Visual beat flash
+  const dot = document.getElementById('metro-beat');
+  if (dot) { dot.classList.add('on'); setTimeout(() => dot.classList.remove('on'), 80); }
+}
+
+function metroToggle() {
+  const btn = document.getElementById('metro-start-btn');
+  if (metroRunning) {
+    clearInterval(metroInterval);
+    metroRunning = false;
+    btn.textContent = '▶';
+  } else {
+    metroClick();
+    metroInterval = setInterval(metroClick, 60000 / metroBpm_);
+    metroRunning = true;
+    btn.textContent = '⏸';
+  }
+}
+
+function metroBpm(delta) {
+  metroSetBpm(metroBpm_ + delta);
+}
+
+function metroSetBpm(val) {
+  metroBpm_ = Math.max(20, Math.min(300, val || 80));
+  const el = document.getElementById('metro-bpm');
+  if (el) el.value = metroBpm_;
+  if (metroRunning) {
+    clearInterval(metroInterval);
+    metroInterval = setInterval(metroClick, 60000 / metroBpm_);
+  }
 }
 
 // ════════════════════════════════════════════════
