@@ -821,6 +821,8 @@ body::-webkit-scrollbar-thumb{background:var(--border);}
   transition:all .2s;margin-top:4px;}
 .video-btn:hover{background:rgba(61,155,255,.22);border-color:var(--accent3);}
 .video-btn.empty{opacity:.4;border-style:dashed;cursor:default;}
+.video-btn.yt-search{background:rgba(255,80,80,.10);border-color:rgba(255,80,80,.35);color:#ff6b6b;}
+.video-btn.yt-search:hover{background:rgba(255,80,80,.20);border-color:#ff6b6b;}
 
 </style>
 </head>
@@ -1067,6 +1069,7 @@ const COURSE_BAIXO = [
         desc: 'Antes de tocar, você precisa entender completamente o seu instrumento. Anatomia, regulagem, cuidado e como o som é produzido.',
         video: '',
         content: () => `
+          <div class="info-box" style="border-color:var(--green);background:rgba(34,201,117,.08);">🎸 <strong>Bem-vindo à sua jornada!</strong> Você tomou a decisão mais importante: começar. Não importa se você nunca tocou antes — todo grande baixista um dia segurou o instrumento pela primeira vez. Este módulo é o seu ponto de partida. Vá no seu ritmo, sem pressa.</div>
           <div class="section-title">🔩 Anatomia Completa</div>
           <div class="info-box">Conheça cada parte do seu instrumento — tocar bem começa por entender o que você tem nas mãos.</div>
           <div class="expand-block">
@@ -1466,8 +1469,8 @@ E |---0-2-0-0-3-0---|</pre>
             ${checks('f1m2',[
               'Sei nomear as 12 notas musicais em ordem',
               'Consigo dizer o nome de qualquer nota na corda Mi até a 12ª casa',
-              'Entendo o que são tons e semitons',
-              'Sei o que é compasso 4/4 e consigo contar 1-2-3-4',
+              'Mostrei no braço do baixo 3 exemplos de tons e 3 exemplos de semitons',
+              'Contei 1-2-3-4 em voz alta batendo o pé enquanto tocava uma música',
               'Consigo ler uma TAB simples e reproduzir no baixo',
             ])}
           </div>
@@ -1683,6 +1686,36 @@ A |--3-3-3-3-3-3-3-3--|  (nota Dó, 3ª casa da corda Lá)</pre><br>
             {f:'Subdivisão',b:'Divisão do tempo em partes menores. Colcheias (÷2), semicolcheias (÷4). Define a "grade" rítmica do groove.'},
             {f:'Síncope',b:'Acentuação no tempo fraco. Motor do samba, funk e jazz. Cria surpresa e movimento rítmico.'},
           ])}
+          <div class="content-divider"></div>
+          <div class="section-title">🇧🇷 Músicas Brasileiras para Estudar</div>
+          <div class="info-box">O baixo brasileiro tem personalidade única. Aprenda esses clássicos para desenvolver groove, timing e musicalidade ao mesmo tempo.</div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('br-baixo1')">
+              <span><strong>🎵 "Garota de Ipanema" — Tom Jobim</strong><br><span class="expand-toggle-sub">Bossa nova • Groove suave, notas longas, espação entre as notas</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="br-baixo1" style="display:none">
+              <strong>Por que estudar:</strong> A linha de baixo da Garota de Ipanema é um estudo perfeito de como tocar menos e dizer mais. Cada nota tem peso e intenção.<br><br><strong>O que observar:</strong> João Gilberto (voz/violão) e o baixo se complementam — o baixo caminha enquanto o violão pulsa. Pratique esperar o tempo certo antes de tocar.<br><br><strong>Exercício:</strong> Ouça a gravação original. Identifique onde o baixo entra e quando ele "respira". Tente imitar apenas o contorno rítmico (sem se preocupar com as notas exatas).
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('br-baixo2')">
+              <span><strong>🥁 "Funk Carioca" — Groove de Samba-Funk</strong><br><span class="expand-toggle-sub">Samba-funk • Síncopes, groove pesado, diálogo com a bateria</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="br-baixo2" style="display:none">
+              <strong>Por que estudar:</strong> O funk carioca e o samba-funk são fundamentais para qualquer baixista brasileiro. O groove é sincopado — ou seja, o acento cai nos tempos "e" (offbeat).<br><br><strong>Referências:</strong> Tim Maia ("Não Quero Dinheiro"), Jorge Ben Jor ("Taj Mahal"), Cassiano. Esses artistas definiram o som do funk brasileiro nos anos 70.<br><br><strong>Exercício:</strong> Toque uma nota só (a tônica) no groove de samba-funk: colcheia no tempo 1, pausa no 2, colcheia no "e" do 2, pausa no 3, colcheia no "e" do 3... Sinta a síncope.
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('br-baixo3')">
+              <span><strong>🪘 "Tocar em Forró" — O Baixo do Triângulo</strong><br><span class="expand-toggle-sub">Forró • Baixo agitado, staccato, parceiro da zabumba</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="br-baixo3" style="display:none">
+              <strong>Por que estudar:</strong> No forró, o baixo elétrico imita a função da zabumba — marca o tempo forte e o contratempo alternando entre a tônica e a quinta.<br><br><strong>Padrão básico:</strong> no tempo 1 toque a tônica (Ex: Mi), no tempo 2 toque a quinta (Si). Staccato — notas curtas. Cria o "balanço" característico do forró.<br><br><strong>Referências:</strong> Luiz Gonzaga, Falamansa, Dominguinhos. Tente tocar uma seção de "Asa Branca" com esse padrão.
+            </div>
+          </div>
           <div class="checklist" id="cl_f1m5">
             ${checks('f1m5',[
               'Uso o metrônomo em toda sessão de prática',
@@ -1788,6 +1821,12 @@ E |--5--8--|</pre>
           
           <div class="content-divider"></div>
           <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('rhythm','f2m6rh','Ritmo: Escala em Colcheias — 1 nota por subdivisão',[
+            {t:'note',l:'1'},{t:'note',l:'e'},{t:'note',l:'+'},{t:'note',l:'a'},
+            {t:'note',l:'2'},{t:'note',l:'e'},{t:'note',l:'+'},{t:'note',l:'a'},
+            {t:'note',l:'3'},{t:'note',l:'e'},{t:'note',l:'+'},{t:'note',l:'a'},
+            {t:'note',l:'4'},{t:'note',l:'e'},{t:'note',l:'+'},{t:'note',l:'a'},
+          ],60)}
           ${EX.build('fretboard','f2m6fb','Identifique Notas em Posição de Escala',[
             {n:'C',s:2,f:3},{n:'E',s:3,f:12},{n:'G',s:3,f:3},
             {n:'A',s:2,f:12},{n:'D',s:2,f:5},{n:'F',s:3,f:8},
@@ -1802,11 +1841,11 @@ E |--5--8--|</pre>
           ])}
           <div class="checklist" id="cl_f2m6">
             ${checks('f2m6',[
-              'Sei a fórmula da escala maior de cabeça',
-              'Consigo tocar C maior no braço sem olhar para o diagrama',
-              'Sei a diferença entre maior e menor natural',
-              'Toco a pentatônica menor em 3 tonalidades diferentes',
-              'Estou praticando as 12 tonalidades progressivamente',
+              'Cantei a fórmula da escala maior enquanto subia as notas no braço',
+              'Toquei C maior no braço sem olhar para o diagrama em 3 tentativas seguidas',
+              'Toquei C maior e C menor lado a lado, ouvindo a diferença',
+              'Toco a pentatônica menor em 3 tonalidades diferentes (A, D, G)',
+              'Pratiquei pelo menos 4 tonalidades da escala maior esta semana',
             ])}
           </div>
         `
@@ -2388,14 +2427,18 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
             {f:'Progressão II-V-I',b:'A mais usada no jazz. Em Dó: Dm7-G7-Cmaj7. Subdominante → Dominante → Tônica. Aprenda em todas as 12 tonalidades.'},
             {f:'Autumn Leaves (Les Feuilles Mortes)',b:'Standard de jazz por Joseph Kosma. Progressão II-V-I em maior e menor. O melhor para aprender walking bass.'},
             {f:'Ron Carter',b:'Maior walking bassist da história. Quinteto de Miles Davis (1964-68). Definiu o padrão do contrabaixo no jazz moderno.'},
+            {f:'Escala Mixolídio',b:'O 5° modo da escala maior. Em Sol: G-A-B-C-D-E-F. Usada sobre acordes dominantes (V7). A escala-base para improvisar sobre o V7 no jazz.'},
+            {f:'Nota Alvo (Target Note)',b:'A nota para a qual sua linha está "caminhando". Geralmente é a tônica ou a terça do próximo acorde. O walking bass é a arte de chegar elegantemente à nota alvo.'},
+            {f:'Shell Voicing',b:'Acorde reduzido a 3 notas: tônica + terça + sétima. Omite a quinta. Dá espaço ao walking bass sem poluir o registro médio. Usado por pianistas de jazz como Bill Evans.'},
+            {f:'Turnaround (I-VI-II-V)',b:'Progressão dos últimos 2 compassos de um tema de jazz que "vira" de volta para o início. Em Dó: Cmaj7-Am7-Dm7-G7. O bassist cria uma linha que resolve de volta ao I com tensão crescente.'},
           ])}
           <div class="checklist" id="cl_f3m14">
             ${checks('f3m14',[
-              'Entendo o que é a progressão II-V-I',
-              'Sei o que são "guide tones" (3ª e 7ª)',
-              'Consigo criar um walking bass básico sobre Autumn Leaves',
-              'Toco 4 semínimas por compasso com groove de jazz',
-              'Usei notas cromáticas de aproximação na minha linha',
+              'Toquei II-V-I em Dó maior e menor com mínimo de 4 repetições seguidas',
+              'Consigo nomear as guide tones (3ª e 7ª) de Dm7, G7 e Cmaj7',
+              'Criei um walking bass funcional de 8 compassos sobre Autumn Leaves',
+              'Toco 4 semínimas por compasso com swing e groove de jazz',
+              'Usei pelo menos 3 notas cromáticas de aproximação em uma linha de walking',
             ])}
           </div>
         `
@@ -2590,14 +2633,18 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
             {f:'Progressão II-V-I',b:'S→D→T. A mais usada na música. Em jazz: Dm7-G7-Cmaj7. Base de centenas de standards.'},
             {f:'Empréstimo Modal',b:'Usar acorde da tonalidade paralela. Em Dó maior: Cm, Fm, Abmaj7 são emprestados do menor.'},
             {f:'Modulação',b:'Mudança de centro tonal. Tipos: direta, por acorde pivô, por dominante secundário.'},
+            {f:'Dominante Secundário (V/V)',b:'Acorde dominante que resolve em outro acorde que não a tônica principal. Ex: em Dó maior, A7 é V/II (resolve em Dm). Cria tensão localizada e cor harmônica.'},
+            {f:'Cadência Autêntica Perfeita',b:'V7 → I com a tônica no soprano e no baixo. A resolução mais forte da tonalidade. Usada para encerrar frases musicais com máxima conclusão.'},
+            {f:'Cadência Plagal (Amém)',b:'IV → I. Resolução suave, sem tensão. Usada em hinos e música religiosa. O "Amém" dos coralistas. Emprestado do modo dórico em uso moderno.'},
+            {f:'Cifras Nashville',b:'Sistema de cifras por grau (1, 2, 3...) em vez de nota específica. Permite que a música seja tocada em qualquer tonalidade sem reescrever a partitura. Amplamente usado no country e sessão de estúdio.'},
           ])}
           <div class="checklist" id="cl_f3m17">
             ${checks('f3m17',[
-              'Sei identificar as funções T, S, D de um acorde',
-              'Consigo analisar harmonicamente uma música simples',
-              'Entendo o que é empréstimo modal',
-              'Sei identificar quando uma música modula',
-              'Crei uma linha de baixo baseada em análise harmônica',
+              'Analiso funções T, S, D de todos os acordes numa progressão de 4 compassos',
+              'Analisei harmonicamente uma música completa que gosto',
+              'Identifiquei 2 exemplos de empréstimo modal em músicas conhecidas',
+              'Toquei uma música que modula e antecipei a nova tônica antes de chegar nela',
+              'Criei uma linha de baixo de 8 compassos baseada em análise harmônica',
             ])}
           </div>
         `
@@ -2792,6 +2839,9 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
             {f:'Progressão I–IV–V',b:'A progressão harmônica fundamental do blues, rock e country. Em Mi: Mi (I) → Lá (IV) → Si (V). O baixista precisa identificar essa progressão de ouvido instantaneamente.'},
             {f:'Progressão ii–V–I',b:'A progressão mais comum do jazz. O ii é acorde menor, o V é dominante (com sétima), o I é o acorde de repouso. Em Dó: Ré m7 → Sol 7 → Dó M7.'},
             {f:'Functional Ear Trainer',b:'App gratuito que treina identificação de graus da escala em contexto tonal. Método mais eficaz para desenvolver ouvido relativo: você aprende as notas pelo seu papel harmônico, não apenas como intervalos isolados.'},
+            {f:'Ditado Rítmico',b:'Exercício de ear training focado no ritmo: ouvir um trecho e bater ou anotar o ritmo sem se preocupar com as alturas. A maioria dos erros de transcrição são erros rítmicos, não melódicos.'},
+            {f:'Solfejo (Solfear)',b:'Cantar notas usando seus nomes (Dó, Ré, Mi...) ou sílabas fixas. Desenvolve o vínculo entre o som que você ouve mentalmente e a nota real. Cantar antes de tocar é o atalho mais eficaz para o ouvido relativo.'},
+            {f:'Ouvido Absoluto',b:'Capacidade de identificar qualquer nota sem referência externa. Muito raro, geralmente desenvolvido na infância. Não é necessário para ser um músico excelente — o ouvido relativo bem desenvolvido é suficiente para qualquer nível profissional.'},
           ])}
           ${EX.build('quiz','f4m19q','Quiz: Ear Training',[
             {q:'Qual é a melhor forma de memorizar intervalos para reconhecimento auditivo?',o:['Contar semitons em silêncio','Associar cada intervalo a uma música conhecida como referência mnemônica','Tocar o intervalo no instrumento sem cantar','Memorizar apenas os intervalos maiores'],a:1},
@@ -3292,6 +3342,7 @@ const COURSE_PIANO = [
         desc: 'Antes de tocar uma única nota, você precisa conhecer o instrumento: sua anatomia, a lógica do teclado, os tipos de piano e como cuidar do seu instrumento.',
         video: '',
         content: () => `
+          <div class="info-box" style="border-color:var(--green);background:rgba(34,201,117,.08);">🎹 <strong>Bem-vindo à sua jornada!</strong> Piano é um dos instrumentos mais completos do mundo — e você está começando agora. Não existe tarde demais para começar. Este módulo é o seu ponto de partida: conhecer o instrumento que vai se tornar a extensão das suas mãos.</div>
           <div class="section-title">🎹 Anatomia do Piano</div>
           <div class="info-box">
             O piano acústico tem mais de 12.000 peças e é um dos instrumentos mais complexos do mundo.
@@ -3384,10 +3435,10 @@ const COURSE_PIANO = [
             ${checks('p01',[
               'Consigo identificar todas as notas Dó no teclado sem hesitar',
               'Sei localizar Fá, Mi, Sol e Lá usando os grupos de teclas pretas como referência',
-              'Entendo a diferença entre piano acústico, digital e teclado sintetizador',
+              'Consigo explicar as diferenças entre piano acústico, digital e sintetizador para outra pessoa',
               'Sei o que é o Dó central (Middle C / C4) e onde ele fica',
-              'Compreendo o mecanismo básico de martelos, cordas e apagadores',
-              'Sei com que frequência afinar um piano acústico e por quê',
+              'Descrevi com minhas palavras como os martelos, cordas e apagadores funcionam',
+              'Identifiquei quando meu piano precisa ser afinado e já agendei ou afinei uma vez',
             ])}
           </div>
         `
@@ -3611,11 +3662,11 @@ const COURSE_PIANO = [
           ])}
           <div class="checklist" id="cl_p03">
             ${checks('p03',[
-              'Memorizo as notas nas linhas e espaços da Clave de Sol sem hesitar',
-              'Memorizo as notas nas linhas e espaços da Clave de Fá sem hesitar',
+              'Li notas na Clave de Sol numa melodia simples sem consultar tabela de referência',
+              'Li notas na Clave de Fá numa melodia simples sem consultar tabela de referência',
               'Sei onde fica o Dó Central em ambas as claves',
               'Consigo identificar semibreve, mínima, semínima e colcheia em uma partitura',
-              'Entendo o que significa uma fórmula de compasso (ex: 4/4)',
+              'Identifiquei a fórmula de compasso de 3 músicas diferentes e contei os pulsos em voz alta',
               'Li pelo menos uma melodia simples (Ode à Alegria ou equivalente) da partitura',
             ])}
           </div>
@@ -3720,6 +3771,12 @@ const COURSE_PIANO = [
 
           <div class="content-divider"></div>
           <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('rhythm','p04rh','Ritmo: Solfeje e Marque o Pulso',[
+            {t:'note',l:'1'},{t:'ghost',l:'e'},{t:'note',l:'+'},{t:'ghost',l:'a'},
+            {t:'note',l:'2'},{t:'ghost',l:'e'},{t:'ghost',l:'+'},{t:'ghost',l:'a'},
+            {t:'note',l:'3'},{t:'ghost',l:'e'},{t:'note',l:'+'},{t:'ghost',l:'a'},
+            {t:'note',l:'4'},{t:'ghost',l:'e'},{t:'ghost',l:'+'},{t:'ghost',l:'a'},
+          ],60)}
           ${EX.build('quiz','p04q','Quiz: Primeiras Melodias',[
             {q:'O que é legato em termos pianísticos?',o:['Tocar cada nota bem separada','Tocar rápido sem pausas','Tocar notas ligadas, sem silêncio entre elas','Tocar em dinâmica suave'],c:2,ok:'Correto! Legato = notas ligadas, uma terminando exatamente quando a próxima começa.',fail:'Legato: cada nota termina no momento exato em que a próxima começa — sem silêncio, sem sobreposição.'},
             {q:'Qual é a função da passagem de polegar ao tocar escalas?',o:['Aumentar o volume','Permitir tocar mais de 5 notas seguidas de forma fluida sem saltar','Melhorar o staccato','Facilitar acordes de 4 notas'],c:1,ok:'Perfeito! A passagem (thumb crossing) é o que permite atravessar o teclado de forma fluida.',fail:'A passagem de polegar (thumb crossing) permite tocar escalas completas: o polegar passa por baixo dos outros dedos sem interromper o fluxo.'},
@@ -3824,12 +3881,39 @@ const COURSE_PIANO = [
 
           <div class="content-divider"></div>
           <div class="section-title">🎮 Exercícios Interativos</div>
+          ${EX.build('rhythm','p05rh','Ritmo: Coordenação — Marque o Pulso com o Pé',[
+            {t:'note',l:'1'},{t:'ghost',l:'e'},{t:'ghost',l:'+'},{t:'ghost',l:'a'},
+            {t:'note',l:'2'},{t:'ghost',l:'e'},{t:'note',l:'+'},{t:'ghost',l:'a'},
+            {t:'note',l:'3'},{t:'ghost',l:'e'},{t:'ghost',l:'+'},{t:'ghost',l:'a'},
+            {t:'note',l:'4'},{t:'ghost',l:'e'},{t:'note',l:'+'},{t:'ghost',l:'a'},
+          ],60)}
           ${EX.build('quiz','p05q','Quiz: Coordenação das Duas Mãos',[
             {q:'Qual é o pré-requisito indispensável antes de juntar as duas mãos em uma peça?',o:['Tocar devagar com as duas juntas desde o início','Cada mão dominar sua parte separadamente de memória','Usar pedal de sustain para ajudar a coordenação','Ouvir a peça 100 vezes'],c:1,ok:'Correto! Cada mão precisa saber sua parte de memória antes de juntá-las.',fail:'Pré-requisito: cada mão de memória. Juntar sem isso é praticar incerteza e aprender erros.'},
             {q:'O que é o padrão "Alberti Bass"?',o:['Um acorde de 4 sons tocado simultaneamente na ME','Padrão baixo-acorde-médio-acorde em figuras rápidas na ME','ME tocando oitavas enquanto MD faz melodia','Trêmolo na ME com notas longas na MD'],c:1,ok:'Exato! Baixo-acorde-médio-acorde (ex: C-G-E-G) — muito comum em Mozart e Haydn.',fail:'Alberti bass: baixo-acorde-médio-acorde em colcheias ou semicolcheias. Base do estilo clássico. Ex: C-G-E-G para acorde de Dó.'},
             {q:'Ao errar repetidamente o mesmo trecho, o que se deve fazer?',o:['Ignorar e continuar tocando a peça inteira','Parar, isolar o trecho, resolver em câmera lenta, depois reinserir na peça','Aumentar o BPM para "superar" o erro','Descansar por um dia e tentar novamente'],c:1,ok:'Correto! Isolar, desacelerar, corrigir e reintegrar é o único método eficaz.',fail:'Isole o trecho problemático. Resolva em câmera lenta (muito abaixo do BPM alvo). Só reintegre à peça quando o trecho estiver limpo.'},
             {q:'Por que cantar a melodia em voz alta ajuda ao juntar as mãos?',o:['Melhora a afinação das notas','Mantém a melodia ativa no cérebro, liberando atenção para executar o acompanhamento','Aumenta a velocidade automaticamente','Ajuda a memorizar a armadura da clave'],c:1,ok:'Perfeito! Cantar mantém a melodia "viva" enquanto o motor da ME se estabiliza.',fail:'Cantar a melodia enquanto executa a ME mantém a melodia no processamento consciente e libera os recursos motores para o acompanhamento.'},
           ])}
+          <div class="content-divider"></div>
+          <div class="section-title">🇧🇷 Repertório Brasileiro para Iniciantes</div>
+          <div class="info-box">Tocar músicas brasileiras ao piano desenvolve sensibilidade rítmica única. Comece com peças simples e sinta o balanço característico.</div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('brp-bossa')">
+              <span><strong>🎵 Bossa Nova — O "Balanço" da ME</strong><br><span class="expand-toggle-sub">Padrão rítmico • Síncope característica</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="brp-bossa" style="display:none">
+              <strong>Ritmo característico:</strong> A bossa nova tem um ritmo sincopado na ME que acompanha a melodia (ou canto) na MD. O padrão básico em 4/4 acentua o tempo 1 e o "e" do 2 (síncope).<br><br><strong>Exercício:</strong> Toque apenas a nota Dó com a ME no tempo 1 forte, silêncio no 2, Dó novamente no "e" do 2, Dó no 3 fraco, Dó no "e" do 4. Repita até o balanço ser automático.<br><br><strong>Músicas para aprender:</strong> "Garota de Ipanema" (melodia simplificada na MD), "Wave" de Tom Jobim, "Corcovado".
+            </div>
+          </div>
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('brp-mpb')">
+              <span><strong>🎶 MPB ao Piano — Acordes e Melodia</strong><br><span class="expand-toggle-sub">Milton Nascimento, Caetano Veloso, Gilberto Gil</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="brp-mpb" style="display:none">
+              <strong>Por que estudar MPB:</strong> A MPB combina harmonia sofisticada (influência do jazz) com melodias memoráveis e letras poéticas. Para o pianista, é o melhor dos dois mundos: beleza melódica + riqueza harmônica.<br><br><strong>Peças acessíveis:</strong><br><ul><li><strong>"Travessia" (Milton):</strong> melodia longa e expressiva. Ótima para legato e dinâmica.</li><li><strong>"Maria" (Caetano):</strong> progressão simples em lá menor — ótima para iniciantes.</li><li><strong>"Aquele Abraço" (Gilberto Gil):</strong> samba simples com acordes básicos.</li></ul>
+            </div>
+          </div>
           <div class="checklist" id="cl_p05">
             ${checks('p05',[
               'Consigo tocar escala de Dó com as duas mãos em paralelo até 60 BPM',
@@ -6021,7 +6105,7 @@ function loadLesson(id) {
         <span class="lh-tag ${phase.badgeClass}">${phase.duration}</span>
         ${entry.video
           ? `<a class="video-btn" href="${entry.video}" target="_blank" rel="noopener">▶ Assistir Aula</a>`
-          : `<span class="video-btn empty">🎬 Vídeo em breve</span>`}
+          : `<a class="video-btn yt-search" href="https://www.youtube.com/results?search_query=${encodeURIComponent('aula ' + activeInstrument + ' ' + entry.title)}" target="_blank" rel="noopener">🔍 Buscar aula no YouTube</a>`}
       </div>
     </div>
 
