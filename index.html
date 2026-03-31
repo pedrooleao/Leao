@@ -882,7 +882,7 @@ const EX={
     if(s.done){
       const p=Math.round(s.sc/qs.length*100);
       const m=p===100?'🏆 Perfeito!':p>=70?'✅ Muito bem! Continue praticando.':p>=40?'📚 Revise o conteúdo e tente novamente.':'💪 Releia a lição com atenção e tente de novo.';
-      el.innerHTML=`<div class="ex-result"><div class="ex-result-num" style="color:${p>=70?'var(--green)':'var(--accent)'}">${s.sc}/${qs.length}</div><div class="ex-result-label">acertos — ${p}%</div><div class="ex-result-msg">${m}</div><button class="ex-btn restart-q" onclick="EX._qRst('${e}')">↺ Tentar novamente</button></div>`;
+      const _ci=getLessonIndex(currentLessonId),_nl=_ci>=0&&_ci<allLessons.length-1?allLessons[_ci+1]:null,_nb=_nl?`<button class="ex-btn next-q" style="margin-left:8px" onclick="loadLesson('${_nl.id}')">Próxima lição →</button>`:'';el.innerHTML=`<div class="ex-result"><div class="ex-result-num" style="color:${p>=70?'var(--green)':'var(--accent)'}">${s.sc}/${qs.length}</div><div class="ex-result-label">acertos — ${p}%</div><div class="ex-result-msg">${m}</div><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><button class="ex-btn restart-q" onclick="EX._qRst('${e}')">↺ Tentar novamente</button>${_nb}</div></div>`;
       try{localStorage.setItem('exs_'+e,s.sc+'/'+qs.length);}catch(x){}
       updateProgress();return;
     }
@@ -5937,6 +5937,7 @@ function showInstrumentSelect() {
         </div>
       </div>
     </div>`;
+  const _ic=document.getElementById('content');_ic.style.animation='none';_ic.offsetHeight;_ic.style.animation='fadeInUp .25s ease';
 }
 
 function selectInstrument(instrument) {
