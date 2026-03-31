@@ -824,6 +824,115 @@ body::-webkit-scrollbar-thumb{background:var(--border);}
 .video-btn.yt-search{background:rgba(255,80,80,.10);border-color:rgba(255,80,80,.35);color:#ff6b6b;}
 .video-btn.yt-search:hover{background:rgba(255,80,80,.20);border-color:#ff6b6b;}
 
+/* ── CLAUDINHO MASCOTE ──────────────────────────────── */
+#claudinho-fab {
+  position:fixed;bottom:24px;right:24px;z-index:200;
+  width:60px;height:60px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border:none;cursor:pointer;font-size:26px;
+  box-shadow:0 4px 20px rgba(255,77,28,.4);
+  transition:transform .2s,box-shadow .2s;
+  animation:cl-pulse 3s ease-in-out infinite;
+  display:flex;align-items:center;justify-content:center;
+}
+#claudinho-fab:hover{transform:scale(1.12);box-shadow:0 6px 28px rgba(255,77,28,.6);}
+@keyframes cl-pulse{
+  0%,100%{box-shadow:0 4px 20px rgba(255,77,28,.4);}
+  50%{box-shadow:0 4px 28px rgba(255,77,28,.7),0 0 0 8px rgba(255,77,28,.08);}
+}
+#claudinho-panel{
+  position:fixed;bottom:96px;right:24px;z-index:199;
+  width:340px;height:500px;
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:16px;display:flex;flex-direction:column;
+  box-shadow:0 8px 40px rgba(0,0,0,.6);
+  transform:translateY(20px) scale(.96);opacity:0;
+  pointer-events:none;transition:all .25s cubic-bezier(.4,0,.2,1);
+}
+#claudinho-panel.open{transform:translateY(0) scale(1);opacity:1;pointer-events:all;}
+#claudinho-header{
+  display:flex;align-items:center;gap:10px;padding:14px 16px;
+  border-bottom:1px solid var(--border);border-radius:16px 16px 0 0;
+  background:var(--card2);flex-shrink:0;
+}
+#claudinho-avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+}
+#claudinho-header-info{flex:1;}
+#claudinho-header-name{font-size:14px;font-weight:700;color:var(--text);}
+#claudinho-header-sub{font-size:11px;color:var(--muted);}
+#claudinho-close{
+  background:none;border:none;color:var(--muted);cursor:pointer;
+  font-size:18px;padding:4px;border-radius:4px;transition:color .15s;
+}
+#claudinho-close:hover{color:var(--text);}
+#claudinho-messages{
+  flex:1;overflow-y:auto;padding:14px 14px 6px;
+  display:flex;flex-direction:column;gap:10px;
+  scrollbar-width:thin;scrollbar-color:var(--border) transparent;
+}
+.cl-msg{
+  max-width:88%;padding:9px 13px;border-radius:12px;
+  font-size:13px;line-height:1.5;white-space:pre-wrap;word-break:break-word;
+}
+.cl-msg.bot{
+  background:var(--card2);color:var(--text);
+  border:1px solid var(--border);align-self:flex-start;
+  border-radius:4px 12px 12px 12px;
+}
+.cl-msg.user{
+  background:linear-gradient(135deg,rgba(255,77,28,.22),rgba(245,166,35,.18));
+  color:var(--text);border:1px solid rgba(255,77,28,.3);
+  align-self:flex-end;border-radius:12px 4px 12px 12px;
+}
+.cl-msg.typing{color:var(--muted);font-style:italic;}
+#claudinho-footer{
+  padding:10px 12px;border-top:1px solid var(--border);flex-shrink:0;
+  display:flex;gap:8px;align-items:flex-end;
+}
+#claudinho-input{
+  flex:1;background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;color:var(--text);font-size:13px;
+  padding:8px 12px;resize:none;max-height:80px;min-height:36px;
+  font-family:'DM Sans',sans-serif;line-height:1.4;
+  transition:border-color .15s;
+}
+#claudinho-input:focus{outline:none;border-color:var(--accent);}
+#claudinho-send{
+  width:36px;height:36px;border-radius:8px;flex-shrink:0;
+  background:var(--accent);border:none;color:#fff;
+  cursor:pointer;font-size:15px;display:flex;
+  align-items:center;justify-content:center;transition:background .15s;
+}
+#claudinho-send:hover{background:var(--accent2);}
+#claudinho-send:disabled{opacity:.4;cursor:default;}
+#cl-key-form{
+  display:flex;flex-direction:column;gap:10px;padding:4px 0;
+}
+#cl-key-form p{font-size:12px;color:var(--muted2);line-height:1.5;margin:0;}
+#claudinho-apikey-input{
+  width:100%;background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;color:var(--text);font-size:12px;
+  padding:9px 12px;font-family:'Space Mono',monospace;
+  transition:border-color .15s;
+}
+#claudinho-apikey-input:focus{outline:none;border-color:var(--accent);}
+#cl-key-save{
+  width:100%;padding:10px;border-radius:8px;border:none;
+  background:var(--accent);color:#fff;font-size:13px;
+  font-weight:700;cursor:pointer;transition:background .15s;
+}
+#cl-key-save:hover{background:var(--accent2);}
+#cl-key-link{font-size:11px;color:var(--muted);text-decoration:none;text-align:center;}
+#cl-key-link:hover{color:var(--accent3);}
+@media(max-width:768px){
+  #claudinho-panel{width:calc(100vw - 32px);right:16px;bottom:90px;}
+  #claudinho-fab{bottom:16px;right:16px;}
+}
+
 </style>
 </head>
 <body>
@@ -6319,6 +6428,7 @@ function selectInstrument(instrument) {
   buildSidebar();
   updateProgress();
   showWelcome();
+  clUpdateInstrument();
 }
 
 // ════════════════════════════════════════════════
@@ -6330,6 +6440,175 @@ if (activeInstrument) {
   showInstrumentSelect();
 }
 
+// ── CLAUDINHO ─────────────────────────────────────────────────────
+const CL_KEY_LS = 'claudinho_apikey';
+let clOpen = false;
+let clHistory = [];
+let clWaiting = false;
+
+function claudinhoToggle() {
+  clOpen = !clOpen;
+  document.getElementById('claudinho-panel').classList.toggle('open', clOpen);
+  if (clOpen) {
+    clInit();
+    setTimeout(() => document.getElementById('claudinho-input')?.focus(), 260);
+  }
+}
+
+function clInit() {
+  const key = localStorage.getItem(CL_KEY_LS);
+  const msgs = document.getElementById('claudinho-messages');
+  document.getElementById('claudinho-footer').style.display = key ? 'flex' : 'none';
+  if (!key) {
+    msgs.innerHTML = '';
+    clAddMsg('bot', 'Olá! 👋 Sou o Claudinho, seu assistente musical!\n\nEstou aqui para responder suas dúvidas sobre música, técnica e o conteúdo do curso.\n\nPara me ativar, preciso de uma chave da API da Anthropic:');
+    const form = document.createElement('div');
+    form.id = 'cl-key-form';
+    form.className = 'cl-msg bot';
+    form.style.maxWidth = '100%';
+    form.innerHTML = `
+      <input id="claudinho-apikey-input" type="password" placeholder="sk-ant-api03-..." autocomplete="off" />
+      <button id="cl-key-save" onclick="clSaveKey()">Salvar e Começar 🚀</button>
+      <a href="https://console.anthropic.com/" target="_blank" id="cl-key-link">Obter chave em console.anthropic.com →</a>`;
+    msgs.appendChild(form);
+    return;
+  }
+  if (clHistory.length === 0) clAddMsg('bot', clGreeting());
+}
+
+function clSaveKey() {
+  const val = (document.getElementById('claudinho-apikey-input')?.value || '').trim();
+  if (!val.startsWith('sk-')) { alert('Chave inválida. Deve começar com sk-ant-...'); return; }
+  localStorage.setItem(CL_KEY_LS, val);
+  document.getElementById('claudinho-messages').innerHTML = '';
+  clHistory = [];
+  clInit();
+}
+
+function clGreeting() {
+  const instr = activeInstrument === 'piano' ? 'piano 🎹' : 'baixo 🎸';
+  return `Olá! 😊 Sou o Claudinho, seu assistente musical!\n\nEstou aqui para te ajudar com o curso de ${instr} e qualquer dúvida musical. O que você quer saber?`;
+}
+
+function clAddMsg(role, text) {
+  const msgs = document.getElementById('claudinho-messages');
+  const div = document.createElement('div');
+  div.className = 'cl-msg ' + role;
+  div.textContent = text;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+function claudinhoKeydown(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); clSend(); }
+}
+
+async function clSend() {
+  if (clWaiting) return;
+  const input = document.getElementById('claudinho-input');
+  const text = input.value.trim();
+  if (!text) return;
+  const key = localStorage.getItem(CL_KEY_LS);
+  if (!key) { clInit(); return; }
+
+  input.value = '';
+  input.style.height = 'auto';
+  clAddMsg('user', text);
+  clHistory.push({ role: 'user', content: text });
+
+  clWaiting = true;
+  document.getElementById('claudinho-send').disabled = true;
+  const typing = clAddMsg('bot', 'Claudinho está pensando…');
+  typing.classList.add('typing');
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 600,
+        system: clSystem(),
+        messages: clHistory.slice(-12)
+      })
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err?.error?.message || 'HTTP ' + res.status);
+    }
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || '(sem resposta)';
+    typing.classList.remove('typing');
+    typing.textContent = reply;
+    clHistory.push({ role: 'assistant', content: reply });
+    if (clHistory.length > 20) clHistory = clHistory.slice(-20);
+  } catch (err) {
+    typing.classList.remove('typing');
+    if (String(err.message).includes('401') || String(err.message).includes('invalid_api_key')) {
+      typing.textContent = '❌ Chave de API inválida. Apague a chave e reconfigure.';
+      localStorage.removeItem(CL_KEY_LS);
+    } else {
+      typing.textContent = '❌ Erro: ' + err.message;
+    }
+  }
+
+  document.getElementById('claudinho-messages').scrollTop = 99999;
+  clWaiting = false;
+  document.getElementById('claudinho-send').disabled = false;
+  input.focus();
+}
+
+function clSystem() {
+  const instr = activeInstrument === 'piano' ? 'piano' : 'baixo elétrico';
+  let lessonCtx = '';
+  if (currentLessonId) {
+    const lesson = allLessons.find(l => l.id === currentLessonId);
+    if (lesson) lessonCtx = '\nLição atual: "' + lesson.title + '" — ' + lesson.desc;
+  }
+  const { done, total } = countChecks();
+  return 'Você é o Claudinho, um assistente musical simpático e encorajador do site "Leao Music Course".\n' +
+    'Responda SEMPRE em português brasileiro. Seja direto, didático e use emojis com moderação.\n' +
+    'O estudante está aprendendo ' + instr + '.' + lessonCtx + '\n' +
+    'Progresso atual: ' + done + ' de ' + total + ' itens concluídos.\n' +
+    'Responda dúvidas sobre música em geral, teoria, técnica e o conteúdo do curso.\n' +
+    'Mantenha respostas concisas (máximo 200 palavras), a não ser que o usuário peça mais detalhes.\n' +
+    'Não mencione que você é Claude da Anthropic — você é o Claudinho do Leao Music Course.';
+}
+
+function clUpdateInstrument() {
+  const e = activeInstrument === 'piano' ? '🎹' : '🎸';
+  const fab = document.getElementById('claudinho-fab');
+  const av  = document.getElementById('claudinho-avatar');
+  if (fab) fab.textContent = e;
+  if (av)  av.textContent  = e;
+}
+
 </script>
+
+<!-- CLAUDINHO MASCOTE -->
+<button id="claudinho-fab" onclick="claudinhoToggle()" title="Pergunte ao Claudinho">🎸</button>
+<div id="claudinho-panel">
+  <div id="claudinho-header">
+    <div id="claudinho-avatar">🎸</div>
+    <div id="claudinho-header-info">
+      <div id="claudinho-header-name">Claudinho</div>
+      <div id="claudinho-header-sub">Assistente Musical IA ✨</div>
+    </div>
+    <button id="claudinho-close" onclick="claudinhoToggle()" title="Fechar">✕</button>
+  </div>
+  <div id="claudinho-messages"></div>
+  <div id="claudinho-footer">
+    <textarea id="claudinho-input" placeholder="Pergunte sobre música ou o curso…" rows="1"
+      onkeydown="claudinhoKeydown(event)"></textarea>
+    <button id="claudinho-send" onclick="clSend()" title="Enviar">➤</button>
+  </div>
+</div>
+
 </body>
 </html>
