@@ -2679,212 +2679,388 @@ Cmaj7: C  –  E  –  G  –  A   (A se aproxima do próximo acorde)</pre>
     lessons: [
       {
         id: 'f4m19', num: 'M19',
-        title: 'Session Player — Como Funciona',
-        desc: 'Session player é o músico que entra em estúdio, lê o chart, grava e entrega. Confiança, versatilidade e profissionalismo acima de tudo.',
+        title: 'Ear Training — Transcrição e Percepção Auditiva',
+        desc: 'O ouvido é o seu instrumento mais importante. Desenvolver a percepção auditiva transforma como você aprende músicas, improvisa e se comunica com outros músicos.',
         video: '',
         content: () => `
-          <div class="section-title">📋 Lendo um Chart de Estúdio</div>
+          <div class="section-title">👂 Ear Training — Treinando o Ouvido</div>
           <div class="info-box">
-            Um <strong>chart</strong> é a folha de cifras/partitura usada em estúdios. Pode variar de um lead sheet simples a uma partitura completa.<br><br>
-            <strong>O que você vai encontrar:</strong><br>
-            • Cifras com ritmo indicado<br>
-            • Partitura em clave de fá com notas exatas<br>
-            • "Nashville Number System" — sistema numérico usado no country/gospel americano<br>
-            • Indicações como "groove", "straight", "swing", "feel free"<br><br>
-            <strong>Regra de ouro do estúdio:</strong> <em>Sirva a música. Não toque para impressionar o produtor — toque para fazer a música soar melhor.</em>
+            <strong>Por que ear training é a habilidade número 1?</strong><br><br>
+            Você pode saber toda a teoria do mundo, mas se não consegue <em>ouvir</em> o que está tocando — identificar notas, intervalos, progressões — você está tocando no escuro. O baixista com bom ouvido aprende músicas de ouvido em minutos, improvisa com confiança e se comunica com outros músicos sem precisar de partitura. É a diferença entre um músico e um técnico do instrumento.
           </div>
-          <div class="content-divider"></div>
-          <div class="section-title">⚡ Aprender Músicas Rapidamente</div>
-          <div class="info-box">
-            Em sessões profissionais, você pode ter <strong>5–10 minutos</strong> para aprender uma música.<br><br>
-            <strong>Método de aprendizado rápido:</strong><br>
-            1. Ouça a música de ponta a ponta (2 min)<br>
-            2. Identifique a tonalidade, tempo e estrutura<br>
-            3. Escreva a sequência de acordes<br>
-            4. Identifique o "feel" — é blues? Funk? Straight rock?<br>
-            5. Toque com a gravação antes de gravar sozinho<br><br>
-            Pratique isso semanalmente. Pegue músicas que não conhece e tente tocar em 10 minutos.
-          </div>
-          <div class="content-divider"></div>
-          <div class="section-title">🎙️ Etiqueta de Estúdio</div>
-          <div class="info-box">
-            Ser um ótimo músico não é suficiente — você precisa ser <strong>profissional</strong>:<br><br>
-            • Chegue cedo, nunca no horário marcado<br>
-            • Instrumento afinado e com bateria nova/cordas novas<br>
-            • Ouça o produtor e o artista — eles têm a visão<br>
-            • Não toque enquanto alguém está falando<br>
-            • Não critique outras escolhas musicais<br>
-            • Grave tudo — seus takes podem ser usados mais tarde<br>
-            • Seja a pessoa mais fácil do estúdio para trabalhar<br><br>
-            <em>Músicos são re-contratados por talento, mas também pela personalidade. Seja quem as pessoas querem ter por perto.</em>
-          </div>
-          <div class="practice-box blue">
-            <div class="pb-label">🎯 Simulação de Sessão</div>
-            <div class="pb-text">
-              1x por semana: escolha 3 músicas que você nunca tocou<br><br>
-              Regra: você tem <strong>5 minutos por música</strong> para aprender e gravar.<br><br>
-              Configure o gravador, leia o chart (ou ouça uma vez), e grave sem parar.<br><br>
-              Ouça depois. Avalie: o groove estava certo? As mudanças de acorde foram limpas? A dinâmica serviu a música?<br><br>
-              Esta prática vai desenvolver sua <strong>musicalidade instantânea</strong> — a habilidade mais valorizada em sessões.
+
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('m19-intervalos')">
+              <span><strong>🎵 Intervalos: o Alfabeto da Música</strong><br>
+              <span class="expand-toggle-sub">Como reconhecer qualquer distância entre notas de ouvido</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="m19-intervalos" style="display:none">
+              <p>Um intervalo é a distância entre duas notas. Reconhecer intervalos de ouvido é o passo fundamental do ear training — como aprender as letras antes de ler palavras.</p>
+              <p><strong>Os intervalos essenciais e seus truques mnemônicos:</strong></p>
+              <ul>
+                <li><strong>Uníssono / Oitava:</strong> A mesma nota (uníssono) ou 12 semitons acima (oitava). Referência: "Somewhere Over the Rainbow" começa com uma oitava ascendente.</li>
+                <li><strong>Segunda maior (tom):</strong> Dois semitons. Referência: as primeiras duas notas de "Happy Birthday" ou a escala maior subindo.</li>
+                <li><strong>Terça menor:</strong> 3 semitons. Referência: os primeiros dois sons de "Smoke on the Water" (Deep Purple) ou "Greensleeves".</li>
+                <li><strong>Terça maior:</strong> 4 semitons. Referência: "When the Saints Go Marching In" — as três primeiras notas.</li>
+                <li><strong>Quarta justa:</strong> 5 semitons. Referência: os primeiros dois sons do hino nacional brasileiro ou "Here Comes the Bride".</li>
+                <li><strong>Quinta justa:</strong> 7 semitons. Referência: "Twinkle Twinkle Little Star" (as notas 1 e 5) ou o tema de Star Wars.</li>
+                <li><strong>Sétima menor:</strong> 10 semitons. Referência: as primeiras notas de "Somewhere" do West Side Story.</li>
+              </ul>
+              <p><strong>Método prático:</strong> Para cada intervalo, escolha <em>sua</em> música de referência — de preferência uma que você conheça muito bem. Associações pessoais funcionam melhor que listas memorizadas. Pratique cantando o intervalo antes de tocar.</p>
+              <p><strong>Intervalos ascendentes vs descendentes:</strong> O mesmo intervalo soa diferente quando desce. Treine os dois sentidos separadamente. "Happy Birthday" descendente é completamente diferente.</p>
             </div>
           </div>
-          
+
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('m19-transcricao')">
+              <span><strong>📝 Como Transcrever uma Linha de Baixo</strong><br>
+              <span class="expand-toggle-sub">Metodologia passo a passo para tirar músicas de ouvido</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="m19-transcricao" style="display:none">
+              <p>Transcrever — tirar músicas de ouvido — é a mais poderosa forma de aprender. Você aprende o vocabulário de grandes músicos diretamente, sem filtro. Cada transcrição vale mais do que dez lições teóricas.</p>
+              <p><strong>Metodologia passo a passo:</strong></p>
+              <ul>
+                <li><strong>1. Ache a tonalidade:</strong> Toque junto com a gravação e encontre a nota que soa como "casa" — a tônica. Toque as notas da escala maior e menor até encontrar qual encaixa.</li>
+                <li><strong>2. O ritmo primeiro, as notas depois:</strong> Antes de pensar em quais notas são, bata o ritmo da linha de baixo na perna ou no instrumento sem se preocupar com alturas. O ritmo é a espinha dorsal do baixo.</li>
+                <li><strong>3. Encontre as notas fundamentais:</strong> As notas nos tempos fortes do compasso geralmente são as fundamentais dos acordes. Comece por elas.</li>
+                <li><strong>4. Preencha as passagens:</strong> Identifique as notas de passagem, cromáticas e ornamentos depois de ter a estrutura.</li>
+                <li><strong>5. Confirme tocando junto:</strong> Toque sua transcrição em cima da gravação. Ouça se encaixa. Ajuste o que estiver errado.</li>
+              </ul>
+              <p><strong>Ferramentas indispensáveis:</strong></p>
+              <ul>
+                <li><strong>Transcribe! (software):</strong> Permite diminuir o andamento sem alterar o tom, marcar loops, ajustar EQ para realçar o baixo. Padrão entre transcritores profissionais.</li>
+                <li><strong>YouTube slowdown:</strong> Clicar na engrenagem → Velocidade → 0.75 ou 0.5. Gratuito e suficiente para começar.</li>
+                <li><strong>Amazing Slow Downer (app mobile):</strong> Mesma função do Transcribe!, mas no celular. Muito prático para treinar em qualquer lugar.</li>
+              </ul>
+              <p><strong>Comece simples:</strong> Não tente transcrever Jaco ou Marcus Miller de cara. Comece com linhas de blues simples (12 compassos em Mi), depois linhas de rock básico (Cream, Led Zeppelin), depois funk (James Brown). A complexidade vem com o tempo.</p>
+            </div>
+          </div>
+
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('m19-acordes-ouvido')">
+              <span><strong>🎶 Reconhecendo Acordes e Progressões de Ouvido</strong><br>
+              <span class="expand-toggle-sub">Maior, menor, dominante — identificando progressões clássicas</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="m19-acordes-ouvido" style="display:none">
+              <p>Identificar acordes de ouvido é o próximo nível depois dos intervalos. Como baixista, você precisa especialmente identificar <strong>maior vs menor</strong> e <strong>progressões funcionais</strong> (I–IV–V, ii–V–I).</p>
+              <p><strong>Maior vs menor:</strong> O acorde maior tem uma sonoridade "aberta" e "alegre". O menor é mais "fechado" e "escuro". A diferença está na terça: maior tem terça maior (4 semitons), menor tem terça menor (3 semitons). Cante a terça de cada acorde — você sentirá a diferença.</p>
+              <p><strong>O acorde dominante (7ª):</strong> O acorde mais tenso da tonalidade. Tem um som característico de "precisa resolver". Referência: o acorde de G7 no final de uma frase de blues grita para voltar para o I.</p>
+              <p><strong>Progressões fundamentais:</strong></p>
+              <ul>
+                <li><strong>I–IV–V:</strong> A base do blues, rock e country. Identifique a tônica (I), depois a subdominante (IV — soa "suave" após o I) e a dominante (V — a mais tensa). Em Mi: Mi–Lá–Si.</li>
+                <li><strong>ii–V–I (jazz):</strong> A progressão mais comum do jazz. O ii é menor, o V é dominante, o I resolve. Em Dó: Ré menor 7 → Sol 7 → Dó maior 7.</li>
+                <li><strong>I–V–vi–IV:</strong> A progressão pop de quatro acordes responsável por centenas de hits. Ouça "Let It Be" (Beatles), "No Woman No Cry" (Marley).</li>
+              </ul>
+              <p><strong>Exercício prático:</strong> Escolha 5 músicas que você conhece muito bem. Para cada uma, identifique os acordes de ouvido, escreva a progressão em números romanos. Verifique com cifras na internet. Este exercício, feito semanalmente, transforma seu ouvido em 3 meses.</p>
+            </div>
+          </div>
+
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('m19-pratica-diaria')">
+              <span><strong>📅 Rotina de Ear Training Diário</strong><br>
+              <span class="expand-toggle-sub">10 minutos por dia que transformam seu ouvido em 90 dias</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="m19-pratica-diaria" style="display:none">
+              <p>O ouvido é um músculo. Ele não se desenvolve em sessões intensas esporádicas — cresce com <strong>consistência diária</strong>. 10 minutos por dia supera 2 horas uma vez por semana. Sem exceção.</p>
+              <p><strong>Estrutura dos 10 minutos diários:</strong></p>
+              <ul>
+                <li><strong>Minutos 1–3: Solfejo:</strong> Cante a escala maior e menor da tonalidade do dia. Depois cante arpejos (fundamental, terça, quinta, oitava). Toque cada nota depois de cantar para confirmar a afinação.</li>
+                <li><strong>Minutos 4–6: Ditado rítmico:</strong> Ouça um trecho curto de baixo (30 segundos) de uma música escolhida. Bata o ritmo. Repita até acertar sem precisar da gravação.</li>
+                <li><strong>Minutos 7–10: Transcrição de trecho curto:</strong> Continue a transcrição da semana, ou comece um novo trecho de 2–4 compassos. Anote no papel ou na partitura.</li>
+              </ul>
+              <p><strong>App recomendado: Functional Ear Trainer</strong><br>
+              Gratuito, disponível para iOS e Android. Treina identificação de graus da escala em contexto tonal — o método mais eficaz provado por pesquisa para desenvolver ouvido relativo. Mais eficaz do que treinar intervalos isolados, porque você aprende as notas em função de seu papel harmônico.</p>
+              <p><strong>Outros recursos:</strong></p>
+              <ul>
+                <li>TonalEnergy Tuner (afinação + ear training)</li>
+                <li>EarMaster (treino mais completo, pago)</li>
+                <li>Teoria.com (exercícios gratuitos online)</li>
+              </ul>
+              <p><strong>O objetivo de 90 dias:</strong> Conseguir ouvir uma música simples e identificar se está em maior ou menor, encontrar a tônica, e tirar a linha de baixo em menos de 10 minutos. É alcançável com 10 minutos diários.</p>
+            </div>
+          </div>
+
           <div class="content-divider"></div>
-          <div class="section-title">🎮 Exercícios Interativos</div>
-          ${EX.build('quiz','f4m19q','Quiz: Session Player',[
-            {q:'Qual é a postura correta em uma sessão de estúdio?',o:['Tocar o que você acha melhor','Ouvir produtor e artista — eles têm a visão da música','Mostrar todo seu vocabulário','Improvisar sempre'],c:1,ok:'Correto! Em sessão você serve a visão do artista e do produtor.',fail:'Em estúdio: ouça, execute, entregue. Não é hora de mostrar habilidade — é hora de servir a música.'},
-            {q:'O Nashville Number System é:',o:['App de afinação','Sistema numérico de cifras (1-2-3-4-5-6-7) muito usado no country e gospel','Tipo de compasso','Técnica de slap'],c:1,ok:'Correto! NNS usa graus numéricos em vez de letras — permite transposição instantânea.',fail:'NNS: usa números (1,2,3...) em vez de notas. O músico transpõe imediatamente para qualquer tom.'},
-            {q:'Por que chegar cedo a uma sessão de estúdio?',o:['Para cobrar hora extra','Para montar, afinar e estar pronto quando o produtor chegar','Para impressionar a equipe','Sem motivo especial'],c:1,ok:'Exato! Profissional está pronto quando o trabalho começa.',fail:'Chegar cedo = montar, afinar, aquecer. Quando o produtor chega, você já está pronto para gravar.'},
-            {q:'O que é um lead sheet?',o:['Contrato musical','Partitura simplificada com melodia, cifras e letra','Lista de músicas do show','Planilha de pagamento'],c:1,ok:'Correto! Lead sheet: melodia + cifras + letra. Padrão em jazz e sessões.',fail:'Lead sheet: melodia, cifras de acordes e letra. O músico cria o acompanhamento com base nas cifras.'},
+          ${EX.build('flashcard','f4m19fc','Flashcards: Ear Training e Intervalos',[
+            {f:'Intervalo',b:'Distância entre duas notas. Uníssono (0), segunda maior (2 semitons), terça menor (3), terça maior (4), quarta justa (5), quinta justa (7), oitava (12). A base do ear training.'},
+            {f:'Ouvido Relativo',b:'Capacidade de identificar notas e intervalos em relação a uma referência (a tônica). Diferente do ouvido absoluto (identificar notas sem referência). O ouvido relativo é aprendível por qualquer pessoa.'},
+            {f:'Transcrição',b:'Tirar uma música de ouvido — identificar e anotar todas as notas, ritmos e articulações. A forma mais poderosa de aprender vocabulário musical diretamente dos mestres.'},
+            {f:'Progressão I–IV–V',b:'A progressão harmônica fundamental do blues, rock e country. Em Mi: Mi (I) → Lá (IV) → Si (V). O baixista precisa identificar essa progressão de ouvido instantaneamente.'},
+            {f:'Progressão ii–V–I',b:'A progressão mais comum do jazz. O ii é acorde menor, o V é dominante (com sétima), o I é o acorde de repouso. Em Dó: Ré m7 → Sol 7 → Dó M7.'},
+            {f:'Functional Ear Trainer',b:'App gratuito que treina identificação de graus da escala em contexto tonal. Método mais eficaz para desenvolver ouvido relativo: você aprende as notas pelo seu papel harmônico, não apenas como intervalos isolados.'},
           ])}
-          ${EX.build('flashcard','f4m19fc','Flashcards: Carreira e Estúdio',[
-            {f:'Nashville Number System',b:'Cifra numérica: 1=tônica, 4=subdominante, 5=dominante. Transposição instantânea. Padrão no country e gospel americano.'},
-            {f:'Lead Sheet',b:'Melodia + cifras + letra. Sem arranjo completo. O músico cria o acompanhamento. Padrão em jazz.'},
-            {f:'Etiqueta de Estúdio',b:'Chegue cedo. Instrumento afinado. Ouça. Não critique. Sirva a música. Seja fácil de trabalhar.'},
-            {f:'DI Box',b:'Direct Injection: converte sinal do baixo para XLR balanceado. Padrão em estúdio e ao vivo. Radial J48 = referência.'},
-            {f:'SoundBetter / AirGigs',b:'Plataformas de freelance musical para sessões remotas. Conecta músicos a artistas do mundo todo.'},
-            {f:'Home Studio Básico',b:'Focusrite Scarlett 2i2 + Reaper ou GarageBand + DI Box + fones bons = qualidade profissional em casa.'},
+          ${EX.build('quiz','f4m19q','Quiz: Ear Training',[
+            {q:'Qual é a melhor forma de memorizar intervalos para reconhecimento auditivo?',o:['Contar semitons em silêncio','Associar cada intervalo a uma música conhecida como referência mnemônica','Tocar o intervalo no instrumento sem cantar','Memorizar apenas os intervalos maiores'],a:1},
+            {q:'Ao transcrever uma linha de baixo, o que você deve identificar PRIMEIRO?',o:['As notas exatas de cada tempo','O ritmo da linha — antes de se preocupar com as alturas','O nome do acorde de cada compasso','A técnica usada pelo baixista'],a:1},
+            {q:'O que diferencia um acorde maior de um acorde menor, sonoramente?',o:['O acorde maior é sempre mais grave','A terça — maior tem terça maior (4 semitons), menor tem terça menor (3 semitons)','O acorde menor sempre tem 4 notas','O ritmo do acompanhamento'],a:1},
+            {q:'Por que o Functional Ear Trainer é mais eficaz do que treinar intervalos isolados?',o:['Porque é gratuito','Porque treina identificação de graus em contexto tonal — você aprende o papel harmônico das notas, não apenas distâncias','Porque funciona offline','Porque tem mais exercícios'],a:1},
           ])}
           <div class="checklist" id="cl_f4m19">
             ${checks('f4m19',[
-              'Consigo ler um chart básico com cifras e ritmo',
-              'Aprendo músicas novas em menos de 10 minutos',
-              'Sei o que é o Nashville Number System',
-              'Fiz pelo menos uma simulação de sessão de estúdio',
-              'Tenho uma gravação profissional ou semi-profissional do meu baixo',
+              'Consigo identificar de ouvido se uma música está em maior ou menor',
+              'Reconheço os intervalos de terça, quinta e oitava de ouvido',
+              'Transcrevi pelo menos uma linha de baixo completa de uma música simples',
+              'Faço 10 minutos de ear training por dia há pelo menos 2 semanas',
+              'Identifico a progressão I–IV–V em uma música tocando junto',
             ])}
           </div>
         `
       },
       {
         id: 'f4m20', num: 'M20',
-        title: 'Som, Equipamento e Home Studio',
-        desc: 'Um profissional sabe como soar bem em qualquer situação: ao vivo, em estúdio, ou em home studio.',
+        title: 'Tom do Baixo — EQ, Compressão e Identidade Sonora',
+        desc: 'Seu som é sua assinatura. Entender equalização, compressão e a física do baixo te dá controle total sobre como você soa — e ajuda a se expressar melhor musicalmente.',
         video: '',
         content: () => `
-          <div class="section-title">🔌 DI Box — O Que É e Quando Usar</div>
+          <div class="section-title">🎚️ Tom do Baixo — Construindo Sua Assinatura Sonora</div>
           <div class="info-box">
-            DI (Direct Injection) box converte o sinal do baixo para o formato de microfone (XLR balanceado), eliminando ruídos em cabos longos.<br><br>
-            <strong>Quando usar:</strong><br>
-            • Em estúdio: DI é a forma padrão de gravar baixo<br>
-            • Ao vivo: mesa de som usa DI para ter o sinal limpo do baixo<br><br>
-            <strong>DI ativa vs passiva:</strong> Ativa precisa de bateria/phantom power, dá mais controle de EQ. Passiva é mais simples e robusta.<br><br>
-            <strong>Recomendação:</strong> Radial J48 (profissional) ou Behringer DI20 (econômica para iniciantes).
+            <strong>O som começa antes do amplificador.</strong><br><br>
+            Muitos baixistas passam anos buscando "o tom" no equipamento quando ele começa nas mãos, nas cordas e no instrumento. Mas entender equalização, compressão e as características físicas do seu baixo te dá o vocabulário para moldar seu som conscientemente — em qualquer situação, em qualquer equipamento.
           </div>
+
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('m20-eq')">
+              <span><strong>🎚️ Equalização: Moldando Seu Som</strong><br>
+              <span class="expand-toggle-sub">O que cada faixa de frequência faz no baixo</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="m20-eq" style="display:none">
+              <p>O EQ (equalizador) permite amplificar ou cortar faixas de frequência específicas do seu som. Entender o que cada região faz é fundamental para ter controle real sobre seu tom.</p>
+              <p><strong>Mapa de frequências do baixo elétrico:</strong></p>
+              <ul>
+                <li><strong>Sub-graves (20–60 Hz):</strong> O "rrrumble" físico — sente-se no peito antes de ouvir. Dá peso e impacto em sistemas de som grandes. Em excesso, turva o mix e come headroom sem adicionar clareza. Em home studio: geralmente corte abaixo de 40 Hz com high-pass filter.</li>
+                <li><strong>Graves (60–120 Hz):</strong> O corpo e o calor do baixo. A maior parte do "grave" que você ouve está aqui. Boostar 80–100 Hz adiciona "gordura". Cortar limpa o mix mas pode deixar o baixo fino.</li>
+                <li><strong>Médio-graves (120–300 Hz):</strong> O "borrão" do baixo. Excesso aqui cria aquela sensação de "enlameado" ou "nasal". Pequenos cortes nessa região (1–3 dB) geralmente melhoram a clareza sem tirar o corpo.</li>
+                <li><strong>Médios (300 Hz–1 kHz):</strong> A presença e a "punch" do baixo. Importante para o baixo cortar no mix. Fretless e upright vivem aqui. Slap precisa de presença em torno de 700–800 Hz.</li>
+                <li><strong>Médio-agudos (1–4 kHz):</strong> Definição do ataque, clareza das notas, "nariz" do instrumento. Fundamental para o baixo ser ouvido em mixes densos com guitarra e teclados.</li>
+                <li><strong>Ar (4 kHz+):</strong> Fret noise, clique da palheta, brilho das cordas novas. Em excesso, soa metálico e duro. Em falta, o baixo soa "enterrado" e sem articulação.</li>
+              </ul>
+              <p><strong>Regra prática:</strong> Corte sempre antes de amplificar. Um corte cirúrgico de 2–3 dB em uma frequência problemática melhora mais o som do que boostar 6 dB em outra região.</p>
+            </div>
+          </div>
+
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('m20-compressao')">
+              <span><strong>🔊 Compressão para Baixistas</strong><br>
+              <span class="expand-toggle-sub">O que é, como funciona e como usar no groove</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="m20-compressao" style="display:none">
+              <p>O compressor é provavelmente o processador mais importante para o baixista depois do próprio amplificador. Ele iguala as dinâmicas — as notas mais fortes ficam menos altas, as mais suaves ficam mais audíveis. O resultado é um som mais consistente, mais "gordo" e que assenta melhor no mix.</p>
+              <p><strong>Os 4 parâmetros fundamentais (explicados simplesmente):</strong></p>
+              <ul>
+                <li><strong>Threshold:</strong> O "gatilho". Quando o sinal do baixo ultrapassa esse nível, o compressor começa a agir. Abaixo do threshold = sem compressão. Acima = comprimido. Coloque mais baixo para mais compressão, mais alto para menos.</li>
+                <li><strong>Ratio:</strong> "Quanto comprime". Um ratio de 4:1 significa: para cada 4 dB que o sinal sobe acima do threshold, apenas 1 dB passa. Ratio 2:1 = suave e musical. Ratio 8:1+ = compressão forte, som "pumping".</li>
+                <li><strong>Attack:</strong> O tempo que o compressor leva para "reagir" ao sinal acima do threshold. Attack rápido (1–3ms): comprime o transiente do ataque — som mais controlado mas menos punch. Attack lento (20–50ms): deixa o transiente passar — preserva o "dig" da nota.</li>
+                <li><strong>Release:</strong> O tempo que o compressor leva para "soltar" depois que o sinal cai abaixo do threshold. Release curto = compressor reage rápido, pode criar "pumping" rítmico (pode ser musical!). Release longo = compressor segura mais tempo, som mais suave e sustentado.</li>
+              </ul>
+              <p><strong>Configuração prática para groove:</strong> Threshold moderado (o medidor de ganho reduzido mostrando 3–6 dB de compressão). Ratio 4:1. Attack 15–25ms (deixa o ataque passar). Release 60–100ms. Makeup gain para compensar o volume perdido. Transparente — você não deve "ouvir" o compressor, deve "sentir" o groove mais gordo e consistente.</p>
+              <p><strong>Pedais recomendados:</strong> MXR M87 (muito musical, transparente), Empress Compressor (parâmetros completos, referência pro), Cali76 (baseado no clássico UREI 1176, muito punch). Para começar: MXR M87 ou Diamond Bass Compressor.</p>
+            </div>
+          </div>
+
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('m20-identidade')">
+              <span><strong>🎸 Encontrando Sua Identidade Sonora</strong><br>
+              <span class="expand-toggle-sub">Referências, influências e como desenvolver seu som único</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="m20-identidade" style="display:none">
+              <p>Todo grande baixista tem um som que você reconhece em segundos. Isso não acontece por acaso — é o resultado de escolhas conscientes e anos de desenvolvimento. Estudar essas escolhas te dá vocabulário para construir a sua.</p>
+              <p><strong>Baixistas com sons únicos e o que os define:</strong></p>
+              <ul>
+                <li><strong>Jaco Pastorius:</strong> Fretless com cordas roundwound, ataque de dedo muito próximo do cavalete, sem trastes = mwah característico. Compressor leve, sem distorção. Som limpo, cristalino, quase de guitarra solista. Referência: "Teen Town", "Donna Lee".</li>
+                <li><strong>Geddy Lee (Rush):</strong> Rickenbacker com treble extremamente presente, bitola leve, pick (palheta). O "snarl" (rosnado) dos médio-agudos é sua marca. Distorção leve em overdrive. Definição cirúrgica mesmo nos riffs mais rápidos.</li>
+                <li><strong>Marcus Miller:</strong> Jazz Bass com bateria de pré-amp ativo, cordas roundwound novas, slap com bofetada forte. EQ com graves profundos e presença nos agudos — o "smile curve" do equalizador. Som gordo, percussivo, inconfundível.</li>
+                <li><strong>Paul McCartney:</strong> Hofner 500/1 (semi-hollow, curto) com cordas flatwound e felt muted — o som "vintage" dos Beatles. Warm, redondo, sem transientes duros. O oposto de Marcus Miller em termos de EQ, mas igualmente icônico.</li>
+                <li><strong>Victor Wooten:</strong> Fodera com electronics personalizados, técnica de double thumb, harmônicos. Som ultra-limpo com dinâmica enorme — sem compressor nos shows ao vivo.</li>
+              </ul>
+              <p><strong>Como encontrar o que você quer soar:</strong></p>
+              <ul>
+                <li>Liste 5 baixistas que você ama e descreva o som de cada um em palavras</li>
+                <li>Identifique o que eles têm em comum e o que os diferencia</li>
+                <li>Encontre qual combinação ressoa com você — não imite, <em>destile</em></li>
+                <li>Experimente: cordas diferentes, técnicas diferentes, posição de ataque diferente</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('m20-instrumento')">
+              <span><strong>🪵 Seu Instrumento e Como Ele Soa</strong><br>
+              <span class="expand-toggle-sub">Cordas, pickups, madeira e manutenção — a física do tom</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="m20-instrumento" style="display:none">
+              <p>Antes do amplificador, antes do pedal, antes do EQ — o tom começa no instrumento. Entender as variáveis físicas do seu baixo te dá controle sobre a matéria-prima do seu som.</p>
+              <p><strong>Cordas: roundwound vs flatwound</strong></p>
+              <ul>
+                <li><strong>Roundwound (enrolamento redondo):</strong> O padrão atual. Som brilhante, com presença nos agudos, muito fret noise. Ideais para slap, rock, funk, jazz moderno. Vida útil: 2–4 semanas de uso intenso antes de escurecer.</li>
+                <li><strong>Flatwound (enrolamento plano):</strong> Superfície lisa. Som escuro, warm, vintage — como Paul McCartney e James Jamerson. Sem fret noise. Duradouríssimas (anos). Ideais para blues, jazz tradicional, R&amp;B vintage. Sensação suave para os dedos.</li>
+                <li><strong>Halfwound / groundwound:</strong> Meio-termo entre as duas. Som semi-brilhante com menos fret noise. Versáteis.</li>
+              </ul>
+              <p><strong>Pickups: Jazz Bass vs Precision Bass</strong></p>
+              <ul>
+                <li><strong>Precision (split-coil):</strong> Som mais gordo, médio-grave proeminente, "punch" no ataque. Hum-cancelling. O som de Jamerson, Tony Levin, Sting. Mais "redondo" e assertivo.</li>
+                <li><strong>Jazz Bass (dois single-coil):</strong> Com ambos abertos: som mais brilhante, nasal, articulado. Ponte sozinha: mais treble e nariz. Pescoço sozinho: mais warm. Jaco, Marcus Miller, Geddy Lee usam Jazz Bass.</li>
+              </ul>
+              <p><strong>Madeira e construção:</strong> Alder (amieiro) é a madeira padrão dos Fenders — balanceada. Ash é mais brilhante com mais ataque. Mahogany é mais escura e sustentada (Gibson). O braço também importa: maple = mais brilhante e definido; rosewood = mais warm. A construção (bolt-on, neck-through, set-neck) afeta o sustain e o punch do ataque.</p>
+              <p><strong>Manutenção básica para preservar o tom:</strong> Limpe as cordas após cada uso com pano seco. Lubrifique as cravelhas a cada 6 meses. Mantenha a ação (height das cordas) regulada — muito alta = difícil de tocar; muito baixa = fret buzz. Setup profissional anual é investimento que vale.</p>
+            </div>
+          </div>
+
           <div class="content-divider"></div>
-          <div class="section-title">🎚️ EQ do Baixo — Frequências que Importam</div>
-          <div class="info-box">
-            <strong>Sub-grave (20–80 Hz):</strong> O "feel" físico, sentido no peito. Cuidado com excesso — turva o mix.<br>
-            <strong>Grave (80–250 Hz):</strong> O "corpo" do baixo. A maior parte do tom está aqui.<br>
-            <strong>Médio-baixo (250–500 Hz):</strong> Pode ficar "enlameado" — reduza se houver borrão.<br>
-            <strong>Médio (500 Hz–2 kHz):</strong> O "nariz" do baixo, presença, definição do slap.<br>
-            <strong>Agudo (2–10 kHz):</strong> Clique da palheta, fret noise, articulação.<br><br>
-            <em>Regra prática: menos é mais em EQ. Corte antes de amplificar.</em>
-          </div>
-          <div class="content-divider"></div>
-          <div class="section-title">🔊 Compressor — Seu Melhor Amigo</div>
-          <div class="info-box">
-            O compressor iguala o volume das notas — as mais fortes ficam menos fortes, as suaves ficam mais audíveis.<br><br>
-            <strong>Parâmetros básicos:</strong><br>
-            • <strong>Threshold:</strong> A partir de qual volume o compressor age<br>
-            • <strong>Ratio:</strong> Quanto comprime. 4:1 é natural; 8:1+ é forte.<br>
-            • <strong>Attack:</strong> Quanto tempo leva para agir. Rápido = mais pump; lento = preserva o ataque.<br>
-            • <strong>Release:</strong> Quanto tempo leva para parar de agir<br><br>
-            Para baixo: threshold moderado, ratio 4:1, attack médio. Transparente é o objetivo.
-          </div>
-          <div class="topics-grid">
-            ${topics([
-              ['🎹','Interface de áudio: Focusrite Scarlett 2i2 — padrão de entrada para músicos'],
-              ['💻','DAW: Reaper (pago/barato), GarageBand (Mac, grátis), Logic Pro (Mac)'],
-              ['🥁','Bateria virtual: Superior Drummer, EZDrummer, GarageBand Drummer'],
-              ['🔌','DI Box: Radial J48 (pro), Behringer DI20 (econômica)'],
-              ['🎚️','Compressor pedal: MXR M87, Empress Compressor, Cali76'],
-              ['📱','Afinador: TC Electronic PolyTune (pedal), BOSS TU-3'],
-            ])}
-          </div>
+          ${EX.build('flashcard','f4m20fc','Flashcards: EQ, Compressão e Tom',[
+            {f:'Frequências do Baixo',b:'Sub-graves 20–60Hz (impacto físico), Graves 60–120Hz (corpo), Médio-graves 120–300Hz (borrão), Médios 300Hz–1kHz (presença), Médio-agudos 1–4kHz (definição), Ar 4kHz+ (brilho/ataque).'},
+            {f:'Threshold (compressor)',b:'O "gatilho" do compressor. Quando o sinal ultrapassa esse nível, a compressão começa. Abaixo = sem compressão. Threshold mais baixo = mais compressão.'},
+            {f:'Ratio (compressor)',b:'Quanto o compressor comprime. 2:1 = suave; 4:1 = padrão para baixo; 8:1+ = limitação forte. Exemplo: ratio 4:1 significa que 4dB acima do threshold resultam em apenas 1dB de saída.'},
+            {f:'Attack (compressor)',b:'Tempo que o compressor leva para reagir. Attack rápido = comprime o transiente (menos punch). Attack lento (15–25ms) = deixa o transiente passar, preserva o "dig" da nota. Para baixo: attack médio.'},
+            {f:'Roundwound vs Flatwound',b:'Roundwound: brilhante, com fret noise, padrão atual (rock/funk/slap). Flatwound: escura, lisa, sem fret noise, vintage (blues/jazz/R&amp;B). A escolha da corda muda radicalmente o tom.'},
+            {f:'Jazz Bass vs Precision Bass',b:'Precision: som gordo e assertivo com médio-grave proeminente. Jazz Bass: mais brilhante e articulado, nariz pronunciado. A maioria dos estilos musicais prefere um dos dois.'},
+          ])}
+          ${EX.build('quiz','f4m20q','Quiz: Tom do Baixo',[
+            {q:'Qual faixa de frequência é responsável pelo "corpo" e calor principal do baixo?',o:['Sub-graves 20–40 Hz','Graves 60–120 Hz','Médio-agudos 1–4 kHz','Ar acima de 8 kHz'],a:1},
+            {q:'O parâmetro "attack" no compressor controla:',o:['O volume de saída após a compressão','Quanto tempo o compressor leva para reagir ao sinal acima do threshold','A faixa de frequência comprimida','A velocidade do BPM'],a:1},
+            {q:'Qual o tipo de corda mais indicado para um som vintage warm de R&B e jazz tradicional?',o:['Roundwound de aço inoxidável','Flatwound — superfície lisa, som escuro, sem fret noise','Halfwound de níquel','Cordas de nylon'],a:1},
+            {q:'O que define principalmente o som de Jaco Pastorius?',o:['Precision Bass com flatwound e compressão pesada','Fretless com roundwound, ataque próximo ao cavalete — o "mwah" característico do sem trastes','Rick 4003 com pick e overdrive','Jazz Bass com EQ smile e slap pesado'],a:1},
+          ])}
           <div class="checklist" id="cl_f4m20">
             ${checks('f4m20',[
-              'Sei o que é DI Box e quando usar',
-              'Entendo as faixas de frequência do EQ do baixo',
-              'Sei como configurar um compressor básico',
-              'Tenho um setup de home studio funcional (mesmo que básico)',
-              'Gravei pelo menos uma música com qualidade de escuta confortável',
+              'Entendo o mapa de frequências do baixo e o que cada região faz',
+              'Sei o que fazem threshold, ratio, attack e release num compressor',
+              'Já experimentei cordas roundwound e flatwound e conheço a diferença de som',
+              'Consigo descrever em palavras o som que quero ter como meta sonora',
+              'Realizei um setup básico (EQ + compressor) para meu tom de estúdio ou ao vivo',
             ])}
           </div>
         `
       },
       {
         id: 'f4m21', num: 'M21',
-        title: 'Performance ao Vivo',
-        desc: 'O palco é onde tudo acontece. Preparação, presença cênica e gerenciamento de pressão são habilidades que se desenvolvem só tocando ao vivo.',
+        title: 'Preparação Mental — Tocando Sob Pressão',
+        desc: 'Tocar bem ensaiado é uma coisa. Tocar bem quando importa — em público, numa audição, numa gravação — é outra. A preparação mental é uma habilidade que se treina.',
         video: '',
         content: () => `
-          <div class="section-title">🎭 Presença de Palco</div>
+          <div class="section-title">🧠 Preparação Mental para Músicos</div>
           <div class="info-box">
-            Presença de palco não é sobre ser extrovertido — é sobre <strong>comunicar que você acredita no que está tocando</strong>.<br><br>
-            <strong>Dicas práticas:</strong><br>
-            • Levante os olhos do braço — olhe para a banda e para o público<br>
-            • Mova o corpo com o groove — não fique estático<br>
-            • Interaja com o baterista — ele é seu parceiro mais importante<br>
-            • Sorria quando errar — erros acontecem e o público não sabe (na maioria das vezes)<br>
-            • Conheça o repertório tão bem que você pode tocar no piloto automático e se comunicar
+            <strong>Por que músicos travam?</strong><br><br>
+            Você ensaiou durante semanas, sabe o repertório de trás para frente — mas na hora do show, a mente trava, os dedos travam, o groove some. Isso não é falta de preparo técnico. É falta de preparo <em>mental</em>. A boa notícia: preparação mental é uma habilidade como qualquer outra — ela se treina.
           </div>
-          <div class="content-divider"></div>
-          <div class="section-title">👂 Monitoração — O que Você Ouve no Palco</div>
-          <div class="info-box">
-            <strong>Monitor de palco (wedge):</strong> Caixa inclinada na frente de você. Você pede ao operador de som o que quer ouvir mais. Sempre peça: seu baixo + bumbo + voz líder.<br><br>
-            <strong>In-ear monitor (IEM):</strong> Fones intra-auriculares. Isola o som externo, proteção auditiva, mix personalizado. Profissional e crescente adoção.<br><br>
-            <strong>Problema comum:</strong> Não conseguir ouvir o baixo em palco e compensar tocando mais forte no amplificador, criando feedback e briga de volumes. <em>Solução: comunique-se com o operador de som antes de começar.</em>
-          </div>
-          <div class="content-divider"></div>
-          <div class="section-title">😰 Gerenciando a Ansiedade de Palco</div>
-          <div class="info-box">
-            Ansiedade de palco é normal — até grandes músicos a sentem. O objetivo não é eliminar, mas <strong>canalizar</strong>.<br><br>
-            <strong>Técnicas que funcionam:</strong><br>
-            • Respiração diafragmática antes de entrar no palco (4 seg inspira, 4 segurar, 4 expira)<br>
-            • Ensaios de "simulação" — toque o setlist completo como se fosse show, sem parar<br>
-            • Superexposição — toque ao vivo frequentemente. A ansiedade diminui com experiência<br>
-            • Foco no groove e na banda, não no público — o que você toca, não em como te veem<br><br>
-            <em>A preparação é o melhor ansiolítico. Se você sabe o repertório de trás para frente, a ansiedade tem menos espaço.</em>
-          </div>
-          <div class="practice-box blue">
-            <div class="pb-label">🎯 Meta Mínima de Palco</div>
-            <div class="pb-text">
-              <strong>Toque ao vivo pelo menos 1x por mês.</strong><br><br>
-              Não espere estar "pronto". Não existe pronto para o palco — existe experiência acumulada de palco.<br><br>
-              <strong>Onde começar:</strong><br>
-              • Jam sessions abertas (bares, casas de cultura)<br>
-              • Igrejas (Gospel exige músicos constantemente)<br>
-              • Bandas de escola/faculdade<br>
-              • Eventos de amigos e família<br>
-              • Open mics<br><br>
-              Cada show é uma aula que nenhum professor pode te dar.
+
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('m21-ansiedade')">
+              <span><strong>😰 Ansiedade e Como Domá-la</strong><br>
+              <span class="expand-toggle-sub">A fisiologia do nervosismo e como transformá-lo em combustível</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="m21-ansiedade" style="display:none">
+              <p><strong>O que acontece fisiologicamente:</strong> A ansiedade de performance é a resposta de "luta ou fuga" do sistema nervoso autônomo. Adrenalina aumenta a frequência cardíaca, tensa os músculos (inclusive os das mãos), acelera o pensamento e reduz a coordenação motora fina. Para um baixista, isso significa dedos tensos, timing irregular e mente "em branco".</p>
+              <p><strong>Por que músicos são especialmente vulneráveis:</strong> Diferente de um atleta que usa a tensão muscular extra, o músico precisa de precisão motora fina, relaxamento e fluxo cognitivo. A adrenalina age contra exatamente o que você precisa.</p>
+              <p><strong>O reframing de Alison Wood Brooks (Harvard):</strong> Em vez de dizer "estou nervoso" (que reforça o medo), diga "estou animado". A ativação fisiológica é <em>idêntica</em> — a diferença está no significado que você atribui a ela. Ansiedade = ameaça. Animação = oportunidade. A pesquisa mostrou que esta simples mudança de linguagem melhora a performance mensurável.</p>
+              <p><strong>Técnica de respiração 4-7-8:</strong></p>
+              <ul>
+                <li>Inspire pelo nariz contando 4 tempos</li>
+                <li>Segure a respiração contando 7 tempos</li>
+                <li>Expire pela boca contando 8 tempos</li>
+                <li>Repita 3–4 vezes</li>
+              </ul>
+              <p>Isso ativa o sistema nervoso parassimpático (o "descanso e digestão"), reduzindo a frequência cardíaca em 2–3 minutos. Use antes de entrar no palco, na coxia, no camarim.</p>
+              <p><strong>A armadilha de "tocar para não errar":</strong> Quando o objetivo é não errar, o foco está no medo. Quando o objetivo é servir a música e o groove, o foco está na ação positiva. Mude a pergunta de "e se eu errar?" para "como posso fazer esta linha de baixo soar da melhor forma possível?"</p>
             </div>
           </div>
-          
+
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('m21-pratica-mental')">
+              <span><strong>🧘 Prática Mental: Tocar Sem o Instrumento</strong><br>
+              <span class="expand-toggle-sub">Como atletas de elite praticam — e como aplicar à música</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="m21-pratica-mental" style="display:none">
+              <p><strong>O que é prática mental (mental rehearsal):</strong> Praticar uma habilidade inteiramente na mente, sem o instrumento — visualizando os movimentos, ouvindo o som internamente, sentindo a sequência emocional da performance. Não é devaneio — é prática deliberada interna.</p>
+              <p><strong>Como atletas de elite usam:</strong> Pesquisas com atletas olímpicos mostram que mental rehearsal ativa os mesmos padrões neurais que a prática física. Michael Phelps visualizava cada braçada antes de competir. Tiger Woods mentalizava cada tacada. Pianistas como Glenn Gould e Artur Schnabel eram conhecidos por passarem horas estudando mentalmente antes de tocar.</p>
+              <p><strong>Como aplicar ao baixo elétrico:</strong></p>
+              <ul>
+                <li><strong>Visualização da performance:</strong> Feche os olhos. Imagine o palco, o equipamento, a banda. Visualize-se entrando, pegando o baixo, checando a afinação. Sinta a frieza das cordas. Ouça mentalmente o metrônomo ou o count-in do baterista.</li>
+                <li><strong>Mental walkthrough da música:</strong> "Toque" a música inteira na cabeça — ouça cada nota, sinta cada mudança de posição no braço, sinta o groove nas mãos. Inclua as partes difíceis e visualize-as indo bem.</li>
+                <li><strong>Preparação para imprevistos:</strong> Visualize um erro acontecendo — e visualize-se recuperando sem perder o groove. Isso programa a resposta de recovery antes que o imprevisto ocorra.</li>
+              </ul>
+              <p><strong>Protocolo de 5 minutos:</strong> Antes de qualquer ensaio ou show, feche os olhos por 5 minutos e faça o mental walkthrough do repertório. Identifique onde há insegurança — são os pontos que precisam de mais atenção no ensaio físico.</p>
+            </div>
+          </div>
+
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('m21-erros')">
+              <span><strong>🎯 Lidando com Erros em Tempo Real</strong><br>
+              <span class="expand-toggle-sub">A diferença entre erro e catástrofe, e como se recuperar</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="m21-erros" style="display:none">
+              <p><strong>A diferença entre erro e catástrofe:</strong> Um erro é uma nota errada, um ataque impreciso, uma mudança atrasada. Uma catástrofe é parar de tocar, olhar para o chão em desespero, ou deixar o erro contaminar os próximos 20 compassos. O erro é inevitável. A catástrofe é uma escolha.</p>
+              <p><strong>Como o público ouve:</strong> A pesquisa de psicologia da performance musical é clara: ouvintes não-músicos raramente percebem erros técnicos quando o <em>fluxo musical</em> é mantido. O que eles percebem é a reação do músico ao erro. Se você parar, franzir a testa e chacoalhar a cabeça, o público percebe que algo deu errado — mesmo sem saber o que foi. Se você continuar com a mesma expressão e energia, eles não percebem.</p>
+              <p><strong>Mantendo o groove depois de errar:</strong> O groove é o contrato entre o baixista e o restante da banda. Mesmo com uma nota errada, se o ritmo estiver intacto, a banda continua. Quebre o ritmo e você compromete todos. Prioridade: <strong>ritmo sempre, notas quando possível</strong>.</p>
+              <p><strong>O conceito de "recovery":</strong> Recovery é a habilidade de recuperar o fio da meada depois de um erro sem que ninguém perceba. Treine isso deliberadamente: no ensaio, proponha tocar o repertório sem parar mesmo quando errar. A primeira vez é desconfortável. Com repetição, você desenvolve reflexo de recovery automático.</p>
+              <p><strong>O que fazer nos segundos após um erro:</strong></p>
+              <ul>
+                <li>Mantenha o ritmo — não pare, não desacelere</li>
+                <li>Não mude a expressão — continue como se nada tivesse acontecido</li>
+                <li>Simplifique se necessário — prefira uma nota certa a uma passagem errada</li>
+                <li>Foque no próximo compasso, não no erro que passou</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('m21-rotina-pre')">
+              <span><strong>📋 Rotina Pré-Performance</strong><br>
+              <span class="expand-toggle-sub">O que fazer (e o que NÃO fazer) na hora antes de tocar</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="m21-rotina-pre" style="display:none">
+              <p>A hora antes de uma performance é tão importante quanto os ensaios. O que você faz (e não faz) nesse período determina como você vai estar mentalmente quando subir ao palco.</p>
+              <p><strong>O que FAZER nos 60 minutos antes:</strong></p>
+              <ul>
+                <li><strong>Warm-up físico:</strong> Alongue os dedos, punhos e braços por 5–10 minutos. Não force — movimentos suaves de abertura e flexão. Toque escalas lentas nos primeiros 10 minutos de aquecimento musical.</li>
+                <li><strong>Warm-up mental:</strong> Mental walkthrough do repertório (5 minutos com olhos fechados). Respiração 4-7-8 (3 ciclos).</li>
+                <li><strong>Warm-up musical:</strong> Toque os trechos mais difíceis do setlist lentamente. Não ensaie — apenas ative os caminhos neurais. 15–20 minutos é suficiente.</li>
+                <li><strong>Checagem de equipamento:</strong> Afinação, volume, conexões. Elimine incertezas técnicas antes que elas se tornem ansiedade.</li>
+              </ul>
+              <p><strong>O que NÃO fazer:</strong></p>
+              <ul>
+                <li><strong>Não toque o repertório completo:</strong> Gastar energia emocional antes do show deixa você com menos para quando importa.</li>
+                <li><strong>Não toque partes problemáticas em alta velocidade:</strong> Você não vai consertar no aquecimento o que não consertou no ensaio. Só vai criar ansiedade.</li>
+                <li><strong>Não discuta, não leia redes sociais, não se exponha a estímulos negativos.</strong></li>
+                <li><strong>Não beba cafeína em excesso:</strong> Aumenta a ativação simpática (a mesma coisa que a ansiedade faz).</li>
+              </ul>
+              <p><strong>Crie sua rotina pessoal:</strong> A rotina ideal é pessoal. Experimente diferentes combinações e observe o que te deixa no melhor estado. Documente o que funciona. Com o tempo, a rotina em si se torna um sinal ao seu sistema nervoso de que "está na hora de performar bem".</p>
+            </div>
+          </div>
+
           <div class="content-divider"></div>
-          <div class="section-title">🎮 Exercícios Interativos</div>
-          ${EX.build('quiz','f4m21q','Quiz: Performance e Carreira',[
-            {q:'A melhor forma de superar a ansiedade de palco a longo prazo é:',o:['Evitar tocar ao vivo','Tomar remédios calmantes','Tocar ao vivo com frequência — superexposição gradual','Só tocar em casa'],c:2,ok:'Correto! A ansiedade diminui com experiência acumulada de palco.',fail:'A melhor cura é a exposição repetida. Cada show te prepara para o próximo.'},
-            {q:'Qual mix pedir no monitor de palco?',o:['Máximo de tudo','Seu baixo + bumbo da bateria + voz líder','Só guitarra','Só sua própria voz'],c:1,ok:'Correto! Baixo + bumbo + voz = referência rítmica e harmônica completa.',fail:'No monitor: SEU baixo, o bumbo e a voz líder. Com isso você se orienta perfeitamente no palco.'},
-            {q:'Por que postar vídeos tocando nas redes sociais regularmente?',o:['Para ficar famoso','Para criar presença, portfólio e oportunidades que chegam até você','Para ganhar dinheiro direto','Sem importância'],c:1,ok:'Exato! Consistência online = presença e oportunidades.',fail:'Presença online cria portfólio, atrai oportunidades e mantém você "no radar" da comunidade musical.'},
-            {q:'Qual fonte de renda é geralmente mais estável para um músico?',o:['Royalties de streaming','Shows esporádicos','Aulas de música regulares','Venda de CDs'],c:2,ok:'Correto! Aulas criam renda recorrente e previsível.',fail:'Aulas de música = renda recorrente e estável. Shows são imprevisíveis; aulas garantem consistência financeira.'},
+          ${EX.build('flashcard','f4m21fc','Flashcards: Preparação Mental',[
+            {f:'Reframing da Ansiedade',b:'"Estou animado" em vez de "estou nervoso." A ativação fisiológica é idêntica — o significado muda o resultado. Pesquisa de Alison Wood Brooks (Harvard). Mude a linguagem interna.'},
+            {f:'Respiração 4-7-8',b:'Inspire 4 tempos → segure 7 → expire 8. Ativa o sistema nervoso parassimpático. Reduz frequência cardíaca em 2–3 minutos. Use antes de entrar no palco.'},
+            {f:'Mental Rehearsal',b:'Praticar uma habilidade inteiramente na mente. Ativa os mesmos padrões neurais da prática física. Atletas olímpicos usam. Aplicação ao baixo: visualize o show completo, incluindo recuperação de erros.'},
+            {f:'Recovery',b:'A habilidade de recuperar o groove depois de um erro sem que a banda e o público percebam. Se treina deliberadamente: ensaie sem parar quando errar. Prioridade: ritmo sempre, notas quando possível.'},
+            {f:'Warm-up Pré-Performance',b:'60 minutos antes: aquecimento físico (alongamento de mãos), mental (respiração + visualização), musical (partes difíceis lentamente). NÃO toque o repertório completo — guarde energia emocional para o palco.'},
+            {f:'Foco no Groove vs Foco no Erro',b:'Concentrar-se em "não errar" coloca o foco no medo. Concentrar-se em "servir o groove e a música" coloca o foco na ação. Mude a pergunta interna para melhorar a qualidade do foco.'},
           ])}
-          ${EX.build('flashcard','f4m21fc','Flashcards: Performance e Carreira',[
-            {f:'Presença de Palco',b:'Comunicar que você acredita no que toca. Olhar para a banda. Mover-se com o groove. Interagir.'},
-            {f:'In-Ear Monitor (IEM)',b:'Fone intra-auricular no palco. Isola ruído externo, protege audição, permite mix personalizado.'},
-            {f:'Setlist de Memória',b:'Conhecer o repertório completamente libera sua atenção para o groove, a banda e o público.'},
-            {f:'Regra do Conteúdo Online',b:'Consistência > Perfeição. 1 vídeo por semana por 1 ano = portfólio que 95% dos músicos não têm.'},
-            {f:'Networking Musical',b:'A maioria dos trabalhos vem de indicação. Seja o músico que todos querem chamar: confiável, positivo, preparado.'},
-            {f:'Fontes de Renda Musical',b:'Shows + Sessões + Aulas + Produção + Conteúdo digital. Diversifique. Não dependa de uma só fonte.'},
+          ${EX.build('quiz','f4m21q','Quiz: Preparação Mental',[
+            {q:'Qual é o efeito fisiológico da técnica de respiração 4-7-8?',o:['Aumenta a adrenalina para mais energia','Ativa o sistema nervoso parassimpático, reduzindo a frequência cardíaca','Melhora a coordenação motora diretamente','Elimina completamente a ansiedade'],a:1},
+            {q:'O que é "reframing" da ansiedade segundo a pesquisa de Alison Wood Brooks?',o:['Eliminar todos os pensamentos negativos','Substituir "estou nervoso" por "estou animado" — mesma ativação fisiológica, significado diferente','Meditar por 30 minutos antes do show','Não pensar na performance até o momento de tocar'],a:1},
+            {q:'Qual deve ser a prioridade de um baixista ao errar uma nota durante uma performance?',o:['Parar e recomeçar a música do início','Avisar a banda do erro','Manter o ritmo — o groove é o contrato com a banda e não pode ser quebrado','Tocar mais baixo para esconder o erro'],a:2},
+            {q:'O que NÃO se deve fazer no warm-up pré-performance?',o:['Alongar os dedos e punhos','Fazer respiração diafragmática','Tocar o repertório completo em alta velocidade para "testar" se está pronto','Checar a afinação do instrumento'],a:2},
           ])}
           <div class="checklist" id="cl_f4m21">
             ${checks('f4m21',[
-              'Toquei ao vivo pelo menos 1 vez',
-              'Sei como pedir o monitor ao operador de som',
-              'Conheço meu setlist de memória (sem precisar olhar)',
-              'Consigo tocar e olhar para a banda ao mesmo tempo',
-              'Já errei ao vivo e continuei tocando sem parar',
+              'Usei a técnica de respiração 4-7-8 antes de pelo menos um show ou ensaio',
+              'Fiz uma sessão de mental rehearsal de 5 minutos antes de tocar',
+              'Pratiquei recovery deliberado — continuei tocando sem parar depois de erros no ensaio',
+              'Estabeleci uma rotina pré-performance pessoal e testei pelo menos 2 vezes',
+              'Toquei ao vivo e apliquei pelo menos uma técnica de preparação mental aprendida aqui',
             ])}
           </div>
         `
@@ -4970,97 +5146,130 @@ const COURSE_PIANO = [
       // ── P19 ──────────────────────────────────────
       {
         id: 'p19', num: 'P19',
-        title: 'Piano em Estúdio e Home Recording',
-        desc: 'Gravar piano profissionalmente é uma habilidade técnica e artística. Aprenda a capturar o som do seu instrumento com qualidade e a navegar no ambiente de estúdio.',
+        title: 'Como Praticar com Eficiência Máxima',
+        desc: 'Não é quanto tempo você pratica — é como você pratica. A prática deliberada, focada e inteligente avança mais em 30 minutos do que 3 horas de repetição automática.',
         video: '',
         content: () => `
-          <div class="section-title">🎙️ Gravando Piano com Qualidade</div>
+          <div class="section-title">🎯 Prática Deliberada — A Ciência do Aprendizado Eficiente</div>
           <div class="info-box">
-            A gravação de piano é uma das mais desafiadoras para engenheiros de som — o instrumento cobre uma faixa de frequência enorme, é sensível a microfones e posicionamento, e erros técnicos são impiedosamente revelados. Saber como gravar é saber como soar bem gravado.
+            <strong>30 minutos bem praticados superam 3 horas no piloto automático.</strong><br><br>
+            A pesquisa de K. Anders Ericsson sobre expertise e prática deliberada é clara: o que distingue especialistas de amadores não é a quantidade de horas totais — é a qualidade e intenção por trás de cada minuto praticado. Aprender a praticar <em>bem</em> é a habilidade mais transformadora que um pianista pode desenvolver.
           </div>
 
           <div class="expand-block">
-            <button class="expand-toggle" onclick="toggleExpand('p19-micro')">
-              <span><strong>🎙️ Microfonação do Piano Acústico</strong><br>
-              <span class="expand-toggle-sub">Onde colocar o microfone muda tudo</span></span>
+            <button class="expand-toggle" onclick="toggleExpand('p19-deliberada')">
+              <span><strong>🔬 Prática Deliberada vs Prática Automática</strong><br>
+              <span class="expand-toggle-sub">O que diferencia a prática que avança da que apenas mantém</span></span>
               <span class="expand-icon">+</span>
             </button>
-            <div class="expand-body" id="p19-micro" style="display:none">
-              <strong>Configuração X/Y estéreo:</strong> Dois microfones condensadores em par X/Y posicionados sobre as cordas, apontando para o grave (esquerda) e para o agudo (direita). Resultado: imagem estéreo natural e coerente. A técnica padrão de estúdio para piano de cauda.<br><br>
-              <strong>Posicionamento na cauda:</strong> Com a tampa aberta ao máximo, posicione os microfones entre as cordas e a borda do piano, apontando levemente para dentro. Muito próximo = som de cordas, pouco musical. Muito longe = mais ambiente, menos definição. O equilíbrio típico fica a 30–60cm das cordas.<br><br>
-              <strong>Piano vertical:</strong> Remova o painel frontal superior. Posicione os microfones apontando para as cordas pelo lado de dentro ou pelo lado de cima. Adicionar um microfone de ambiente (room mic) captura o som do espaço e adiciona naturalidade.<br><br>
-              <strong>Piano digital (DI):</strong> Conecte diretamente à interface de áudio via saída de linha (L/R). Sem microfone. Use headphones para monitorar sem vazamento. Para um som mais "acústico", plugins de convolution reverb com impulso de piano de cauda famoso (ex: Bechstein, Yamaha CFX) transformam radicalmente a qualidade.
+            <div class="expand-body" id="p19-deliberada" style="display:none">
+              <p><strong>O que é prática automática:</strong> Tocar do começo ao fim da peça, repetir o que já funciona, passar pelos pontos difíceis sem resolver. É o modo padrão de quem "pratica" sem um objetivo claro. Resultado: você fica bom naquilo que já faz bem, e os pontos difíceis permanecem difíceis.</p>
+              <p><strong>O que é prática deliberada:</strong> Prática com intenção específica, feedback imediato e foco nas bordas do que você consegue fazer — a "zona de desconforto produtivo". Você não repete o que é fácil; você ataca repetidamente o que é difícil até que fique fácil.</p>
+              <p><strong>Os 4 elementos da prática deliberada (Ericsson):</strong></p>
+              <ul>
+                <li><strong>Objetivo específico:</strong> Não "praticar Chopin". Mas "dominar a transição do compasso 24 para o 25 com a mão esquerda sem olhar para as teclas".</li>
+                <li><strong>Foco total:</strong> Sem distrações. A prática deliberada é mentalmente exaustiva — 30 minutos de foco real é mais produtivo que 2 horas dispersas.</li>
+                <li><strong>Feedback imediato:</strong> Você precisa saber se está acertando ou errando. Grave-se, use o metrônomo, toque devagar o suficiente para ouvir cada nota.</li>
+                <li><strong>Zona de desconforto:</strong> Se está fácil demais, não está crescendo. Se está impossível, também não. O alvo é o nível exatamente acima de onde você está confortável.</li>
+              </ul>
+              <p><strong>Como identificar o que realmente precisa de trabalho:</strong> Toque a peça uma vez do início ao fim. Marque mentalmente (ou no papel) cada vez que hesitar, errar ou sentir insegurança. Esses são seus pontos de trabalho reais. A sessão de prática começa exatamente nesses pontos — não no início da peça.</p>
             </div>
           </div>
 
           <div class="expand-block">
-            <button class="expand-toggle" onclick="toggleExpand('p19-home-studio')">
-              <span><strong>🏠 Home Studio para Pianista — Setup Mínimo Viável</strong><br>
-              <span class="expand-toggle-sub">O que você precisa para gravar com qualidade profissional</span></span>
+            <button class="expand-toggle" onclick="toggleExpand('p19-secoes')">
+              <span><strong>✂️ Dividindo Peças em Seções</strong><br>
+              <span class="expand-toggle-sub">Chunking, trabalhar do final e conectar gradualmente</span></span>
               <span class="expand-icon">+</span>
             </button>
-            <div class="expand-body" id="p19-home-studio" style="display:none">
-              <strong>Interface de áudio:</strong> O componente mais importante depois do instrumento. Converte o sinal analógico dos microfones em digital. Mínimo recomendado: Focusrite Scarlett 2i2 (2 entradas, 24-bit/96kHz). Mais profissional: Universal Audio Volt, Apollo Twin.<br><br>
-              <strong>Microfones:</strong> Para piano acústico: par de condensadores de pequena cápsula (ex: Rode M5, AKG C451). Para voz/instrumento único: condensador de cápsula larga (ex: Rode NT1, AKG C214). Budget entry: condensador USB (Blue Yeti — adequado para demo).<br><br>
-              <strong>DAW (Digital Audio Workstation):</strong> O software de gravação. Reaper (custo-benefício máximo, muito usado por profissionais), Logic Pro X (apenas Mac, referência da indústria), Ableton Live (live e produção), Pro Tools (padrão da indústria para estúdios).<br><br>
-              <strong>Acústica do ambiente:</strong> O maior limitador do home studio. Paredes paralelas criam reflexões e ressonâncias que coloram o som. Tratamento básico: painéis de absorção nos cantos e nas primeiras reflexões (ao lado dos monitores). Mesmo cobertores e móveis ajudam.
+            <div class="expand-body" id="p19-secoes" style="display:none">
+              <p><strong>Por que dividir em seções:</strong> Uma peça de 3 minutos tem dezenas de pontos diferentes de dificuldade. Tentar trabalhar tudo de uma vez dispersa a atenção e reduz o progresso. Dividir em seções menores e trabalhar cada uma até a solidez antes de conectar é a abordagem mais eficiente.</p>
+              <p><strong>O método "chunking":</strong></p>
+              <ul>
+                <li>Identifique as seções naturais da peça (frases, períodos, seções ABA)</li>
+                <li>Divida cada seção em "chunks" menores: 2–4 compassos</li>
+                <li>Trabalhe cada chunk separadamente até a solidez</li>
+                <li>Conecte chunks adjacentes: pratique a transição entre chunk 1 e chunk 2</li>
+                <li>Expanda gradualmente: chunk 1+2+3, depois 1+2+3+4, etc.</li>
+              </ul>
+              <p><strong>Trabalhar do final para o começo:</strong> Uma técnica poderosa e contraintuitiva. Aprenda o último compasso primeiro, depois o penúltimo + último, depois o antepenúltimo + penúltimo + último. Resultado: você chega no final da peça com a mesma solidez do começo — ao contrário do padrão comum onde o final sempre soa pior por ter sido praticado menos vezes.</p>
+              <p><strong>Identificando os pontos difíceis:</strong></p>
+              <ul>
+                <li>Mudanças de posição de mão (saltos)</li>
+                <li>Transições entre seções com pedal</li>
+                <li>Passagens com diferentes ritmos entre as mãos</li>
+                <li>Lugares onde a dinâmica muda bruscamente</li>
+                <li>Cordas de dedilhado pouco natural</li>
+              </ul>
+              <p>Esses pontos merecem 80% do tempo de prática. O resto da peça quase se cuida sozinho.</p>
             </div>
           </div>
 
           <div class="expand-block">
-            <button class="expand-toggle" onclick="toggleExpand('p19-workflow')">
-              <span><strong>💻 Workflow de Gravação — Do Início ao Arquivo Final</strong><br>
-              <span class="expand-toggle-sub">O processo passo a passo de uma sessão profissional</span></span>
+            <button class="expand-toggle" onclick="toggleExpand('p19-lento')">
+              <span><strong>🐢 O Poder do Slow Practice</strong><br>
+              <span class="expand-toggle-sub">Por que tocar lento é a técnica mais eficaz da neurociência</span></span>
               <span class="expand-icon">+</span>
             </button>
-            <div class="expand-body" id="p19-workflow" style="display:none">
-              <strong>Pré-produção:</strong> Antes de ligar o microfone, decida: quantas takes serão necessárias? Qual seção é mais difícil? O pedal vai ser capturado por um microfone ou processado depois? Pianistas que entram no estúdio sem essas respostas desperdiçam horas (e dinheiro) de sessão.<br><br>
-              <strong>Gravação:</strong> 1) Afine o piano antes de gravar. 2) Grave em 24-bit/96kHz mínimo. 3) Mantenha o nível do sinal entre -18dBFS e -6dBFS (não deixe clipar). 4) Faça pelo menos 3 takes completas antes de fazer punch-ins (correções pontuais). 5) Marque as melhores takes em tempo real.<br><br>
-              <strong>Edição:</strong> Compile as melhores partes de takes diferentes (comping). Corrija timing se necessário (com cuidado — expressão excessivamente quantizada soa robótica). Remova cliques, ruídos de pedal, respirações indesejadas.<br><br>
-              <strong>Mix e master:</strong> Piano solo raramente precisa de EQ dramático — o processamento excessivo destrói o timbre natural. Um leve high-pass para remover ruído de baixa frequência, um reverb de sala, um limiter suave para controle de pico. Menos é mais.
+            <div class="expand-body" id="p19-lento" style="display:none">
+              <p><strong>Por que funciona neurologicamente:</strong> Quando você toca devagar, o sistema nervoso tem tempo suficiente para processar cada decisão motor conscientemente. Isso fortalece as conexões sinápticas corretas. Quando você toca rápido demais antes de estar pronto, você reforça os erros — cada repetição errada é uma repetição que precisa ser desaprendida depois.</p>
+              <p><strong>"Slow practice is fast practice" (Glenn Gould e outros):</strong> Pianistas que dedicam tempo ao slow practice chegam à velocidade final mais rapidamente do que os que tentam atingir o tempo de performance desde o início. Parece contra-intuitivo mas é bem estabelecido pedagogicamente.</p>
+              <p><strong>Como fazer slow practice com metrônomo:</strong></p>
+              <ul>
+                <li>Comece a 50–60% do tempo de performance (ex: peça em 120 BPM → comece em 60–70 BPM)</li>
+                <li>Cada nota deve soar com qualidade de concerto — mesmo devagar</li>
+                <li>Verifique: dedilhado correto, articulação, dinâmica, pedal, postura</li>
+                <li>Aumente 4–5 BPM por sessão quando os critérios de qualidade estiverem todos atendidos</li>
+                <li>Se errar ao aumentar o tempo, volte 10 BPM — não tente "empurrar" pela dificuldade</li>
+              </ul>
+              <p><strong>Slow practice sem metrônomo:</strong> Toque devagar mas de forma musical — com expressão, dinâmica e intenção. O objetivo não é robótico — é consciente. Sinta cada nota. Pense na próxima nota antes de tocar. Antecipação consciente é o que o slow practice constrói.</p>
+              <p><strong>Armadilhas do praticar rápido demais:</strong> Pressão de tempo leva a tensão muscular, dedilhado errado adotado por conveniência, e erros de memória "escorregando". O resultado é uma performance que "funciona" em casa mas desmorona sob pressão — porque foi construída sobre alicerces frágeis.</p>
             </div>
           </div>
 
-          <div class="practice-box blue">
-            <div class="pb-label">🎯 Primeiro Projeto de Gravação</div>
-            <div class="pb-text">
-              <strong>Meta:</strong> Gravar uma peça completa (1–3 minutos) com qualidade de distribuição digital.<br><br>
-              <strong>Etapas:</strong><br>
-              1. Escolha uma peça do seu repertório que você já toca de memória<br>
-              2. Configure o setup de gravação (
-              2. Configure o setup de gravação (interface + microfones ou DI direto)<br>
-              3. Grave 3 takes completas sem parar — escolha a melhor<br>
-              4. Faça edição mínima (remova ruídos, não toque no timing)<br>
-              5. Adicione reverb de sala sutil e normalize o volume<br>
-              6. Exporte em WAV 24-bit e em MP3 320kbps<br><br>
-              Esse arquivo é sua primeira demo profissional.
+          <div class="expand-block">
+            <button class="expand-toggle" onclick="toggleExpand('p19-rotina')">
+              <span><strong>📅 Construindo uma Rotina de Estudo Eficiente</strong><br>
+              <span class="expand-toggle-sub">Estrutura da sessão, planejamento semanal e diário de prática</span></span>
+              <span class="expand-icon">+</span>
+            </button>
+            <div class="expand-body" id="p19-rotina" style="display:none">
+              <p><strong>A estrutura ideal de uma sessão de estudo:</strong></p>
+              <ul>
+                <li><strong>Técnica (15–20%):</strong> Escalas, arpejos, exercícios específicos para problemas técnicos do repertório atual. Hanon, Czerny, ou exercícios personalizados. Não é "aquecimento" — é trabalho real.</li>
+                <li><strong>Repertório (50–60%):</strong> O coração da sessão. Trabalho deliberado nos pontos difíceis, slow practice, chunking. Não tocar do início ao fim — atacar os problemas.</li>
+                <li><strong>Leitura à primeira vista (10–15%):</strong> Ler peças novas que você nunca viu. Mantém a flexibilidade de leitura. Use coleções de peças fáceis — o objetivo é fluidez, não dificuldade.</li>
+                <li><strong>Teoria/Análise (10–15%):</strong> Analisar a harmonia de uma peça do repertório, estudar uma progressão, entender a estrutura formal. Conecta o conhecimento teórico à prática real.</li>
+              </ul>
+              <p><strong>Como planejar a semana:</strong> Não trate todos os dias como iguais. Alterne ênfases: segunda-feira = técnica intensa. Terça = repertório + problemas específicos. Quarta = leitura + teoria. Quinta = repertório completo (simulação de performance). Sexta = revisão e consolidação. Sábado = exploração livre. Domingo = descanso ou estudo leve.</p>
+              <p><strong>Diário de prática:</strong> Mantenha um caderno ou app onde você anota: o que praticou, o que melhorou, o que ainda precisa de trabalho, o objetivo para amanhã. Cinco minutos ao final de cada sessão. O diário cria consciência, evita repetir os mesmos erros e mantém o progresso visível — o que é essencial para motivação a longo prazo.</p>
+              <p><strong>Como avaliar seu próprio progresso:</strong> Grave-se uma vez por semana tocando o repertório completo. Compare com a semana anterior. Ouça criticamente: o que melhorou? O que continua igual? A objetividade da gravação supera a percepção subjetiva durante a prática.</p>
             </div>
           </div>
 
           <div class="content-divider"></div>
-          <div class="section-title">🎮 Exercícios Interativos</div>
-          ${EX.build('flashcard','p19fc','Flashcards: Piano em Estúdio',[
-            {f:'Interface de Áudio', b:'Converte sinal analógico (microfone/instrumento) em digital para o computador. Focusrite Scarlett 2i2 é o padrão para home studio. Determine a qualidade máxima possível do seu setup.'},
-            {f:'Técnica X/Y Estéreo', b:'Dois microfones condensadores cruzados em ângulo apontando para graves (esq) e agudos (dir) do piano. Resulta em imagem estéreo coerente e natural. Técnica padrão de estúdio.'},
-            {f:'DAW (Digital Audio Workstation)', b:'Software de gravação e produção. Reaper (custo-benefício), Logic Pro X (Mac, referência), Ableton Live (produção/live), Pro Tools (padrão da indústria).'},
-            {f:'Nível de Gravação (-18dBFS a -6dBFS)', b:'Faixa ideal de nível do sinal de gravação. Acima de 0dBFS = clipping (distorção digital irrecuperável). Deixe headroom suficiente para picos de dinâmica do piano.'},
-            {f:'Comping (edição)', b:'Compilar as melhores partes de múltiplas takes em uma performance final. Técnica padrão de pós-produção profissional. Diferente de "auto-tune" — é seleção editorial, não correção artificial.'},
-            {f:'Acústica do Home Studio', b:'Maior limitador do home recording. Painéis de absorção nos cantos e primeiras reflexões reduzem problemas. Grave em ambientes pequenos com muitos móveis e tecidos para resultados melhores.'},
+          ${EX.build('flashcard','p19fc','Flashcards: Prática Eficiente',[
+            {f:'Prática Deliberada',b:'Prática com intenção específica, foco total, feedback imediato e trabalho na zona de desconforto. Conceito de K. Anders Ericsson. 30 minutos deliberados superam 3 horas no piloto automático.'},
+            {f:'Zona de Desconforto Produtivo',b:'O nível exatamente acima de onde você está confortável. Se está fácil demais: sem crescimento. Se está impossível: frustração sem aprendizado. O alvo é o esforço gerenciável mas real.'},
+            {f:'Chunking',b:'Dividir a peça em pedaços menores (2–4 compassos), dominar cada um separadamente, depois conectar gradualmente. Mais eficiente do que repetir a peça inteira do início ao fim.'},
+            {f:'Trabalhar do Final para o Começo',b:'Aprender o último compasso primeiro, depois penúltimo+último, expandindo para o início. Garante que o final da peça tenha tanta solidez quanto o começo.'},
+            {f:'Slow Practice',b:'Tocar devagar o suficiente para que o sistema nervoso processe cada decisão conscientemente. Fortalece os padrões neurais corretos. "Slow practice is fast practice" — chega-se ao tempo de performance mais rapidamente.'},
+            {f:'Diário de Prática',b:'Registro diário do que foi praticado, o que melhorou e o que ainda precisa de trabalho. Cria consciência, evita repetir erros e mantém o progresso visível para motivação a longo prazo.'},
           ])}
-          ${EX.build('quiz','p19q','Quiz: Piano em Estúdio',[
-            {q:'Qual é o nível de sinal ideal para gravar piano em uma DAW?',o:['0dBFS para máxima qualidade','Entre -18dBFS e -6dBFS, sem clipar','Sempre em -3dBFS exatamente','Não importa o nível — corrija no mix'],c:1,ok:'Correto! Entre -18 e -6dBFS. Headroom suficiente para picos dinâmicos sem risco de clipping.',fail:'Nível ideal: -18dBFS a -6dBFS. Acima de 0dBFS = clipping digital = distorção irrecuperável. Deixe espaço para os picos de fortissimo.'},
-            {q:'O que é "comping" no contexto de gravação?',o:['Gravar com compressor desde o início','Compilar as melhores partes de múltiplas takes em uma performance final','Técnica de microfone em par X/Y','Normalizar o volume no final da sessão'],c:1,ok:'Exato! Comping: selecionar e unir os melhores trechos de takes diferentes. Editorial, não artificial.',fail:'Comping: compilar as melhores partes de diferentes takes em uma performance final coerente. Padrão profissional — poucos artistas lançam takes únicas sem seleção.'},
-            {q:'Para um pianista com piano digital, qual é a forma mais limpa de gravar?',o:['Microfone condensador na frente do piano','Conexão DI direta da saída de linha à interface de áudio','Gravar pelo microfone do laptop','Usar o aplicativo de gravação do celular'],c:1,ok:'Correto! DI (direct injection) de piano digital → interface de áudio. Som limpo, sem ruído ambiente, sem variação de posicionamento.',fail:'Piano digital: saída de linha (L/R) → interface de áudio. Sinal limpo, consistente, sem capturar ruído do ambiente. Use plugins de reverb para adicionar ambiência natural depois.'},
-            {q:'Por que o tratamento acústico é tão importante no home studio?',o:['Para reduzir o consumo de energia','Paredes paralelas criam reflexões e ressonâncias que coloram o som gravado de forma indesejada','Para proteger os microfones','Para aumentar o volume do instrumento'],c:1,ok:'Exato! Reflexões não tratadas contaminam a gravação com colorações que são difíceis de remover no mix.',fail:'Tratamento acústico: reflexões de paredes paralelas criam standing waves e early reflections que coloram o som. Painéis absorventes nos cantos e primeiras reflexões eliminam o problema principal.'},
+          ${EX.build('quiz','p19q','Quiz: Prática Eficiente',[
+            {q:'O que define a "prática deliberada" segundo a pesquisa de Ericsson?',o:['Praticar por muitas horas todos os dias','Praticar com intenção específica, foco total e trabalhar na zona de desconforto produtivo','Repetir a peça do início ao fim até memorizar','Praticar apenas o que você já sabe fazer bem'],a:1},
+            {q:'Por que a técnica de "trabalhar do final para o começo" é eficaz?',o:['Porque o final da peça é sempre o mais difícil','Porque garante que o final tenha tanta solidez quanto o começo, evitando que ele sempre soe pior por ter sido praticado menos','Porque o cérebro aprende música de trás para frente mais facilmente','Porque economiza tempo de prática'],a:1},
+            {q:'Qual é o benefício neurológico do slow practice?',o:['Aumenta a velocidade dos impulsos nervosos permanentemente','Dá tempo para o sistema nervoso processar cada decisão conscientemente, fortalecendo as conexões corretas sem reforçar erros','Reduz a tensão muscular apenas nas mãos','Melhora a leitura à primeira vista'],a:1},
+            {q:'Qual é a estrutura recomendada de uma sessão de prática eficiente?',o:['Tocar a peça completa repetidamente do início ao fim até memorizar','Técnica → Repertório (pontos difíceis) → Leitura à primeira vista → Teoria/Análise','Apenas técnica nos primeiros 6 meses, sem repertório','Improvisar livremente por 1 hora para aquecer antes de qualquer trabalho'],a:1},
           ])}
           <div class="checklist" id="cl_p19">
             ${checks('p19',[
-              'Gravei uma peça completa com qualidade adequada para distribuição',
-              'Entendo a diferença entre gravação de piano acústico e digital',
-              'Sei configurar níveis de gravação adequados na DAW (-18 a -6dBFS)',
-              'Fiz comping (compilação de takes) em pelo menos uma gravação',
-              'Aprendi as funções básicas de uma DAW (gravar, editar, exportar)',
-              'Tenho ao menos uma gravação finalizada que posso compartilhar',
+              'Identifico os pontos difíceis do meu repertório sem precisar tocar do início ao fim',
+              'Uso chunking e trabalho seções isoladas em vez de repetir peças inteiras',
+              'Faço slow practice com metrônomo e aumento o tempo gradualmente (4–5 BPM por sessão)',
+              'Tenho uma estrutura de sessão com técnica, repertório, leitura e teoria',
+              'Mantenho um diário de prática com anotações do que trabalhar',
+              'Gravo minha prática semanalmente para avaliar o progresso objetivamente',
             ])}
           </div>
         `
@@ -5069,208 +5278,277 @@ const COURSE_PIANO = [
       // ── P20 ──────────────────────────────────────
       {
         id: 'p20', num: 'P20',
-        title: 'Instrumentos Digitais, MIDI e DAW',
-        desc: 'O pianista moderno precisa navegar no mundo digital com a mesma fluência com que navega no teclado. MIDI, VSTs, controladores e DAW são extensões do seu instrumento no século XXI.',
+        title: 'Improvisação Avançada — Jazz, Gospel e Estilo Livre',
+        desc: 'Improvisar é falar musicalmente sem roteiro. É a habilidade mais expressiva do piano — e totalmente aprendível com o método certo.',
         video: '',
         content: () => `
-          <div class="section-title">🎹 O Piano no Mundo Digital</div>
-          <div class="info-box">
-            Saber tocar piano e saber produzir com piano são habilidades diferentes mas complementares. O pianista que domina MIDI e DAW pode compor trilhas, arranjar remotamente, gravar demos profissionais sozinho e abrir mercados impossíveis sem esse conhecimento.
-          </div>
+    <div class="section-title">🎹 Improvisação Avançada — Jazz, Gospel e Estilo Livre</div>
+    <div class="info-box">
+      <strong>Por que aprender a improvisar?</strong><br><br>
+      A maioria dos pianistas estudados toca o que está escrito. Os que improvisam fazem algo diferente: eles <em>conversam</em> com a música em tempo real. Improvisação não é tocar notas aleatórias — é ter vocabulário musical suficiente para expressar ideias espontaneamente, com coerência e intenção.<br><br>
+      A boa notícia: improvisação é uma habilidade que se aprende, não um dom. Assim como aprender um idioma, você começa com frases simples (escalas, motivos curtos), depois frases mais elaboradas, depois conversas completas. Os grandes improvisadores — Bill Evans, Oscar Peterson, Herbie Hancock, Keith Jarrett — todos estudaram vocabulário de forma sistemática antes de "libertar" sua voz.<br><br>
+      Neste módulo você vai aprender os fundamentos das três grandes linguagens de improvisação ao piano: <strong>jazz</strong> (ii-V-I, bebop, target notes), <strong>gospel</strong> (call and response, spread voicings, runs) e <strong>estilo livre</strong> (silêncio, exploração timbrística, expressar emoções puras). Cada uma vai expandir seu vocabulário musical de forma permanente.
+    </div>
 
-          <div class="expand-block">
-            <button class="expand-toggle" onclick="toggleExpand('p20-midi')">
-              <span><strong>🔌 MIDI — O Que É e Como Funciona</strong><br>
-              <span class="expand-toggle-sub">Musical Instrument Digital Interface — a linguagem universal</span></span>
-              <span class="expand-icon">+</span>
-            </button>
-            <div class="expand-body" id="p20-midi" style="display:none">
-              <strong>O que é MIDI:</strong> MIDI (Musical Instrument Digital Interface) não é áudio — é dados. Quando você toca uma nota em um teclado MIDI, ele envia a informação: "nota X, velocity Y, duração Z". A DAW recebe esses dados e os envia para um instrumento virtual (plugin) que gera o som real.<br><br>
-              <strong>Por que isso é poderoso:</strong> Você pode gravar uma performance ao piano, depois mudar o som (de piano para orquestra inteira), corrigir notas individuais sem regravar, mudar o tempo sem afetar a afinação, e exportar para partitura automaticamente.<br><br>
-              <strong>Velocity:</strong> A força com que você pressiona a tecla (0–127). Velocity 127 = fortissimo; velocity 1 = pianissimo. Pianos digitais com weighted keys transmitem velocity real. Teclados de peso uniforme limitam a expressividade MIDI.<br><br>
-              <strong>Tipos de mensagem MIDI:</strong> Note On/Off (notas), Control Change (pedal de sustain = CC64, expressão = CC11), Program Change (troca de instrumento), Pitch Bend (variação de altura — menos usado em piano, mais em synth).
-            </div>
-          </div>
+    <div class="expand-block">
+      <button class="expand-toggle" onclick="toggleExpand('p20-fundamentos')">
+        <span><strong>🎵 Fundamentos da Improvisação — Escalas Sobre Acordes</strong><br>
+        <span class="expand-toggle-sub">O mapa entre harmonia e melodia</span></span>
+        <span class="expand-icon">+</span>
+      </button>
+      <div class="expand-body" id="p20-fundamentos" style="display:none">
+        <p><strong>O princípio básico:</strong> em improvisação, você escolhe notas com base nos acordes que estão sendo tocados. Cada acorde "pede" uma escala ou conjunto de notas que soam bem com ele.</p>
+        <p><strong>As três relações fundamentais:</strong></p>
+        <ul>
+          <li><strong>Acorde maior (ex: Cmaj7):</strong> use a escala lídio (com #4) ou jônica. Sons: relaxado, luminoso, estável.</li>
+          <li><strong>Acorde menor (ex: Dm7):</strong> use a escala dórica (com 6ª maior). Sons: introspectivo, suave, jazzístico.</li>
+          <li><strong>Acorde dominante (ex: G7):</strong> use a escala mixolídio (maior com b7). Sons: tensão, movimento, expectativa de resolução.</li>
+        </ul>
+        <p><strong>O conceito de "menos é mais":</strong> os maiores improvisadores usam poucas notas com grande intenção, em vez de muitas notas sem propósito. Miles Davis é o mestre desse princípio — cada nota tem peso.</p>
+        <p><strong>Motivo e desenvolvimento:</strong> crie uma ideia curta (3-4 notas) e desenvolva-a — repita em altura diferente, inverta, acelere, desacelere. Isso cria coerência e estrutura na improvisação.</p>
+        <p><strong>Exercício inicial:</strong> sobre um acorde de Cmaj7, improvise usando apenas as notas Dó-Mi-Sol durante 2 minutos. Ritmos variados, alturas variadas. Depois adicione Ré. Depois La. Vá expandindo gradualmente.</p>
+      </div>
+    </div>
 
-          <div class="expand-block">
-            <button class="expand-toggle" onclick="toggleExpand('p20-vst')">
-              <span><strong>🎹 VST Piano — Os Melhores Instrumentos Virtuais</strong><br>
-              <span class="expand-toggle-sub">Da demo ao nível de concerto</span></span>
-              <span class="expand-icon">+</span>
-            </button>
-            <div class="expand-body" id="p20-vst" style="display:none">
-              <strong>O que é um VST Piano:</strong> Plugin de software que reproduz amostras (samples) de pianos reais, capturadas nota por nota em múltiplos níveis de velocity. Os melhores têm dezenas de GB de amostras e são praticamente indistinguíveis de um piano de concerto real em gravação.<br><br>
-              <strong>Referências por nível:</strong><br>
-              <em>Gratuitos/acessíveis:</em> LABS Piano (Spitfire Audio) — gratuito, excelente qualidade; Salamander Piano — open source, muito usado<br>
-              <em>Profissionais:</em> Pianoteq (modelagem física — levíssimo, altamente ajustável, sem samples); Native Instruments The Grandeur; Steinway Spirio (samples do Steinway D oficial)<br>
-              <em>Nível de concerto:</em> Yamaha CFX e Bösendorfer 280 via Ivory II (Synthogy) — os padrões da indústria<br><br>
-              <strong>Pianoteq:</strong> Único piano virtual baseado em modelagem física (não samples). Leve (50MB), altamente ajustável (regulagem, afinação temperamento, posição de microfone) e com resposta ao toque extremamente natural. Recomendado para quem começa.<br><br>
-              <strong>Controle de expressão:</strong> Todos os parâmetros do piano físico (pedal, velocity, sustain) precisam ser transmitidos corretamente via MIDI. Certifique-se que seu controlador transmite CC64 (sustain pedal) e que a DAW o recebe corretamente.
-            </div>
-          </div>
+    <div class="expand-block">
+      <button class="expand-toggle" onclick="toggleExpand('p20-jazz')">
+        <span><strong>🎷 Linguagem do Jazz — ii-V-I, Bebop e Target Notes</strong><br>
+        <span class="expand-toggle-sub">O vocabulário fundamental do jazz ao piano</span></span>
+        <span class="expand-icon">+</span>
+      </button>
+      <div class="expand-body" id="p20-jazz" style="display:none">
+        <p><strong>A progressão ii-V-I</strong> é a célula básica do jazz. Em Dó maior: Dm7 → G7 → Cmaj7. Essa progressão aparece em quase toda música de jazz. Dominar a improvisação sobre ela é o passo inicial obrigatório.</p>
+        <p><strong>Como improvisar sobre ii-V-I (passo a passo):</strong></p>
+        <ol>
+          <li>Sobre Dm7: use escala dórica de Ré (Ré-Mi-Fá-Sol-Lá-Si-Dó)</li>
+          <li>Sobre G7: use escala mixolídio de Sol (Sol-Lá-Si-Dó-Ré-Mi-Fá)</li>
+          <li>Sobre Cmaj7: use escala lídio de Dó (Dó-Ré-Mi-Fá#-Sol-Lá-Si)</li>
+          <li>Tente conectar as três escalas com notas cromáticas de passagem</li>
+        </ol>
+        <p><strong>Target notes (notas alvo):</strong> ao mudar de acorde, "aterrissar" numa nota que pertence ao acorde seguinte. Exemplo: ao chegar no G7, enfatizar Fá (a b7) ou Si (a 3ª maior). Isso cria a sensação de que a melodia "segue a harmonia".</p>
+        <p><strong>Bebop scale:</strong> a escala mixolídio com uma nota cromática adicionada entre a 7ª e a 8ª (Sol-Lá-Si-Dó-Ré-Mi-Fá-F#-Sol). Essa nota extra alinha as notas fortes do acorde nos tempos fortes do compasso — o segredo do fraseado bebop.</p>
+        <p><strong>Referências essenciais para ouvir e transcrever:</strong></p>
+        <ul>
+          <li><strong>Bill Evans</strong> — "Autumn Leaves" (Peace Piece album): lirismo e voicings intimistas</li>
+          <li><strong>Oscar Peterson</strong> — "Hymn to Freedom": velocidade, groove e clareza harmônica</li>
+          <li><strong>Herbie Hancock</strong> — "Maiden Voyage": modalismo, espaço, atmosfera</li>
+          <li><strong>Thelonious Monk</strong> — "Round Midnight": dissonâncias intencionais, personalidade radical</li>
+        </ul>
+      </div>
+    </div>
 
-          <div class="expand-block">
-            <button class="expand-toggle" onclick="toggleExpand('p20-producao')">
-              <span><strong>🎛️ Piano na Produção Musical — Orquestração Digital</strong><br>
-              <span class="expand-toggle-sub">Como usar o piano como fundação de um arranjo completo</span></span>
-              <span class="expand-icon">+</span>
-            </button>
-            <div class="expand-body" id="p20-producao" style="display:none">
-              <strong>Piano como sketch pad:</strong> Muitos compositores e arranjadores usam o piano para esboçar arranjos completos antes de orquestrar. No piano você pode tocar todas as vozes simultaneamente, verificar a harmonia e a melodia no mesmo instrumento.<br><br>
-              <strong>Gravar MIDI e orquestrar depois:</strong> Toque a composição inteira no piano via MIDI. Depois, na DAW, substitua seções por outros instrumentos: cordas, madeiras, metais, percussão. Ouça como a harmonia funciona distribuída por uma orquestra virtual. Ferramentas: Spitfire BBC Symphony Orchestra, Vienna Symphonic Library, EastWest Hollywood Orchestra.<br><br>
-              <strong>Layering de pianos:</strong> Em produção pop e eletrônica, frequentemente se usam 2–3 pianos em layers — um mais brilhante, um mais escuro, um mais percussivo — para criar o som "grande" característico de produções modernas.<br><br>
-              <strong>Humanização de MIDI:</strong> MIDI gravado ao vivo já tem humanização natural (variações de velocity e timing). Mas MIDI programado passo a passo parece robótico. Use variação aleatória de velocity (±10–15), micro-timing (±10ms) e pedal de sustain CC64 contínuo para humanizar performances programadas.
-            </div>
-          </div>
+    <div class="expand-block">
+      <button class="expand-toggle" onclick="toggleExpand('p20-gospel')">
+        <span><strong>✝️ Linguagem do Gospel — Call &amp; Response e Spread Voicings</strong><br>
+        <span class="expand-toggle-sub">A linguagem emocional mais poderosa do piano</span></span>
+        <span class="expand-icon">+</span>
+      </button>
+      <div class="expand-body" id="p20-gospel" style="display:none">
+        <p><strong>O que é o gospel ao piano?</strong> Gospel é antes de tudo uma intenção — comunicar emoção intensa, frequentemente espiritual. Tecnicamente, é marcado por acordes ricos (9ª, 11ª, 13ª), runs virtuosísticos, call and response entre mãos, e uma abordagem percussiva e vocal ao instrumento.</p>
+        <p><strong>Call and response:</strong> a mão direita "faz uma pergunta" (frase melódica), a mão esquerda "responde" (acorde ou frase de acompanhamento). Esse diálogo é o coração do estilo. Pratique tocando uma frase curta com a mão direita e respondendo imediatamente com a esquerda.</p>
+        <p><strong>Spread voicings (acordes abertos):</strong> em vez de empilhar as notas do acorde próximas, distribua-as em oitavas amplas. Exemplo: em vez de Dó-Mi-Sol-Si em posição fechada, toque Dó (oitava baixa) + Sol-Mi-Si (oitava alta). O resultado é um som mais "catedral", cheio e grandioso.</p>
+        <p><strong>Gospel runs:</strong> passagens rápidas e ornamentadas que conectam acordes ou decoram a melodia. Geralmente usam a escala pentatônica maior com notas cromáticas de aproximação. Pratique devagar, identificando quais notas são estruturais e quais são ornamentação.</p>
+        <p><strong>O legado do gospel na música popular:</strong> toda a linguagem do R&amp;B, soul, funk e até pop contemporâneo tem raízes diretas no gospel. Stevie Wonder, Aretha Franklin, Ray Charles, Marvin Gaye — todos vêm do gospel. Entender gospel é entender o DNA da música negra americana.</p>
+        <p><strong>Referências:</strong> Thomas A. Dorsey (pai do gospel moderno), Roberta Martin, Richard Smallwood, Kirk Franklin (gospel contemporâneo), e para piano específico: James Cleveland acompanhando Aretha Franklin.</p>
+      </div>
+    </div>
 
-          <div class="practice-box purple">
-            <div class="pb-label">🎯 Projeto de Produção com Piano MIDI</div>
-            <div class="pb-text">
-              <strong>Semana 1:</strong> Configure seu piano digital → interface → DAW. Grave 4 acordes em MIDI e ouça com 3 VSTs diferentes (LABS, Pianoteq, Grand Piano nativo da DAW). Compare os sons.<br><br>
-              <strong>Semana 2:</strong> Grave uma melodia simples em MIDI. Edite notas individuais na piano roll. Corrija timing e velocity manualmente.<br><br>
-              <strong>Semanas 3–4:</strong> Produza uma faixa completa de 2 minutos: piano MIDI como base + pelo menos 1 instrumento de string ou pad por cima. Exporte como MP3 e compartilhe.
-            </div>
-          </div>
+    <div class="expand-block">
+      <button class="expand-toggle" onclick="toggleExpand('p20-livre')">
+        <span><strong>🌊 Improvisação Livre — Silêncio, Timbre e Expressão Pura</strong><br>
+        <span class="expand-toggle-sub">Além das escalas: a voz pessoal</span></span>
+        <span class="expand-icon">+</span>
+      </button>
+      <div class="expand-body" id="p20-livre" style="display:none">
+        <p><strong>O que é improvisação livre?</strong> É improvisar sem seguir escalas predeterminadas, progressões de acordes ou estruturas rítmicas fixas. É pura expressão musical em tempo real, guiada apenas pela intenção e pela escuta. É difícil — e libertador.</p>
+        <p><strong>O papel do silêncio:</strong> Miles Davis disse que "as notas que você não toca são tão importantes quanto as que você toca". Na improvisação livre, o silêncio é um elemento ativo. Uma pausa bem colocada tem mais impacto do que um run virtuosístico.</p>
+        <p><strong>Explorando o timbre do piano:</strong></p>
+        <ul>
+          <li>Toque nas extremidades graves do teclado — ressonância, peso, escuridão</li>
+          <li>Toque nas extremidades agudas — fragilidade, brilho, leveza</li>
+          <li>Toque clusters (muitas teclas adjacentes): massa sonora, tensão, caos controlado</li>
+          <li>Toque pedal sustain com acordes abertos e deixe as frequências se misturarem</li>
+        </ul>
+        <p><strong>Keith Jarrett</strong> é a referência máxima de improvisação livre ao piano. Seu "Köln Concert" (1975) é uma improvisação de 66 minutos que começou às 23h de um dia em que o instrumento estava em condições precárias — e se tornou o álbum de piano solo mais vendido da história. Escute-o inteiro pelo menos uma vez.</p>
+        <p><strong>Como começar a improvisar livremente:</strong></p>
+        <ol>
+          <li>Escolha uma "restrição criativa": por exemplo, "vou usar apenas as teclas pretas por 5 minutos"</li>
+          <li>Grave-se. Nunca escute enquanto toca — só depois</li>
+          <li>Não julgue durante a improvisação. Julgue depois, na escuta</li>
+          <li>Deixe a emoção guiar, não a teoria</li>
+        </ol>
+      </div>
+    </div>
 
-          <div class="content-divider"></div>
-          <div class="section-title">🎮 Exercícios Interativos</div>
-          ${EX.build('flashcard','p20fc','Flashcards: MIDI e Produção',[
-            {f:'MIDI', b:'Musical Instrument Digital Interface. Não é áudio — são dados (nota, velocity, duração). Permite editar, transpor, mudar timbre e exportar para partitura sem regravar.'},
-            {f:'Velocity MIDI', b:'Força do toque (0–127). Determina a dinâmica da nota. Pianos com weighted keys transmitem velocity expressiva real. Fundamental para pianistas gravando MIDI.'},
-            {f:'CC64 — Sustain Pedal', b:'Control Change 64 — a mensagem MIDI do pedal de sustain. Valor 0=solto, 127=pressionado. Essencial para que o pedal de um piano digital funcione corretamente em uma DAW.'},
-            {f:'Pianoteq', b:'VST piano baseado em modelagem física (não samples). Muito leve, altamente ajustável, resposta ao toque excepcional. Recomendado para pianistas que querem produzir sem HD cheio de samples.'},
-            {f:'Piano Roll (DAW)', b:'Editor visual de MIDI na DAW — exibe notas como barras coloridas em um grid. Permite editar notas individualmente: altura, posição, duração, velocity. O "braço do piano" digital.'},
-            {f:'Humanização de MIDI', b:'Adicionar variações sutis de velocity (±10–15) e micro-timing (±5–10ms) a MIDI programado para soar humano. MIDI perfeitamente quantizado soa robótico.'},
-          ])}
-          ${EX.build('quiz','p20q','Quiz: MIDI e DAW',[
-            {q:'O que é MIDI, fundamentalmente?',o:['Um formato de arquivo de áudio','Dados de performance (nota, velocity, duração) — não áudio','Um tipo de cabo de microfone','Uma DAW específica'],c:1,ok:'Correto! MIDI são dados, não áudio. Isso é o que permite editar sem regravar.',fail:'MIDI: dados de performance musical (qual nota, com qual força, por quanto tempo). Não é som — é informação que um plugin ou instrumento converte em som.'},
-            {q:'O que é "velocity" no contexto MIDI?',o:['A velocidade do tempo (BPM)','A força com que a tecla foi pressionada (0–127) — determina a dinâmica','O volume do plugin de saída','O pitch bend da nota'],c:1,ok:'Exato! Velocity 0–127 corresponde à dinâmica, de pp a ff.',fail:'Velocity: intensidade do toque (0=silencioso, 127=máximo). Determina a dinâmica. Pianos com weighted keys transmitem velocity expressiva real — teclas de peso uniforme não.'},
-            {q:'Qual CC (Control Change) MIDI corresponde ao pedal de sustain?',o:['CC1 (Modulation)','CC7 (Volume)','CC64 (Sustain Pedal)','CC11 (Expression)'],c:2,ok:'Correto! CC64 = Damper/Sustain Pedal. Valor 0=solto, 127=pressionado.',fail:'CC64 é o pedal de sustain (damper). Sem isso configurado corretamente, o pedal de um piano digital não funciona na DAW.'},
-            {q:'Qual a vantagem do Pianoteq sobre VSTs baseados em samples?',o:['Tem mais amostras gravadas','Baseado em modelagem física — muito leve, ajustável, sem necessidade de muitos GB de samples','É gratuito para uso comercial','Funciona apenas offline'],c:1,ok:'Perfeito! Modelagem física: comportamento calculado em tempo real, não samples. Levíssimo e altamente ajustável.',fail:'Pianoteq usa modelagem física (síntese por modelos matemáticos do comportamento do piano). Vantagem: ~50MB, altamente ajustável, resposta ao toque realista. Sem os GBs de samples dos concorrentes.'},
-          ])}
-          <div class="checklist" id="cl_p20">
-            ${checks('p20',[
-              'Configurei meu piano digital → interface → DAW e gravei MIDI',
-              'Editei notas na piano roll (altura, duração, velocity)',
-              'O pedal de sustain (CC64) funciona corretamente na minha DAW',
-              'Testei pelo menos 2 VSTs de piano diferentes',
-              'Produzi uma faixa completa com piano MIDI e pelo menos 1 outro instrumento',
-              'Exportei um arquivo de áudio final (WAV ou MP3) de uma produção própria',
-            ])}
-          </div>
-        `
+    <div class="expand-block">
+      <button class="expand-toggle" onclick="toggleExpand('p20-pratica')">
+        <span><strong>🛠️ Como Praticar Improvisação de Forma Estruturada</strong><br>
+        <span class="expand-toggle-sub">Do vocabulário ao fluxo livre</span></span>
+        <span class="expand-icon">+</span>
+      </button>
+      <div class="expand-body" id="p20-pratica" style="display:none">
+        <p><strong>O paradoxo da improvisação:</strong> para improvisar livremente, você precisa de estrutura. O vocabulário (escalas, voicings, frases) precisa estar tão automatizado que não precise pensar nele durante a performance — só então a mente fica livre para expressar.</p>
+        <p><strong>Rotina de prática de improvisação (30 min/dia):</strong></p>
+        <ul>
+          <li><strong>10 min — Vocabulário:</strong> pratique um padrão específico (ex: ii-V-I em todas as tonalidades) até ficar automático</li>
+          <li><strong>10 min — Playalong:</strong> improvise sobre backing tracks (iReal Pro, YouTube playalongs). Comece em Dó maior, depois explore outras tonalidades</li>
+          <li><strong>10 min — Livre:</strong> sem regras. Grave-se. Expresse algo específico (uma emoção, uma imagem, uma memória)</li>
+        </ul>
+        <p><strong>Transcrever solos:</strong> é o caminho mais rápido para absorver vocabulário. Escolha um solo curto (4-8 compassos) de um pianista que você admira, transcreva por ouvido e toque no piano. Depois analise: quais notas ele usou? Quando? Por quê?</p>
+        <p><strong>Gravar-se é obrigatório:</strong> você não pode se ouvir objetivamente enquanto toca. A gravação revela o que realmente aconteceu — não o que você achava que estava tocando. Ouça sempre com 24 horas de distância para ter mais objetividade.</p>
+      </div>
+    </div>
+
+    <div class="content-divider"></div>
+    \${EX.build('flashcard','p20fc','Flashcards',[
+      {f:'O que é a progressão ii-V-I?', b:'A célula harmônica básica do jazz. Em Dó maior: Dm7 (ii) → G7 (V) → Cmaj7 (I). Aparece em quase todas as músicas de jazz e é o ponto de partida para aprender a improvisar.'},
+      {f:'Qual escala usar sobre um acorde dominante (ex: G7)?', b:'A escala mixolídio — igual à escala maior mas com o 7º grau abaixado. Em G7: Sol-Lá-Si-Dó-Ré-Mi-Fá (natural). Cria sensação de tensão que resolve para o acorde seguinte.'},
+      {f:'O que são "target notes" na improvisação?', b:'Notas alvo — notas do acorde seguinte que são antecipadas na frase melódica. Criam a sensação de que a melodia "segue a harmonia" e dão direção ao fraseado.'},
+      {f:'O que é "call and response" no gospel ao piano?', b:'Um diálogo entre as mãos: a mão direita faz uma "pergunta" (frase melódica) e a mão esquerda "responde" (acorde ou frase complementar). É o coração do estilo gospel.'},
+      {f:'O que diferencia a improvisação livre da improvisação sobre acordes?', b:'Na improvisação livre não há escalas, progressões ou estruturas rítmicas predeterminadas. A guia é apenas a intenção e a escuta — expressão pura, sem mapa harmônico.'},
+      {f:'Por que transcrever solos é essencial para aprender a improvisar?', b:'Transcrever absorve vocabulário diretamente da fonte. Você não aprende teoria — aprende como um músico real usou teoria numa situação real. É o equivalente a aprender idiomas pela imersão.'},
+    ])}
+    \${EX.build('quiz','p20q','Quiz',[
+      {q:'Qual das escalas abaixo é recomendada para improvisar sobre um acorde menor (ex: Dm7) em contexto de jazz?', o:['Escala maior (jônica)','Escala dórica (maior com b3 e b7)','Escala cromática','Escala de tons inteiros'], a:1},
+      {q:'O que é a "bebop scale" e para que serve?', b:'', o:['Uma escala com 5 notas usada no gospel','A escala mixolídio com uma nota cromática extra que alinha as notas do acorde nos tempos fortes','Uma escala de 8 notas inventada por Miles Davis','A escala pentatônica maior com b7 adicionada'], a:1},
+      {q:'Keith Jarrett é referência máxima em qual estilo de improvisação?', o:['Gospel e R&B contemporâneo','Jazz bebop tradicional','Improvisação livre e espontânea (Köln Concert)','Improvisação sobre ii-V-I em todas as tonalidades'], a:2},
+      {q:'Qual é a sequência recomendada para praticar improvisação diariamente?', o:['Apenas tocar livremente sem estrutura, confiando na intuição','Vocabulário estruturado → playalong → improvisação livre','Transcrever solos → decorá-los → repetir','Começar sempre pela improvisação livre e depois estudar teoria'], a:1},
+    ])}
+    \${checks('p20',[
+      'Improvisou sobre uma progressão ii-V-I em Dó maior usando as escalas corretas em cada acorde',
+      'Praticou criar motivos curtos (3-4 notas) e desenvolvê-los por pelo menos 2 minutos',
+      'Explorou o call and response: frase com mão direita respondida pela mão esquerda',
+      'Improvisou livremente por 5 minutos usando apenas as teclas pretas, gravando-se',
+      'Transcreveu pelo menos 4 compassos de um solo de piano de um músico que admira',
+    ])}
+  `,
       },
-
-      // ── P21 ──────────────────────────────────────
       {
         id: 'p21', num: 'P21',
-        title: 'Performance ao Vivo e Preparação Mental',
-        desc: 'Tocar ao vivo é o propósito final do estudo. A ansiedade de palco, a memorização confiável e a presença de palco são habilidades que se desenvolvem — não dons inatos.',
+        title: 'Preparação Mental — Tocando com Confiança',
+        desc: 'A técnica pode ser impecável no estudo e travar em público. A preparação mental é a ponte entre o que você sabe e o que consegue demonstrar quando importa.',
         video: '',
         content: () => `
-          <div class="section-title">🎭 A Arte da Performance</div>
-          <div class="info-box">
-            Há uma diferença enorme entre tocar bem em casa e tocar bem em público. O palco muda tudo — adrenalina, luz, audiência, acústica diferente. Preparar-se para essas variáveis é tão importante quanto preparar as notas.
-          </div>
+    <div class="section-title">🧠 Preparação Mental — Tocando com Confiança</div>
+    <div class="info-box">
+      <strong>O elo perdido entre técnica e performance</strong><br><br>
+      Você pratica horas por dia, conhece cada nota da peça, seus dedos sabem o caminho. Mas na hora de tocar para alguém — troca, esquece, os dedos tremem. Isso não é falta de habilidade: é falta de <strong>preparação mental</strong>.<br><br>
+      A performance é uma habilidade separada da técnica. Não é porque você toca bem em casa que vai tocar bem em público — a não ser que treine especificamente para isso. Os maiores pianistas da história sabiam disso: Artur Schnabel praticava mais mentalmente do que no piano. Claudio Arrau desenvolvia rituais de preparo psicológico antes de cada concerto. Murray Perahia estuda a psicologia da performance com a mesma seriedade que estuda a partitura.<br><br>
+      Neste módulo você vai entender a fisiologia da ansiedade, aprender técnicas de memorização confiável, praticar a visualização mental e construir uma rotina pré-performance que funcione para você.
+    </div>
 
-          <div class="expand-block">
-            <button class="expand-toggle" onclick="toggleExpand('p21-ansiedade')">
-              <span><strong>😰 Ansiedade de Palco — Entender para Dominar</strong><br>
-              <span class="expand-toggle-sub">A fisiologia do nervosismo e como transformá-lo em combustível</span></span>
-              <span class="expand-icon">+</span>
-            </button>
-            <div class="expand-body" id="p21-ansiedade" style="display:none">
-              <strong>O que é ansiedade de palco:</strong> A resposta "luta ou fuga" do sistema nervoso autônomo. Adrenalina aumenta a frequência cardíaca, contrai músculos, acelera o pensamento. Em excesso, destrói a performance. Em equilíbrio, aumenta o foco e a energia — é o que os atletas chamam de "zona".<br><br>
-              <strong>Reframing cognitivo:</strong> Em vez de "estou nervoso", diga para si mesmo "estou animado". A ativação fisiológica é idêntica — o significado que você atribui a ela determina se é paralisante ou energizante. Pesquisas de Alison Wood Brooks (Harvard) confirmam esse efeito.<br><br>
-              <strong>Técnica de respiração 4-7-8:</strong> Inspire pelo nariz contando 4 tempos. Segure contando 7. Expire pela boca contando 8. Repita 3 vezes. Ativa o sistema nervoso parassimpático e reduz a frequência cardíaca em 2–3 minutos. Use antes de entrar no palco.<br><br>
-              <strong>Desensibilização progressiva:</strong> A ansiedade diminui com exposição repetida ao estímulo gerador. Toque para 1 pessoa. Depois para 3. Depois para 10. Depois para 50. Cada exposição, com a música bem preparada, reduz a resposta ansiosa. Não evite apresentações — procure-as.
-            </div>
-          </div>
+    <div class="expand-block">
+      <button class="expand-toggle" onclick="toggleExpand('p21-ansiedade')">
+        <span><strong>😰 Entendendo a Ansiedade de Performance</strong><br>
+        <span class="expand-toggle-sub">Fisiologia, causas e como trabalhar com ela</span></span>
+        <span class="expand-icon">+</span>
+      </button>
+      <div class="expand-body" id="p21-ansiedade" style="display:none">
+        <p><strong>O que acontece no corpo:</strong> ansiedade de performance é uma resposta de luta-ou-fuga. O cérebro libera adrenalina: coração acelera, músculos tensionam, suor aparece, memória de curto prazo fica prejudicada. Esses são sintomas físicos reais — não "fraqueza mental".</p>
+        <p><strong>Por que pianistas são especialmente vulneráveis:</strong></p>
+        <ul>
+          <li>O piano exige <em>independência total das duas mãos</em> — qualquer interferência mental pode desequilibrar esse controle motor complexo</li>
+          <li>A maioria do repertório é tocado de memória — o medo de esquecer gera mais ansiedade, que aumenta o risco de esquecer (ciclo vicioso)</li>
+          <li>O pianista fica sozinho no palco, sem a segurança de uma banda</li>
+          <li>Erros são muito audíveis e não podem ser "camuflados"</li>
+        </ul>
+        <p><strong>A distinção crucial — ansiedade facilitadora vs paralisante:</strong> um nível moderado de excitação (arousal) melhora a performance — você fica mais focado, mais presente. O problema é quando ultrapassa o limiar e se torna paralisante. O objetivo não é eliminar a ansiedade, mas mantê-la no nível facilitador.</p>
+        <p><strong>Técnica de reframing:</strong> pesquisas da Stanford University mostraram que dizer "estou animado" (em vez de "estou ansioso") melhora objetivamente a performance. A fisiologia é igual — a interpretação é diferente. A adrenalina é a mesma; o significado que você dá a ela muda tudo.</p>
+        <p><strong>Respiração 4-7-8:</strong> inspire por 4 segundos, segure por 7, expire lentamente por 8. Ativa o sistema nervoso parassimpático, reduzindo a frequência cardíaca em 2-3 minutos. Use nos bastidores antes de entrar.</p>
+      </div>
+    </div>
 
-          <div class="expand-block">
-            <button class="expand-toggle" onclick="toggleExpand('p21-memorizacao')">
-              <span><strong>🧠 Memorização Confiável — Além da Memória Muscular</strong><br>
-              <span class="expand-toggle-sub">Por que a memória muscular falha e como evitar</span></span>
-              <span class="expand-icon">+</span>
-            </button>
-            <div class="expand-body" id="p21-memorizacao" style="display:none">
-              <strong>O problema da memória muscular:</strong> A maioria dos pianistas memoriza por repetição até os movimentos serem automáticos. Isso funciona — até que algo interrompa o automatismo (ansiedade, ruído, erro). Sem memória intelectual como backup, a performance trava completamente.<br><br>
-              <strong>Tipos de memória musical:</strong><br>
-              • <em>Muscular/motora:</em> os dedos "sabem" — frágil sob pressão<br>
-              • <em>Auditiva:</em> você ouve a próxima nota internamente antes de tocá-la — mais robusta<br>
-              • <em>Visual:</em> você "vê" a partitura mentalmente — backup consciente<br>
-              • <em>Analítica/intelectual:</em> você sabe a harmonia, a estrutura, a tonalidade — a mais estável<br><br>
-              <strong>Como construir memória sólida:</strong> 1) Toque de memória em câmera lenta (2x mais lento) — testa a memória analítica, não apenas muscular. 2) Toque de memória a partir de qualquer ponto da peça — você deve conseguir começar do compasso 24 sem tocar do início. 3) Toque mentalmente (sem piano) — visualize e ouça interiormente cada nota. 4) Toque em tonalidades diferentes — prova que você entende a harmonia, não apenas os movimentos.<br><br>
-              <strong>Simulação de performance:</strong> Antes de um recital, faça "dress rehearsals" em condições o mais próximas possível do real. Vista a roupa do show. Coloque-se em postura de recital. Toque do início ao fim sem parar — exatamente como no palco.
-            </div>
-          </div>
+    <div class="expand-block">
+      <button class="expand-toggle" onclick="toggleExpand('p21-memoria')">
+        <span><strong>🧩 Memorização Confiável — Os 4 Tipos de Memória</strong><br>
+        <span class="expand-toggle-sub">Como construir memória que não falha sob pressão</span></span>
+        <span class="expand-icon">+</span>
+      </button>
+      <div class="expand-body" id="p21-memoria" style="display:none">
+        <p><strong>O problema da memória motora pura:</strong> a maioria dos pianistas memoriza apenas com os dedos (memória motora). Isso funciona no piloto automático — mas qualquer distração (alguém tosse, você pensa "o que vem depois") pode fazer a corrente de movimentos automáticos quebrar. Se só há memória motora, não há como reconstruir.</p>
+        <p><strong>Os 4 tipos de memória que devem trabalhar juntos:</strong></p>
+        <ul>
+          <li><strong>Memória auditiva:</strong> você ouve internamente o que vem a seguir. "Soou errado" — você percebe antes de pensar. Desenvolve-se cantando a música sem o instrumento.</li>
+          <li><strong>Memória motora:</strong> os dedos "sabem o caminho". Necessária mas insuficiente sozinha. Desenvolve-se pela repetição correta.</li>
+          <li><strong>Memória visual:</strong> você "vê" a partitura na mente. Onde estão as notas na página, as dinâmicas, as articulações. Desenvolve-se lendo a partitura sem tocar, fechando os olhos e tentando "ver" a página.</li>
+          <li><strong>Memória analítica:</strong> você sabe a estrutura: "estou no compasso 24, começa a reexposição, a harmonia vai para Sol menor". Desenvolve-se pela análise formal da obra.</li>
+        </ul>
+        <p><strong>O teste do "começo do meio":</strong> você realmente memorizou uma peça se consegue começar de qualquer ponto — não só do início. Pratique identificar "pontos de ancoragem" (início de frases, mudanças de seção) e começar a tocar de cada um deles.</p>
+        <p><strong>Praticar de olhos fechados:</strong> force o uso da memória auditiva e motora sem o auxílio visual do teclado. Revela quais passagens dependem demais de "ver" as teclas.</p>
+      </div>
+    </div>
 
-          <div class="expand-block">
-            <button class="expand-toggle" onclick="toggleExpand('p21-palco')">
-              <span><strong>🎤 Presença de Palco e Comunicação com o Público</strong><br>
-              <span class="expand-toggle-sub">Tocar bem não é suficiente — você precisa se conectar</span></span>
-              <span class="expand-icon">+</span>
-            </button>
-            <div class="expand-body" id="p21-palco" style="display:none">
-              <strong>Entrada e saída do palco:</strong> Como você caminha até o piano, como você se senta, como você faz sua reverência — tudo isso é linguagem. Cuide-se: postura confiante, olhar para o público antes de começar, pausa breve antes da primeira nota. Esses segundos definem a primeira impressão.<br><br>
-              <strong>Durante a performance:</strong> O público quer que você se saia bem — eles torcem por você. Erros menores, na maioria dos casos, são imperceptíveis para não-músicos se você mantiver o fluxo e a expressividade. A atitude do pianista contamina o público: se você parecer angustiado, eles ficam desconfortáveis; se parecer envolvido na música, eles se envolvem também.<br><br>
-              <strong>Apresentar a música:</strong> Antes de tocar, diga o título e o compositor (se aplicável). Uma frase sobre a obra — não uma palestra. "Esta é a Balada Op.23 de Chopin — uma história de amor trágico em Sol menor" prepara o ouvinte emocionalmente e demonstra seu conhecimento.<br><br>
-              <strong>Lidando com erros:</strong> Nunca pare visivelmente por um erro a menos que seja impossível continuar. Continue, não mude a expressão, não sacuda a cabeça. A maioria do público não percebe. O pianista que continua com graça após um erro demonstra mais maturidade artística do que o que nunca erra em casa mas trava no palco.
-            </div>
-          </div>
+    <div class="expand-block">
+      <button class="expand-toggle" onclick="toggleExpand('p21-mental')">
+        <span><strong>🎯 Prática Mental — Tocar Sem o Instrumento</strong><br>
+        <span class="expand-toggle-sub">A técnica dos atletas de elite aplicada ao piano</span></span>
+        <span class="expand-icon">+</span>
+      </button>
+      <div class="expand-body" id="p21-mental" style="display:none">
+        <p><strong>O que é prática mental?</strong> É ensaiar a performance mentalmente, sem o instrumento — visualizando com detalhes as notas, o dedilhado, a dinâmica, as sensações físicas dos dedos. Estudos mostram que a prática mental ativa os mesmos circuitos neurais que a prática real.</p>
+        <p><strong>Artur Schnabel</strong> era famoso por praticar muito mais mentalmente do que no piano. Ele dizia que "o piano é um instrumento para exibir o que você já pensou". Glenn Gould, nos anos finais de carreira, chegava ao estúdio com as interpretações completamente elaboradas na mente — o piano era só o meio de registrar.</p>
+        <p><strong>Como fazer prática mental (protocolo):</strong></p>
+        <ol>
+          <li>Sente-se confortavelmente, feche os olhos e respire profundamente por 2 minutos</li>
+          <li>Visualize-se sentado ao piano. Sinta o banco, a temperatura da sala, o peso das teclas sob os dedos</li>
+          <li>Toque a peça mentalmente, em tempo real (não mais rápido). Ouça internamente cada nota</li>
+          <li>Sinta os movimentos dos dedos — não apenas imagine, mas sinta fisicamente a micro-contração muscular</li>
+          <li>Se travar ou hesitar, anote onde e pratique essa seção no instrumento depois</li>
+        </ol>
+        <p><strong>Aplicação prática:</strong> nos dias em que não pode tocar (viagem, dor no pulso, falta de piano disponível), faça 20 minutos de prática mental. Mantém e consolida a memória sem desgaste físico.</p>
+      </div>
+    </div>
 
-          <div class="expand-block">
-            <button class="expand-toggle" onclick="toggleExpand('p21-preparacao')">
-              <span><strong>📋 Rotina de Preparação para Recital</strong><br>
-              <span class="expand-toggle-sub">As 4 semanas antes de uma apresentação importante</span></span>
-              <span class="expand-icon">+</span>
-            </button>
-            <div class="expand-body" id="p21-preparacao" style="display:none">
-              <strong>4 semanas antes:</strong> O repertório deve estar tecnicamente sólido. Não aprenda novas peças. Foco exclusivo em polir e estabilizar o que já está no repertório. Grave-se e assista criticamente.<br><br>
-              <strong>2 semanas antes:</strong> Comece as simulações de performance — toque o programa inteiro do início ao fim sem parar, todos os dias. Convide pelo menos uma pessoa para assistir. Identifique os pontos de vulnerabilidade (onde você fica nervoso, onde a memória é frágil).<br><br>
-              <strong>1 semana antes:</strong> Reduza a intensidade do estudo técnico. Foque em manutenção, não em aprendizado. Cuide do sono e da hidratação. Visualize a performance bem-sucedida antes de dormir.<br><br>
-              <strong>Dia do recital:</strong> Pratique levemente pela manhã (30 min max). Não toque a peça inteira no aquecimento pré-show — economize a energia emocional para o palco. Respire. Chegue cedo para familiarizar-se com o instrumento e o espaço.
-            </div>
-          </div>
+    <div class="expand-block">
+      <button class="expand-toggle" onclick="toggleExpand('p21-pre')">
+        <span><strong>⏱️ Rotina Pré-Performance — Os 60 Minutos Antes</strong><br>
+        <span class="expand-toggle-sub">O que fazer (e não fazer) antes de sentar ao piano</span></span>
+        <span class="expand-icon">+</span>
+      </button>
+      <div class="expand-body" id="p21-pre" style="display:none">
+        <p><strong>O que você faz na hora antes de tocar determina como você vai tocar.</strong> Uma rotina consistente cria um gatilho psicológico: seu sistema nervoso aprende que "quando faço X, estou pronto para tocar bem".</p>
+        <p><strong>Protocolo sugerido (adapte ao seu estilo):</strong></p>
+        <ul>
+          <li><strong>60-45 min antes:</strong> aquecimento físico das mãos (água morna, exercícios suaves de alongamento dos dedos e pulsos). Nunca toque frio — é a causa principal de lesões.</li>
+          <li><strong>45-30 min antes:</strong> toque a peça UMA VEZ, devagar, de memória. Não para ensaiar — para "acordar" os circuitos. Depois PARE. Não repita.</li>
+          <li><strong>30-15 min antes:</strong> respiração e visualização. 5 minutos de respiração 4-7-8. 10 minutos de prática mental — visualize a performance perfeita.</li>
+          <li><strong>15-0 min antes:</strong> não toque mais. Fique em silêncio ou converse levemente. Evite cafeína, açúcar e conversas sobre "será que vai dar certo".</li>
+        </ul>
+        <p><strong>O que NÃO fazer:</strong></p>
+        <ul>
+          <li>Não pratique intensamente 1 hora antes — você vai cansar os dedos e a mente</li>
+          <li>Não toque a peça repetidamente em loop — isso aumenta a ansiedade e "gasta" a performance</li>
+          <li>Não compare sua preparação com a de outros</li>
+          <li>Não leia críticas ou avaliações de outras performances suas na véspera</li>
+        </ul>
+        <p><strong>Após a performance:</strong> independente do resultado, escreva num diário o que funcionou e o que não funcionou. Não avalie emocionalmente — observe tecnicamente. Essa reflexão sistemática é o que diferencia os músicos que evoluem continuamente.</p>
+      </div>
+    </div>
 
-          <div class="practice-box green">
-            <div class="pb-label">🎯 Protocolo de Simulação de Recital</div>
-            <div class="pb-text">
-              <strong>Frequência:</strong> 2x por semana, a partir de 3 semanas antes de qualquer apresentação.<br><br>
-              <strong>Regras:</strong> 1) Vista sua roupa de apresentação. 2) Toque o programa inteiro do início ao fim sem parar — por erro algum. 3) Convide pelo menos 1 pessoa a cada simulação. 4) Grave em vídeo. 5) Assista e identifique 3 coisas para melhorar (nunca apenas o que errou — observe também o que funcionou bem).
-            </div>
-          </div>
-
-          <div class="content-divider"></div>
-          <div class="section-title">🎮 Exercícios Interativos</div>
-          ${EX.build('flashcard','p21fc','Flashcards: Performance ao Vivo',[
-            {f:'Reframing da Ansiedade', b:'"Estou animado" em vez de "estou nervoso." A ativação fisiológica é idêntica — o significado muda o resultado. Pesquisa de Alison Wood Brooks (Harvard) confirma.'},
-            {f:'Respiração 4-7-8', b:'Inspire 4 tempos → segure 7 → expire 8. Ativa o sistema parassimpático. Reduz frequência cardíaca em 2–3 minutos. Use antes de entrar no palco.'},
-            {f:'Memória Analítica', b:'Saber a harmonia, estrutura e tonalidade de memória — a mais estável sob pressão. Teste: toque a peça devagar (2x mais lento) ou comece de qualquer compasso sem tocar do início.'},
-            {f:'Desensibilização Progressiva', b:'Exposição graduada ao estímulo gerador de ansiedade. Toque para 1, depois 3, depois 10, depois 50 pessoas. Cada exposição bem-sucedida reduz a resposta ansiosa.'},
-            {f:'Dress Rehearsal', b:'Simulação completa da performance em condições reais — roupa, postura, programa inteiro sem parar, plateia presente. Essencial nas 2 semanas antes de um recital.'},
-            {f:'Continuar após erros', b:'Nunca pare visivelmente por um erro. Continue com a mesma expressão. O público não-músico geralmente não percebe. Graça sob pressão = maturidade artística.'},
-          ])}
-          ${EX.build('quiz','p21q','Quiz: Performance e Preparação Mental',[
-            {q:'Qual técnica de respiração é recomendada para reduzir ansiedade antes de entrar no palco?',o:['Respiração 2-4-6','Respiração 4-7-8','Respiração de caixa (4-4-4-4)','Hiperventilação controlada'],c:1,ok:'Correto! 4-7-8: inspire 4, segure 7, expire 8. Ativa o sistema nervoso parassimpático.',fail:'Respiração 4-7-8: inspire 4 tempos, segure 7, expire 8. Ativa o parasimpático, reduz frequência cardíaca em minutos.'},
-            {q:'Por que a memória muscular sozinha é insuficiente para performance de palco?',o:['Músculos ficam cansados','A ansiedade pode interromper o automatismo — sem memória analítica como backup, a performance trava','A memória muscular desaparece após 24h','Não é insuficiente — é a melhor forma de memorizar'],c:1,ok:'Exato! Ansiedade interrompe o piloto automático. Memória analítica (harmonia, estrutura) é o backup estável.',fail:'Memória muscular falha quando algo interrompe o fluxo (erro, ruído, ansiedade). Sem memória analítica (saber a harmonia e estrutura), a performance trava sem retorno.'},
-            {q:'Como testar se sua memorização é analítica e não apenas muscular?',o:['Tocar na velocidade máxima','Tocar a peça começando de qualquer compasso aleatório sem tocar do início','Tocar de olhos fechados','Tocar em fortissimo'],c:1,ok:'Correto! Começar de qualquer ponto prova que você sabe a estrutura — não apenas o fluxo linear dos movimentos.',fail:'Teste de memória analítica: comece a peça do compasso 16, ou 32, ou do segundo tema. Se só consegue do início, a memória é predominantemente muscular — frágil sob pressão.'},
-            {q:'O que fazer ao cometer um erro visível durante uma performance ao vivo?',o:['Parar e pedir desculpa ao público','Recomeçar a peça do início','Continuar sem mudar a expressão — o público geralmente não percebe erros menores','Parar de tocar e explicar o que aconteceu'],c:2,ok:'Correto! Continue, sem mudar a expressão. A atitude do pianista contamina o público — graça sob pressão é maturidade artística.',fail:'Continue sem parar ou mudar a expressão. Erros menores são imperceptíveis para não-músicos se o fluxo for mantido. Parar chamando atenção para o erro é pior que o erro em si.'},
-          ])}
-          <div class="checklist" id="cl_p21">
-            ${checks('p21',[
-              'Fiz pelo menos 3 simulações de recital (dress rehearsal) com plateia',
-              'Toco meu repertório começando de qualquer compasso (memória analítica)',
-              'Uso técnica de respiração para controlar ansiedade antes de tocar',
-              'Toquei ao vivo para pelo menos 10 pessoas em um contexto real',
-              'Gravei em vídeo uma performance e assisti criticamente',
-              'Nunca paro por erros — continuo com a mesma expressão',
-            ])}
-          </div>
-        `
+    <div class="content-divider"></div>
+    \${EX.build('flashcard','p21fc','Flashcards',[
+      {f:'Quais são os 4 tipos de memória que um pianista deve desenvolver?', b:'1. Memória auditiva (ouvir internamente), 2. Memória motora (dedos sabem o caminho), 3. Memória visual (ver a partitura mentalmente), 4. Memória analítica (saber a estrutura formal). Os 4 juntos criam memória confiável.'},
+      {f:'O que é a técnica de "reframing" da ansiedade?', b:'Substituir "estou ansioso" por "estou animado". A fisiologia é idêntica (mesma adrenalina), mas a interpretação muda a experiência. Pesquisas mostram que isso melhora objetivamente a performance.'},
+      {f:'O que é prática mental e por que funciona?', b:'É ensaiar a peça mentalmente, sem o instrumento. Ativa os mesmos circuitos neurais que a prática real. Permite manter e consolidar a memória sem desgaste físico, e revela fragilidades de memória.'},
+      {f:'O que é o teste do "começo do meio" na memorização?', b:'Identificar pontos de ancoragem na peça (início de frases, seções) e praticar começar a tocar de cada um deles. Se só consegue começar do início, a memória é frágil — depende apenas da corrente motora.'},
+      {f:'Qual é a respiração recomendada para reduzir ansiedade antes de tocar?', b:'Respiração 4-7-8: inspire por 4 segundos, segure por 7, expire por 8. Ativa o sistema parassimpático e reduz a frequência cardíaca em 2-3 minutos.'},
+      {f:'Por que pianistas são especialmente vulneráveis à ansiedade de performance?', b:'Independência total das mãos (distração pode quebrar), tocar de memória (medo de esquecer gera mais ansiedade), solidão no palco e impossibilidade de camuflar erros — combinação mais desafiadora que outros instrumentos.'},
+    ])}
+    \${EX.build('quiz','p21q','Quiz',[
+      {q:'Qual tipo de memória é mais perigosa quando usada sozinha (sem os outros tipos)?', o:['Memória auditiva','Memória visual','Memória motora (dos dedos)','Memória analítica'], a:2},
+      {q:'De acordo com a fisiologia da ansiedade, qual é o OBJETIVO correto de uma rotina pré-performance?', o:['Eliminar completamente toda ansiedade antes de tocar','Manter a ansiedade num nível moderado que facilite a performance','Tocar a peça repetidamente até sentir segurança total','Evitar pensar na performance para não aumentar a pressão'], a:1},
+      {q:'Qual pianista histórico era famoso por praticar mais mentalmente do que no piano?', o:['Vladimir Horowitz','Frédéric Chopin','Artur Schnabel','Martha Argerich'], a:2},
+      {q:'O que você deve EVITAR fazer na hora antes de uma performance?', o:['Fazer alongamento suave das mãos','Praticar a peça intensamente em loop para garantir segurança','Fazer respiração profunda e visualização','Beber água e ficar em silêncio'], a:1},
+    ])}
+    \${checks('p21',[
+      'Pratiquei a técnica de respiração 4-7-8 por pelo menos 3 dias consecutivos',
+      'Identifiquei os 4 tipos de memória que uso ao tocar uma peça que sei de cor',
+      'Fiz pelo menos 15 minutos de prática mental de uma peça, sem o instrumento',
+      'Pratiquei começar uma peça memorizada de pelo menos 5 pontos diferentes além do início',
+      'Escrevi uma rotina pré-performance personalizada e a testei pelo menos uma vez',
+    ])}
+  `,
       },
-
-      // ── P22 ──────────────────────────────────────
       {
         id: 'p22', num: 'P22',
         title: 'Polifonia e Independência das Vozes',
