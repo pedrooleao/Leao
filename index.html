@@ -225,6 +225,10 @@ body{
   font-size:12px;
   color:var(--muted);
   font-family:'Space Mono',monospace;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  max-width:calc(100vw - 230px);
 }
 #breadcrumb span{color:var(--text);}
 
@@ -410,7 +414,7 @@ body{
   transition:all 0.2s;
   user-select:none;
 }
-.check-item:hover{border-color:var(--border2);}
+.check-item:hover{border-color:var(--border2);background:rgba(255,255,255,.04);}
 .check-item.checked{
   background:rgba(34,201,117,0.06);
   border-color:rgba(34,201,117,0.3);
@@ -704,6 +708,8 @@ body{
   .topics-grid{grid-template-columns:1fr;}
   .rhythm-grid{grid-template-columns:repeat(2,1fr);}
   #sidebar-overlay{display:block;}
+  .fretboard-ex{min-width:auto;}
+  .fretboard-wrap,.fretboard-wrap-ex{overflow-x:auto;-webkit-overflow-scrolling:touch;}
 }
 #sidebar-overlay{
   display:none;
@@ -763,6 +769,7 @@ body::-webkit-scrollbar-thumb{background:var(--border);}
 .fb-dot-ex.wdot{background:#ff4d4d;border-color:#ff4d4d;color:#fff;}
 .fb-dot-ex.rdot{background:rgba(34,201,117,.3);border-color:var(--green);color:var(--green);}
 @keyframes fpop{0%{transform:scale(.8)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .flashcard-wrap{perspective:1000px;margin-bottom:16px;}
 .flashcard-ex{width:100%;height:160px;position:relative;transform-style:preserve-3d;transition:transform .5s ease;cursor:pointer;}
 .flashcard-ex.flipped{transform:rotateY(180deg);}
@@ -5653,11 +5660,17 @@ function updateProgress() {
 function buildSidebar() {
   const nav = document.getElementById('sidebar-nav');
   nav.innerHTML = '';
+  const lastLesson = localStorage.getItem('lastLesson_' + activeInstrument);
   COURSE.forEach((phase, pi) => {
+    const stateKey = 'phase_open_' + activeInstrument + '_' + phase.id;
+    const savedState = localStorage.getItem(stateKey);
+    const hasActiveLesson = phase.lessons.some(l => l.id === lastLesson);
+    // Open if: never explicitly closed, OR contains the active lesson
+    const isOpen = savedState !== '0' || hasActiveLesson;
     const group = document.createElement('div');
-    group.className = 'phase-group';
+    group.className = 'phase-group' + (isOpen ? '' : ' collapsed');
     group.innerHTML = `
-      <div class="phase-group-header" onclick="togglePhaseGroup(this)">
+      <div class="phase-group-header" onclick="togglePhaseGroup(this,'${phase.id}')">
         <div class="pgh-dot" style="background:${phase.dot}"></div>
         <div class="pgh-label">${phase.label}</div>
         <div class="pgh-count">${phase.lessons.length}</div>
@@ -5675,8 +5688,11 @@ function buildSidebar() {
   });
 }
 
-function togglePhaseGroup(header) {
-  header.closest('.phase-group').classList.toggle('collapsed');
+function togglePhaseGroup(header, phaseId) {
+  const group = header.closest('.phase-group');
+  const isNowCollapsed = group.classList.toggle('collapsed');
+  const stateKey = 'phase_open_' + activeInstrument + '_' + phaseId;
+  localStorage.setItem(stateKey, isNowCollapsed ? '0' : '1');
 }
 
 // ════════════════════════════════════════════════
@@ -5745,14 +5761,26 @@ function loadLesson(id) {
     <div class="lesson-nav">
       ${prev ? `<button class="nav-btn" onclick="loadLesson('${prev.id}')">← ${prev.title}</button>` : '<div></div>'}
       <button class="nav-btn done-btn ${isLessonDone(entry)?'marked':''}" onclick="markDone('${entry.id}',this)" id="done-btn">
-        ${isLessonDone(entry) ? '✓ Concluída' : 'Marcar como concluída'}
+        ${isLessonDone(entry) ? '✓ Concluída — clique para desmarcar' : 'Marcar tudo como feito ✓'}
       </button>
       ${next ? `<button class="nav-btn primary" onclick="loadLesson('${next.id}')">Próxima: ${next.title} →</button>` : '<button class="nav-btn primary" disabled>Curso Concluído 🎸</button>'}
     </div>`;
 
+  // save last visited lesson for resume
+  localStorage.setItem('lastLesson_' + activeInstrument, id);
+
+  // fade-in animation
+  content.style.animation = 'none';
+  content.offsetHeight; // force reflow
+  content.style.animation = 'fadeInUp .25s ease';
+
   content.scrollTop = 0;
   window.scrollTo(0,0);
   closeSidebar();
+
+  // auto-scroll sidebar to active lesson
+  const activeItem = document.querySelector('.lesson-item.active');
+  if (activeItem) activeItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 }
 
 function markDone(id, btn) {
@@ -5776,7 +5804,7 @@ function markDone(id, btn) {
   updateProgress();
   const nowDone = isLessonDone(entry);
   btn.classList.toggle('marked', nowDone);
-  btn.textContent = nowDone ? '✓ Concluída' : 'Marcar como concluída';
+  btn.textContent = nowDone ? '✓ Concluída — clique para desmarcar' : 'Marcar tudo como feito ✓';
   // update lp
   const {total, done} = countLessonChecks(entry);
   const pct = total>0?Math.round(done/total*100):0;
@@ -5797,6 +5825,8 @@ function showWelcome() {
   const sub   = isPiano
     ? 'Um plano de estudos completo e estruturado para você se tornar um pianista completo. Todo o conteúdo, exercícios e checklists para acompanhar seu progresso.'
     : 'Um plano de estudos completo e estruturado para você se tornar um baixista profissional. Todo o conteúdo, exercícios e checklists para acompanhar seu progresso.';
+  const lastLesson = localStorage.getItem('lastLesson_' + activeInstrument);
+  const resumeLesson = (done > 0 && lastLesson) ? lastLesson : firstLesson;
   const btnLabel = done > 0 ? `▶ Continuar Estudando` : `${icon} Começar o Curso`;
   document.getElementById('content').innerHTML = `
     <div id="welcome-screen">
@@ -5809,7 +5839,7 @@ function showWelcome() {
         <div class="ws-stat"><div class="ws-stat-n">${total}</div><div class="ws-stat-l">Objetivos</div></div>
         <div class="ws-stat"><div class="ws-stat-n">${done}</div><div class="ws-stat-l">Concluídos</div></div>
       </div>
-      <button class="start-btn" onclick="loadLesson('${firstLesson}')">
+      <button class="start-btn" onclick="loadLesson('${resumeLesson}')">
         ${btnLabel}
       </button>
       <p style="margin-top:16px;font-size:12px;color:var(--muted)">Seu progresso é salvo automaticamente no navegador</p>
