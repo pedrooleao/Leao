@@ -5790,19 +5790,27 @@ function markDone(id, btn) {
 function showWelcome() {
   const {total, done} = countChecks();
   document.getElementById('breadcrumb').textContent = 'Bem-vindo';
+  const isPiano = activeInstrument === 'piano';
+  const firstLesson = isPiano ? 'p01' : 'f1m1';
+  const icon  = isPiano ? '🎹' : '🎸';
+  const title = isPiano ? 'CURSO DE PIANO' : 'CURSO DE BAIXO';
+  const sub   = isPiano
+    ? 'Um plano de estudos completo e estruturado para você se tornar um pianista completo. Todo o conteúdo, exercícios e checklists para acompanhar seu progresso.'
+    : 'Um plano de estudos completo e estruturado para você se tornar um baixista profissional. Todo o conteúdo, exercícios e checklists para acompanhar seu progresso.';
+  const btnLabel = done > 0 ? `▶ Continuar Estudando` : `${icon} Começar o Curso`;
   document.getElementById('content').innerHTML = `
     <div id="welcome-screen">
-      <div class="ws-icon">🎸</div>
-      <div class="ws-title">CURSO DE BAIXO<br><span>DO BÁSICO AO PRO</span></div>
-      <p class="ws-sub">Um plano de estudos completo e estruturado para você se tornar um baixista profissional. Todo o conteúdo, exercícios e checklists para acompanhar seu progresso.</p>
+      <div class="ws-icon">${icon}</div>
+      <div class="ws-title">${title}<br><span>DO BÁSICO AO PRO</span></div>
+      <p class="ws-sub">${sub}</p>
       <div class="ws-stats">
         <div class="ws-stat"><div class="ws-stat-n">4</div><div class="ws-stat-l">Fases</div></div>
         <div class="ws-stat"><div class="ws-stat-n">23</div><div class="ws-stat-l">Módulos</div></div>
         <div class="ws-stat"><div class="ws-stat-n">${total}</div><div class="ws-stat-l">Objetivos</div></div>
         <div class="ws-stat"><div class="ws-stat-n">${done}</div><div class="ws-stat-l">Concluídos</div></div>
       </div>
-      <button class="start-btn" onclick="loadLesson('f1m1')">
-        ${done > 0 ? '▶ Continuar Estudando' : '🎸 Começar o Curso'}
+      <button class="start-btn" onclick="loadLesson('${firstLesson}')">
+        ${btnLabel}
       </button>
       <p style="margin-top:16px;font-size:12px;color:var(--muted)">Seu progresso é salvo automaticamente no navegador</p>
     </div>`;
