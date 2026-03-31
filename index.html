@@ -634,7 +634,7 @@ body{
 .is-card-icon{font-size:52px;margin-bottom:16px;}
 .is-card-name{font-size:20px;font-weight:700;color:var(--text);margin-bottom:8px;}
 .is-card-desc{font-size:13px;color:var(--muted);line-height:1.6;}
-#switch-instrument{padding:12px 16px;border-top:1px solid var(--border);
+#switch-instrument{padding:10px 16px;border-bottom:1px solid var(--border);
   font-size:12px;color:var(--muted);cursor:pointer;text-align:center;
   transition:color .15s;user-select:none;}
 #switch-instrument:hover{color:var(--text);}
@@ -827,6 +827,7 @@ body::-webkit-scrollbar-thumb{background:var(--border);}
     <div class="logo-title">🎸 CURSO DE BAIXO</div>
     <div class="logo-sub">Do Básico ao Profissional</div>
   </div>
+  <div id="switch-instrument" onclick="showInstrumentSelect()">🔄 Trocar instrumento</div>
   <div id="overall-progress">
     <div class="op-label">
       <span>PROGRESSO GERAL</span>
@@ -835,7 +836,6 @@ body::-webkit-scrollbar-thumb{background:var(--border);}
     <div class="op-bar"><div class="op-fill" id="progress-fill" style="width:0%"></div></div>
   </div>
   <nav id="sidebar-nav"></nav>
-  <div id="switch-instrument" onclick="showInstrumentSelect()">🔄 Trocar instrumento</div>
 </div>
 
 <!-- ─── MAIN ─── -->
