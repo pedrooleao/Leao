@@ -6062,6 +6062,16 @@ const COURSE_PIANO = [
 ]; // end COURSE
 
 // ════════════════════════════════════════════════
+//  COURSE_GUITARRA — placeholder (content being generated)
+// ════════════════════════════════════════════════
+const COURSE_GUITARRA = [];
+
+// ════════════════════════════════════════════════
+//  COURSE_VIOLAO — placeholder (content being generated)
+// ════════════════════════════════════════════════
+const COURSE_VIOLAO = [];
+
+// ════════════════════════════════════════════════
 //  HELPERS
 // ════════════════════════════════════════════════
 function topics(arr) {
@@ -6341,13 +6351,13 @@ function markDone(id, btn) {
 function showWelcome() {
   const {total, done} = countChecks();
   document.getElementById('breadcrumb').textContent = 'Bem-vindo';
-  const isPiano = activeInstrument === 'piano';
-  const firstLesson = isPiano ? 'p01' : 'f1m1';
-  const icon  = isPiano ? '🎹' : '🎸';
-  const title = isPiano ? 'CURSO DE PIANO' : 'CURSO DE BAIXO';
-  const sub   = isPiano
-    ? 'Um plano de estudos completo e estruturado para você se tornar um pianista completo. Todo o conteúdo, exercícios e checklists para acompanhar seu progresso.'
-    : 'Um plano de estudos completo e estruturado para você se tornar um baixista profissional. Todo o conteúdo, exercícios e checklists para acompanhar seu progresso.';
+  const _wcfg = {
+    baixo:    { first:'f1m1', icon:'🎸', title:'CURSO DE BAIXO',      sub:'Um plano de estudos completo e estruturado para você se tornar um baixista profissional. Todo o conteúdo, exercícios e checklists para acompanhar seu progresso.' },
+    piano:    { first:'p01',  icon:'🎹', title:'CURSO DE PIANO',      sub:'Um plano de estudos completo e estruturado para você se tornar um pianista completo. Todo o conteúdo, exercícios e checklists para acompanhar seu progresso.' },
+    guitarra: { first:'g01',  icon:'🎸', title:'GUITARRA ELÉTRICA',   sub:'Um plano de estudos completo e estruturado para você se tornar um guitarrista profissional. Todo o conteúdo, exercícios e checklists para acompanhar seu progresso.' },
+    violao:   { first:'vi01', icon:'🪕', title:'CURSO DE VIOLÃO',     sub:'Um plano de estudos completo e estruturado para você se tornar um violonista completo. Todo o conteúdo, exercícios e checklists para acompanhar seu progresso.' },
+  };
+  const { first: firstLesson, icon, title, sub } = _wcfg[activeInstrument] || _wcfg.baixo;
   const lastLesson = localStorage.getItem('lastLesson_' + activeInstrument);
   const resumeLesson = (done > 0 && lastLesson) ? lastLesson : firstLesson;
   const btnLabel = done > 0 ? `▶ Continuar Estudando` : `${icon} Começar o Curso`;
@@ -6458,6 +6468,16 @@ function showInstrumentSelect() {
           <div class="is-card-name">Piano</div>
           <div class="is-card-desc">Do básico ao profissional<br>23 módulos · 4 fases</div>
         </div>
+        <div class="is-card" onclick="selectInstrument('guitarra')">
+          <div class="is-card-icon">🎸</div>
+          <div class="is-card-name">Guitarra Elétrica</div>
+          <div class="is-card-desc">Do básico ao profissional<br>23 módulos · 4 fases</div>
+        </div>
+        <div class="is-card" onclick="selectInstrument('violao')">
+          <div class="is-card-icon">🪕</div>
+          <div class="is-card-name">Violão</div>
+          <div class="is-card-desc">Do básico ao profissional<br>23 módulos · 4 fases</div>
+        </div>
       </div>
     </div>`;
   const _ic=document.getElementById('content');_ic.style.animation='none';_ic.offsetHeight;_ic.style.animation='fadeInUp .25s ease';
@@ -6466,16 +6486,18 @@ function showInstrumentSelect() {
 function selectInstrument(instrument) {
   activeInstrument = instrument;
   localStorage.setItem('selectedInstrument', instrument);
-  COURSE = instrument === 'piano' ? COURSE_PIANO : COURSE_BAIXO;
+  const _courseMap = { baixo: COURSE_BAIXO, piano: COURSE_PIANO, guitarra: COURSE_GUITARRA, violao: COURSE_VIOLAO };
+  COURSE = _courseMap[instrument] || COURSE_BAIXO;
   const logoTitle = document.querySelector('#sidebar-logo .logo-title');
   const logoSub   = document.querySelector('#sidebar-logo .logo-sub');
-  if (instrument === 'piano') {
-    logoTitle.textContent = '🎹 CURSO DE PIANO';
-    logoSub.textContent   = 'Do Básico ao Profissional';
-  } else {
-    logoTitle.textContent = '🎸 CURSO DE BAIXO';
-    logoSub.textContent   = 'Do Básico ao Profissional';
-  }
+  const _logoMap  = {
+    baixo:    '🎸 CURSO DE BAIXO',
+    piano:    '🎹 CURSO DE PIANO',
+    guitarra: '🎸 GUITARRA ELÉTRICA',
+    violao:   '🪕 CURSO DE VIOLÃO',
+  };
+  logoTitle.textContent = _logoMap[instrument] || '🎸 CURSO DE BAIXO';
+  logoSub.textContent   = 'Do Básico ao Profissional';
   buildAllLessons();
   buildSidebar();
   updateProgress();
@@ -6643,7 +6665,8 @@ function clSaveKey() {
 }
 
 function clGreeting() {
-  const instr = activeInstrument === 'piano' ? 'piano 🎹' : 'baixo 🎸';
+  const _nm = { piano:'piano 🎹', baixo:'baixo 🎸', guitarra:'guitarra elétrica 🎸', violao:'violão 🪕' };
+  const instr = _nm[activeInstrument] || 'música 🎵';
   return 'Olá! 😊 Sou o Claudinho, seu assistente musical!\n\nEstou aqui para te ajudar com o curso de ' + instr + ' e qualquer dúvida musical. O que você quer saber?';
 }
 
@@ -6721,7 +6744,8 @@ async function clSend() {
 }
 
 function clSystem() {
-  const instr = activeInstrument === 'piano' ? 'piano' : 'baixo elétrico';
+  const _in = { piano:'piano', baixo:'baixo elétrico', guitarra:'guitarra elétrica', violao:'violão' };
+  const instr = _in[activeInstrument] || 'instrumento de cordas';
   let lessonCtx = '';
   if (currentLessonId) {
     const lesson = allLessons.find(l => l.id === currentLessonId);
@@ -6738,7 +6762,8 @@ function clSystem() {
 }
 
 function clUpdateInstrument() {
-  const e = activeInstrument === 'piano' ? '🎹' : '🎸';
+  const _em = { piano:'🎹', violao:'🪕', guitarra:'🎸', baixo:'🎸' };
+  const e = _em[activeInstrument] || '🎸';
   const icon = document.getElementById('cl-icon');
   const av   = document.getElementById('claudinho-avatar');
   if (icon) icon.textContent = e;
