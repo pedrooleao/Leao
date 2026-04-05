@@ -1198,14 +1198,19 @@ const EX={
     if(tb){tb.style.background=ok?'rgba(34,201,117,.3)':'rgba(255,77,77,.3)';setTimeout(()=>{if(tb)tb.style.background='rgba(245,166,35,.15)';},150);}
   },
 
-  build(type,id,title,data,bpm){
+  build(type,id,titleOrData,data,bpm){
+    // Support both EX.build(type,id,title,data) and EX.build(type,id,data) (no title)
+    let title,d,b;
+    if(Array.isArray(titleOrData)){title='';d=titleOrData;b=data;}
+    else{title=titleOrData||'';d=data;b=bpm;}
     const lbl={quiz:'Quiz',fretboard:'Braço do Baixo',flashcard:'Flashcards',rhythm:'Exercício Rítmico'};
     let body='';
-    if(type==='quiz')body=this.quiz(id,data);
-    else if(type==='fretboard')body=this.fretboard(id,data);
-    else if(type==='flashcard')body=this.flashcard(id,data);
-    else if(type==='rhythm')body=this.rhythm(id,data,bpm);
-    return`<div class="exercise-block"><div class="ex-header"><span class="ex-badge ${type}">${lbl[type]||type}</span><span class="ex-title">${title}</span></div>${body}</div>`;
+    if(type==='quiz')body=this.quiz(id,d);
+    else if(type==='fretboard')body=this.fretboard(id,d);
+    else if(type==='flashcard')body=this.flashcard(id,d);
+    else if(type==='rhythm')body=this.rhythm(id,d,b);
+    const hdr=title?`<span class="ex-badge ${type}">${lbl[type]||type}</span><span class="ex-title">${title}</span>`:`<span class="ex-badge ${type}">${lbl[type]||type}</span>`;
+    return`<div class="exercise-block"><div class="ex-header">${hdr}</div>${body}</div>`;
   }
 };
 
