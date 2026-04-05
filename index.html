@@ -827,6 +827,7 @@ body::-webkit-scrollbar-thumb{background:var(--border);}
 /* ── CLAUDINHO MASCOTE ──────────────────────────────── */
 #cl-wrap{
   position:fixed;z-index:200;
+  right:20px;bottom:120px;
   user-select:none;touch-action:none;
   cursor:grab;
 }
@@ -10794,8 +10795,8 @@ if (activeInstrument) {
 } else {
   showInstrumentSelect();
 }
-// init Claudinho after DOM settles
-setTimeout(clInitRobot, 0);
+// init Claudinho after DOM is fully ready
+window.addEventListener('load', clInitRobot);
 
 // ── CLAUDINHO ─────────────────────────────────────────────────────
 const CL_KEY_LS = 'claudinho_apikey';
@@ -10842,7 +10843,10 @@ function clEndDrag(e) {
 }
 function clApplyPos() {
   const wrap = document.getElementById('cl-wrap');
-  if (wrap) { wrap.style.left = clX+'px'; wrap.style.top = clY+'px'; }
+  if (wrap) {
+    wrap.style.right = 'auto'; wrap.style.bottom = 'auto';
+    wrap.style.left = clX+'px'; wrap.style.top = clY+'px';
+  }
   if (clOpen) clPositionPanel();
 }
 function clPositionPanel() {
@@ -10876,14 +10880,20 @@ function clHideBubble() {
 
 // ── init robot on load ──
 function clInitRobot() {
+  const defX = window.innerWidth - 92, defY = window.innerHeight - 140;
   try {
     const s = JSON.parse(localStorage.getItem(CL_POS_LS));
-    if (s && typeof s.x === 'number') { clX = s.x; clY = s.y; }
-    else { clX = window.innerWidth - 92; clY = window.innerHeight - 140; }
-  } catch(e) { clX = window.innerWidth - 92; clY = window.innerHeight - 140; }
+    // validate: must be a number and within visible viewport (not stuck at 0,0)
+    if (s && typeof s.x === 'number' && typeof s.y === 'number'
+        && s.x > 10 && s.y > 10
+        && s.x < window.innerWidth - 20 && s.y < window.innerHeight - 20) {
+      clX = s.x; clY = s.y;
+    } else { clX = defX; clY = defY; }
+  } catch(e) { clX = defX; clY = defY; }
 
   const wrap = document.getElementById('cl-wrap');
   if (!wrap) return;
+  wrap.setAttribute('draggable', 'false');
   wrap.addEventListener('mousedown',  clStartDrag, {passive:false});
   wrap.addEventListener('touchstart', clStartDrag, {passive:false});
   document.addEventListener('mousemove',  clMoveDrag, {passive:false});
